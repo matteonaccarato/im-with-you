@@ -1,0 +1,19 @@
+{
+  "name": "im-with-you",
+  "version": "1.0.0",
+  "description": "Piattaforma web per le fragilità emotive e sociali",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matteo-naccarato/im-with-you.git"
+  },
+  "author": "matteo-naccarato",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matteo-naccarato/im-with-you/issues"
+  },
+  "homepage": "https://github.com/matteo-naccarato/im-with-you#readme"
+}
