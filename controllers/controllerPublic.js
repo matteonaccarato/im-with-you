@@ -1,3 +1,3 @@
 exports.get_home = (req, res) => {
-    res.render('index');
+    res.render('public/index');
 }
