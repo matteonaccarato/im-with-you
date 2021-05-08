@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+<!-- da sostituire con la lingua { account.lang } -->
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +13,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous"></script>
-    <!-- <link rel="stylesheet" href="../node_modules/startbootstrap-sb-admin-2/css/sb-admin-2.min.css"> -->
 
     <link href="/startbootstrap-sb-admin-2-gh-pages/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="/css/styleAdmin.css"> -->
@@ -38,7 +38,6 @@
                 </div>
             </a>
 
-            <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
@@ -48,7 +47,6 @@
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
@@ -88,7 +86,6 @@
                 </div>
             </li>
 
-            <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Sidebar Toggler (Sidebar) -->
@@ -96,10 +93,9 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-
-
         </ul>
         <!-- End of Sidebar -->
+
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -112,8 +108,8 @@
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                <i class="fa fa-bars"></i>
-            </button>
+                        <i class="fa fa-bars"></i>
+                    </button>
 
 
                     <!-- Topbar Navbar -->
@@ -145,10 +141,64 @@
                 <!-- End of Topbar -->
 
 
+                <!-- Begin page content -->
+                <div class="container-fluid">
+                    <!-- page heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fas fa-download fa-sm text-white-50"></i> Maybe download post
+                        </a>
+                    </div>
+
+
+                    <!-- Content row -->
+                    <div class="row">
+
+                        <!-- Numero post (card) -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-s font-weight-bold text-primary text-uppercase mb-2">
+                                                Numero di post
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">35</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- numero utenti -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+
             </div>
+        </div>
+    </div>
 
 
-            <!-- <div class="d-flex justify-content-center">
+    <!-- <div class="d-flex justify-content-center">
         <div id="infoDashboard">
 
             <div class="info">
@@ -165,14 +215,14 @@
         </div>
     </div> -->
 
-            <!-- Bootstrap core JavaScript-->
-            <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/jquery/jquery.min.js"></script>
-            <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/jquery/jquery.min.js"></script>
+    <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-            <!-- Core plugin JavaScript-->
-            <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-            <!-- Custom scripts for all pages-->
-            <script src="/startbootstrap-sb-admin-2-gh-pages/js/sb-admin-2.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/startbootstrap-sb-admin-2-gh-pages/js/sb-admin-2.min.js"></script>
 
-            <%- include('./partials/footer') %>
+    <%- include('./partials/footer') %>
