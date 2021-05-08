@@ -1,0 +1,36 @@
+<%- include('./partials/header') %>
+
+    <div class="container-fluid">
+
+        <div class="col-12 mb-4">
+
+            <div class="card border-left-secondary shadow h-100 py-2">
+
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold">Crea FRASE</h6>
+                </div>
+
+                <div class="card-body">
+                    <form action="/admin/phrases/create" method="POST">
+                        <div class="form-group">
+                            <label for="title">Titolo</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Inserisci il titolo ..." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quotation">È la citazione di qualcuno? (facoltativo)</label>
+                            <input type="text" class="form-control" id="quotation" name="quotation" placeholder="Inserisci il nome di chi ha detto questa frase ..." </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            Input palette (per le quote "")
+                        </div>
+                        <button type="submit" class="btn btn-primary">Conferma creazione</button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+        <%- include('./partials/footer') %>

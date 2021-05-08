@@ -10,4 +10,8 @@ router.route('/dashboard')
 router.route('/phrases')
     .get(controllerPhrases.get_page)
 
+router.route('/phrases/create')
+    .get(controllerPhrases.get_create)
+    .post(controllerPhrases.create)
+
 module.exports = router;
