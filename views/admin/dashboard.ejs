@@ -156,7 +156,7 @@
                     <div class="row">
 
                         <!-- Numero post (card) -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-12 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -175,54 +175,107 @@
                         </div>
 
                         <!-- numero utenti -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-12 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-s font-weight-bold text-success text-uppercase mb-2">
+                                                Numero di utenti
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+
+
+
+
+                    <div class="row">
+
+                        <div class="col-xl-8 col-md-12 mb-4">
+                            <div class="card border-left-dark shadow h-100 py-2">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-dark">Crescita utenti e post</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Esporta</div>
+                                            <div class="no-gutters align-items-center">
+                                                <a class="dropdown-item" href="#">
+                                                    <div class="text-s font-weight-bold text-dark d-flex align-items-center">
+                                                        <i class="fas fa-file-csv fa-2x"></i>&nbsp;CSV
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="growingChart"></canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
 
+                        <!-- numero di utenti attivi nelle ultime 24h (contando anche quelli senza account?) o num chat aperte-->
+                        <div class="col-xl-4 col-md-12 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+
+                                        <div class="col">
+                                            <div class="card shadow mb-2">
+                                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                    <h6 class="m-0 font-weight-bold text-info">Utenti attivi nelle ultime 24h</h6>
+                                                </div>
+                                                <!-- Card Body -->
+                                                <div class="card-body">
+                                                    <div class="chart-pie pt-4 pb-2">
+                                                        <canvas id="usersActivePieChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
                     </div>
 
 
-
                 </div>
-
-
-            </div>
-        </div>
-    </div>
-
-
-    <!-- <div class="d-flex justify-content-center">
-        <div id="infoDashboard">
-
-            <div class="info">
-                Numero di post creati
-                <hr />
-                <h3>15</h3>
             </div>
 
-            <div class="info">
-                Numero di utenti
-                <hr />
-                <h3>5</h3>
-            </div>
-        </div>
-    </div> -->
+            <!-- Bootstrap core JavaScript-->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js" integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin="anonymous"></script>
+            <script src="/js/admin/dashboard.js"></script>
+            <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/jquery/jquery.min.js"></script>
+            <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/jquery/jquery.min.js"></script>
-    <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="/startbootstrap-sb-admin-2-gh-pages/vendor/jquery-easing/jquery.easing.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="/startbootstrap-sb-admin-2-gh-pages/js/sb-admin-2.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="/startbootstrap-sb-admin-2-gh-pages/js/sb-admin-2.min.js"></script>
-
-    <%- include('./partials/footer') %>
+            <%- include('./partials/footer') %>
