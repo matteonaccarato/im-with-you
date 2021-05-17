@@ -3,7 +3,7 @@ exports.get_page = (req, res) => {
 }
 
 exports.get_create = (req, res) => {
-    res.render('admin/createPhrase')
+    res.render('admin/phrases/createPhrase')
 }
 
 exports.create = (req, res) => {

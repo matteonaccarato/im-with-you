@@ -25,10 +25,12 @@
                                 <div class="text-s font-weight-bold text-primary text-uppercase mb-2 ">
                                     Numero di post
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800 ">35</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 ">
+                                    <%= number_posts %>
+                                </div>
                             </div>
                             <div class="col-auto ">
-                                <i class="fas fa-calendar fa-2x text-gray-300 "></i>
+                                <i class="fas fa-file-contract fa-2x text-gray-300 "></i>
                             </div>
                         </div>
                     </div>
@@ -44,7 +46,9 @@
                                 <div class="text-s font-weight-bold text-success text-uppercase mb-2 ">
                                     Numero di utenti
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800 ">10</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 ">
+                                    <%= number_users %>
+                                </div>
                             </div>
                             <div class="col-auto ">
                                 <i class="fas fa-user fa-2x text-gray-300 "></i>
@@ -59,7 +63,7 @@
 
         <div class="row ">
 
-            <div class="col-xl-8 col-md-12 mb-4">
+            <!-- <div class="col-xl-8 col-md-12 mb-4">
                 <div class="card border-left-dark shadow h-100 py-2">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-dark">Crescita utenti e post</h6>
@@ -83,6 +87,57 @@
                     <div class="card-body">
                         <div class="chart-area">
                             <canvas id="growingChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="col-xl-8 col-md-12 mb-4">
+                <div class="card border-left-dark shadow h-100 py-2">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-dark">TOP 3</h6>
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Esporta</div>
+                                <div class="no-gutters align-items-center">
+                                    <a class="dropdown-item" href="#">
+                                        <div class="text-s font-weight-bold text-dark d-flex align-items-center">
+                                            <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">Header + link</div>
+                                        <div class="card-body">Body</div>
+                                        <div class="card-footer">Footer</div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">Header + link</div>
+                                        <div class="card-body">Body</div>
+                                        <div class="card-footer">Footer</div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">Header + link</div>
+                                        <div class="card-body">Body</div>
+                                        <div class="card-footer">Footer</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
