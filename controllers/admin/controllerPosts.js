@@ -3,7 +3,7 @@ const sqlite3 = require('sqlite3');
 exports.get_page = (req, res) => {
     //db.serialize()
 
-    res.render('admin/phrases/all');
+    res.render('admin/posts/all');
 }
 
 exports.get_create = (req, res) => {
@@ -21,8 +21,8 @@ exports.get_create = (req, res) => {
     }];
     let sql = "SELECT name, surname, dateOfBirth, quotationMarksColor, job, countryCode FROM People;";
 
-    res.render('admin/phrases/create', {
-        quotedBy: quotedBy
+    res.render('admin/posts/createPost', {
+
     })
 }
 

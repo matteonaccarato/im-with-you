@@ -20,29 +20,45 @@
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="quotedById">Citatato da ...</label>
+                                <label class="input-group-text" for="quotedById">Citatato da ... <span class="text-danger">*</span></label>
                             </div>
                             <select class="custom-select" id="quotedById" onchange="checkValue(this.value)">
                                 <option selected>Nessuno ...</option>
-                                <option value='1'>Lewis Hamilton</option>
-                                <option value='2'>Tom Holland</option>
-                                <option value='new'>Crea uno nuovo (sei proprio sicuro di voler creare un modal???)</option>
+                                <% quotedBy.forEach(person => { %>
+                                    <!-- aggiungere l'immagine della persona !!-->
+                                    <option value="<%= person.id %>"><%= person.name %> <%= person.surname %> | <i class="fas fa-file-contract fa-2x text-gray-300 "></i></option>
+                                <% }); %>
+                                <!-- <option value='new'>Crea uno nuovo (sei proprio sicuro di voler creare un modal???)</option> -->
                             </select>
 
-                            <script>
+                            <!-- <script>
                                 const checkValue = param => {
                                     if (param === 'new') {
                                         console.log(param + 'opening modal ...')
                                     }
                                 }
-                            </script>
+                            </script> -->
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <!-- <div class="form-group col-md-6">
                             Input palette (per le quote "")
+                        </div> ;; già presente nella person -->
+
+                        <!-- slider "Utilizzare l'immagine relativa alla persona", se si switcha input type file.hidden = false; -->
+
+
+                        <div class="form-group mb-3">
+
+                            <input type="file">
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Conferma creazione</button>
+
+
+                        <div id="form-group">
+                            <button type="submit" class="btn btn-primary mb-3">icon:conferma |Conferma creazione</button>
+                            <button type="submit" class="btn btn-dark mb-3">icon:bozza | Salva come bozza</button>
+                        </div>
+
 
                         <div class="form-group mt-5 mb-0">
                             <span class="text-danger">*</span> È obbligatorio!

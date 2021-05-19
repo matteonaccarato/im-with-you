@@ -16,22 +16,41 @@ exports.get_page = (req, res) => {
     // first row only
     let nPosts = -1;
     let nUsers = -1;
-    let sql = 'SELECT COUNT(id) AS nPosts FROM Posts;'
+    let sql = "SELECT COUNT(id) AS nPosts FROM Posts;"
     db.get(sql, (err, row) => {
         if (err)
             return console.error(err.message);
         nPosts = row.nPosts;
 
-        sql = 'SELECT COUNT(username) AS nUsers FROM Users;'
+        sql = "SELECT COUNT(username) AS nUsers FROM Users WHERE role = 'BASIC';"
         db.get(sql, (err, row) => {
             if (err)
                 return console.error(err.message);
 
             nUsers = row.nUsers;
-            res.render('admin/dashboard', {
-                number_posts: nPosts,
-                number_users: nUsers
-            });
+
+            sql = "SELECT COUNT(username) as nAdmins FROM Users WHERE role = 'ADMIN'";
+            db.get(sql, (err, row) => {
+
+
+                nAdmins = row.nAdmins;
+
+
+                sql = "SELECT COUNT(id) AS nPhrases FROM Phrases;";
+                db.get(sql, (err, row) => {
+
+                    nPhrases = row.nPhrases;
+
+                    res.render('admin/dashboard', {
+                        number_phrases: nPhrases,
+                        number_admins: nAdmins,
+                        number_posts: nPosts,
+                        number_users: nUsers
+                    });
+                })
+            })
+
+
         })
     })
     db.close();

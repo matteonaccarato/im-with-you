@@ -13,6 +13,69 @@
         </div>
 
 
+
+
+
+        <!-- Content row // valutare un FOREACH !! -->
+        <div class="row ">
+
+            <!-- Numero frasi (card) -->
+            <div class="col-xl-6 col-md-12 mb-4 ">
+                <div class="card border-left-primary shadow h-100 py-2 ">
+                    <div class="card-body ">
+                        <div class="row no-gutters align-items-center ">
+                            <div class="col mr-2 ">
+                                <div class="text-s font-weight-bold text-primary text-uppercase mb-2 ">
+                                    Numero di frasi
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 ">
+                                    <a href="/admin/phrases" class="text-dark">
+                                        <%= number_phrases %>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-auto ">
+                                <i class="fas fa-file-contract fa-2x text-gray-300 "></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- numero utenti admin -->
+            <div class="col-xl-6 col-md-12 mb-4 ">
+                <div class="card border-left-success shadow h-100 py-2 ">
+                    <div class="card-body ">
+                        <div class="row no-gutters align-items-center ">
+                            <div class="col mr-2 ">
+                                <div class="text-s font-weight-bold text-success text-uppercase mb-2 ">
+                                    Numero di admin
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 ">
+                                    <a href="/admin/admins" class="text-dark">
+                                        <%= number_admins %>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-auto ">
+                                <i class="fas fa-user fa-2x text-gray-300 "></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr />
+
+
+
+
+
+
+
+
         <!-- Content row -->
         <div class="row ">
 
@@ -26,7 +89,9 @@
                                     Numero di post
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800 ">
-                                    <%= number_posts %>
+                                    <a href="/admin/phrase" class="text-dark">
+                                        <%= number_posts %>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-auto ">
@@ -47,7 +112,9 @@
                                     Numero di utenti
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800 ">
-                                    <%= number_users %>
+                                    <a href="/admin/users" class="text-dark">
+                                        <%= number_users %>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-auto ">
@@ -59,6 +126,8 @@
             </div>
 
         </div>
+
+        <hr />
 
 
         <div class="row ">
