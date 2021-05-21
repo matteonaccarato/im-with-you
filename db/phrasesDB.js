@@ -1,3 +1,4 @@
+/* https://github.com/mapbox/node-sqlite3/wiki/API#databaseallsql-param--callback */
 const sqlite3 = require('sqlite3').verbose();
 
 exports.connect = () => {
