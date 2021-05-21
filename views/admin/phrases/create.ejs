@@ -13,20 +13,20 @@
                 <div class="card-body">
                     <form action="/admin/phrases/create" method="POST">
                         <div class="form-group">
-                            <label for="phrase">Frase <span class="text-danger">*</span></label>
+                            <label for="text">Frase <span class="text-danger">*</span></label>
                             <!-- <input type="text" class="form-control" > -->
-                            <textarea class="form-control" id="phrase" name="phrase" placeholder="Inserisci qui la frase ..." style="min-height: 60px;" required></textarea>
+                            <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." style="min-height: 60px;" required></textarea>
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="quotedById">Citatato da ... <span class="text-danger">*</span></label>
+                                <label class="input-group-text" for="quotedById">Citatato da ...&nbsp;<span class="text-danger">*</span></label>
                             </div>
-                            <select class="custom-select" id="quotedById" onchange="checkValue(this.value)">
+                            <select class="custom-select" name="quotedBy" id="quotedById" onchange="checkValue(this.value)">
                                 <option selected>Nessuno ...</option>
                                 <% quotedBy.forEach(person => { %>
                                     <!-- aggiungere l'immagine della persona !!-->
-                                    <option value="<%= person.id %>"><%= person.name %> <%= person.surname %> | <i class="fas fa-file-contract fa-2x text-gray-300 "></i></option>
+                                    <option value="<%= person.id %>"><%= person.name %> <%= person.surname %> <!-- | <i class="fas fa-info-circle"></i> --></option>
                                 <% }); %>
                                 <!-- <option value='new'>Crea uno nuovo (sei proprio sicuro di voler creare un modal???)</option> -->
                             </select>
@@ -47,17 +47,19 @@
                         <!-- slider "Utilizzare l'immagine relativa alla persona", se si switcha input type file.hidden = false; -->
 
 
-                        <div class="form-group mb-3">
-
-                            <input type="file">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="phraseImage" id="phraseImage" aria-describedby="inputFile">
+                                <label class="custom-file-label" for="phraseImage">Selezione l'immagine</label>
+                            </div>
                         </div>
+                        <!-- aggiungere il nome del file caricato -->
 
 
 
-                        <div id="form-group">
-                            <button type="submit" class="btn btn-primary mb-3">icon:conferma |Conferma creazione</button>
-                            <button type="submit" class="btn btn-dark mb-3">icon:bozza | Salva come bozza</button>
-                        </div>
 
 
                         <div class="form-group mt-5 mb-0">
@@ -65,9 +67,16 @@
                         </div>
 
 
-                    </form>
 
                 </div>
+                <div class="card-footer">
+                    <div id="input-group">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> |Conferma creazione</button>
+                        <button type="submit" class="btn btn-dark"><i class="far fa-save"></i> | Salva come bozza</button>
+                    </div>
+                    </form>
+                </div>
+
             </div>
 
         </div>

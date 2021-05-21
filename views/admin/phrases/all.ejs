@@ -45,22 +45,54 @@
                             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Nome autore</th>
-                                        <th>Data</th>
-                                        <th>...</th>
+                                        <th>Autore</th>
+                                        <th>Testo</th>
+                                        <th>Citato da ...</th>
+                                        <th>Data pubblicazione</th>
                                         <th>Likes</th>
                                         <th>Azioni</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- LIMITE MASSIMO DI RIGHE VISUALIZZABILI -->
-                                    <tr>
-                                        <td>Matteo (+link pagina autore)</td>
-                                        <td>08/05/2021 23:21</td>
-                                        <td>...</td>
-                                        <td>89 :likes</td>
-                                        <td>matita + cestino</td>
-                                    </tr>
+                                    <% phrases.forEach(phrase => { %>
+                                        <tr>
+                                            <td style="width: 35%;">
+                                                <%= phrase.authorId %>
+                                            </td>
+                                            <td style="width: 60%;">
+                                                <%= phrase.text %>
+                                            </td>
+                                            <td>
+                                                <!-- <div class="d-flex align-items-center"> -->
+                                                <% if (phrase.quotedById) { %>
+                                                    <div class="img-hover-zoom">
+                                                        <img style="width: 150px;" title="<%= phrase.quotedById %>" src="<%= phrase.img %>">
+                                                    </div>
+                                                    <% } else { %>
+
+                                                        <i class="fas fa-times text-primary"></i>
+
+                                                        <% } %>
+                                                            <!-- </div> -->
+                                            </td>
+                                            <td>
+                                                <%= phrase.date %>
+                                            </td>
+                                            <td>
+                                                105 V
+                                            </td>
+                                            <td class="d-flex justify-content-between align-items-center" style="height: 100px;">
+                                                <a href="/admin/phrase/<%= phrase.id %>"><i class="fas fa-edit text-info"></i></a>
+                                                <form method="post" action="/admin/phrases/delete/<%= phrase.id %>?_method=DELETE">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit" style="background-color: transparent; border: none;" id="myEditButton">
+                                                    <i class="fas fa-trash text-primary"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
                                 </tbody>
                             </table>
                         </div>

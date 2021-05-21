@@ -15,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous"></script>
 
     <link href="/startbootstrap-sb-admin-2-gh-pages/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/css/mycss.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="/css/styleAdmin.css"> -->
 
 
@@ -68,16 +69,16 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Post
+                Entità
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Phrases Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePhrases" aria-expanded="true" aria-controls="collapsePhrases">
+                    <i class="fas fa-quote-left"></i>
                     <span>Frasi</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapsePhrases" class="collapse" aria-labelledby="headingPhrases" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Azioni</h6>
                         <a class="collapse-item" href="/admin/phrases">Storico?</a>
@@ -86,13 +87,37 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
+
+
+
+
+            <!-- Nav Item - People (che possono quotare) Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePeople" aria-expanded="true" aria-controls="collapsePeople">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Persone</span>
+                </a>
+                <div id="collapsePeople" class="collapse" aria-labelledby="headingPeople" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Azioni</h6>
+                        <a class="collapse-item" href="/admin/people">Storico?</a>
+                        <a class="collapse-item text-info" href="/admin/people/create">Crea</a>
+                    </div>
+                </div>
+            </li>
+
+
+
+
+
+
+            <!-- Nav Item - Posts Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePosts" aria-expanded="true" aria-controls="collapsePosts">
+                    <i class="fas fa-file-alt"></i>
                     <span>Post</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div id="collapsePosts" class="collapse" aria-labelledby="headingPosts" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Azioni</h6>
                         <a class="collapse-item" href="/admin/posts">Storico</a>
@@ -100,6 +125,25 @@
                     </div>
                 </div>
             </li>
+
+
+
+            <!-- Nav Item - Users Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
+                    <i class="fas fa-users"></i>
+                    <span>Utenti registrati</span>
+                </a>
+                <div id="collapseUsers" class="collapse" aria-labelledby="headingPosts" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Azioni</h6>
+                        <a class="collapse-item" href="/admin/users">Elenco</a>
+                        <!-- <a class="collapse-item text-info" href="/admin/posts/create">Crea</a> -->
+                    </div>
+                </div>
+            </li>
+
+
 
             <hr class="sidebar-divider">
 
