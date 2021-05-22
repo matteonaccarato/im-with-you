@@ -80,18 +80,27 @@ exports.update = (req, res) => {
             return res.end('Error uploading file.')
         } else console.log('Image updated!')
 
-        const phrase = {
-            id: req.params.id,
-            text: req.body.text,
-            img: (req.file) ? req.file.location : '',
-            quotedById: req.body.quotedById,
-            authorId: 1,
-            isFinished: (req.body.isFinished === 'on') ? 1 : 0,
-            date: new Date().toLocaleDateString()
-        }
-        console.log(phrase)
-        phrasesDB.update(phrase)
-        res.status(200).redirect('/admin/phrases')
+        phrasesDB.getImageUrl(req.params.id)
+            .then(obj => {
+                if (obj && obj.url !== '') {
+                    const tmp = obj.url.split('/')
+                    s3.deleteImage(tmp[tmp.length - 1])
+                }
+                const phrase = {
+                    id: req.params.id,
+                    text: req.body.text,
+                    img: (req.file) ? req.file.location : '',
+                    quotedById: req.body.quotedById,
+                    authorId: 1,
+                    isFinished: (req.body.isFinished === 'on') ? 1 : 0,
+                    date: new Date().toLocaleDateString()
+                }
+                console.log(phrase)
+                phrasesDB.update(phrase)
+                res.status(200).redirect('/admin/phrases')
+            })
+            .catch(result => console.log(result))
+
     })
 
 
