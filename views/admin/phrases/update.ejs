@@ -15,7 +15,7 @@
                         <div class="form-group">
                             <label for="text">Frase <span class="text-danger">*</span></label>
                             <!-- <input type="text" class="form-control" > -->
-                            <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." style="min-height: 60px;" required></textarea>
+                            <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." style="min-height: 60px;" required><%= phrase.text %></textarea>
                         </div>
 
                         <div class="input-group mb-3">
@@ -26,7 +26,11 @@
                                 <option selected>Nessuno ...</option>
                                 <% quotedById.forEach(person => { %>
                                     <!-- aggiungere l'immagine della persona !!-->
-                                    <option value="<%= person.id %>"><%= person.name %> <%= person.surname %> <!-- | <i class="fas fa-info-circle"></i> --></option>
+                                    <% if (person.id === phrase.quotedById) { %>
+                                        <option value="<%= person.id %>" selected><%= person.name %> <%= person.surname %> <!-- | <i class="fas fa-info-circle"></i> --></option>
+                                    <% } else { %>
+                                        <option value="<%= person.id %>"><%= person.name %> <%= person.surname %> <!-- | <i class="fas fa-info-circle"></i> --></option>
+                                    <% } %>
                                 <% }); %>
                                 <!-- <option value='new'>Crea uno nuovo (sei proprio sicuro di voler creare un modal???)</option> -->
                             </select>

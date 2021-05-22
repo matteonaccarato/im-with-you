@@ -47,6 +47,7 @@
                                     <tr>
                                         <th>Autore</th>
                                         <th>Testo</th>
+                                        <th>Immagine</th>
                                         <th>Citato da ...</th>
                                         <th>Data pubblicazione</th>
                                         <th>Likes</th>
@@ -57,24 +58,35 @@
                                     <!-- LIMITE MASSIMO DI RIGHE VISUALIZZABILI -->
                                     <% phrases.forEach(phrase => { %>
                                         <tr>
-                                            <td style="width: 35%;">
-                                                <%= phrase.authorId %>
+                                            <td style="width: 25%;">
+                                                <a href="/admin/users/<%= phrase.authorId %>" class="text-info">
+                                                    <%= phrase.username %>
+                                                </a>
                                             </td>
-                                            <td style="width: 60%;">
+                                            <td style="width: 30%;">
                                                 <%= phrase.text %>
                                             </td>
-                                            <td>
-                                                <!-- <div class="d-flex align-items-center"> -->
-                                                <% if (phrase.quotedById) { %>
+                                            <td style="width: 25%;">
+                                                <% if (phrase.img) { %>
                                                     <div class="img-hover-zoom">
-                                                        <img style="width: 150px;" title="<%= phrase.quotedById %>" src="<%= phrase.img %>">
+                                                        <img style="height: 150px;" title="<%= phrase.quotedById %>" src="<%= phrase.img %>">
                                                     </div>
                                                     <% } else { %>
-
-                                                        <i class="fas fa-times text-primary"></i>
-
+                                                        <i class="fas fa-times text-dark"></i>
                                                         <% } %>
-                                                            <!-- </div> -->
+                                            </td>
+                                            <td style="width: 15%;">
+
+                                                <% if (phrase.quotedById) { %>
+                                                    <a href="/admin/people/<%= phrase.quotedById %>" class='linkQuoted' data-color="<%= phrase.quotationMarksColor %>">
+                                                        <%= phrase.name %>
+                                                            <%= phrase.surname %>
+                                                    </a>
+
+                                                    <% } else { %>
+                                                        <i class="fas fa-times text-dark"></i>
+                                                        <% } %>
+
                                             </td>
                                             <td>
                                                 <%= phrase.date %>
@@ -189,6 +201,19 @@
         </div>
 
     </div>
+
+
+
+
+
+
+    <script>
+        let els = document.getElementsByClassName('linkQuoted')
+        Array.from(els).forEach(el => {
+            console.log(el.dataset.color)
+            el.style.color = el.dataset.color
+        })
+    </script>
 
 
 

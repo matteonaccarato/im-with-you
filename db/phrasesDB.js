@@ -15,7 +15,10 @@ exports.read = (id = -1) => {
     const db = this.connect();
 
     /* const sql = 'SELECT name, surname, dateOfBirth, quotationMarksColor, job, countryCode FROM People' + ((id > -1) ? ` WHERE id = ${id}` : '') + ';'; */
-    const sql = 'SELECT * FROM Phrases' + ((id > -1) ? ` WHERE id = ${id}` : '') + ';';
+    /* const sql = "SELECT * FROM Phrases" + ((id > -1) ? ` WHERE id = ${id}` : "") + ";"; */
+
+    const sql = "SELECT Phrases.id, Phrases.authorId, Users.username, Phrases.text, Phrases.img, Phrases.quotedById, People.name, People.surname, People.quotationMarksColor, Phrases.date" +
+        " FROM Phrases LEFT JOIN People ON (Phrases.quotedById = People.id) LEFT JOIN Users ON (Phrases.authorId = Users.id)" + ((id > -1) ? ` WHERE Phrases.id = ${id}` : "") + ";";
 
     return new Promise((resolve, reject) => {
         var responseObj;
@@ -40,13 +43,13 @@ exports.read = (id = -1) => {
 exports.create = phrase => {
     const db = this.connect();
 
-    console.log(phrase)
+    /* console.log(phrase) */
 
     const sql = "INSERT INTO Phrases VALUES (null, $text, $img, $quotedById, $authorId, $isFinished, $date);"
     db.run(sql, {
         $text: phrase.text,
         $img: phrase.img,
-        $quoteById: phrase.$quoteById,
+        $quotedById: phrase.quotedById * 1,
         $authorId: phrase.authorId,
         $isFinished: phrase.isFinished,
         $date: phrase.date + ""
@@ -62,7 +65,7 @@ exports.update = phrase => {
     db.run(sql, {
         $text: phrase.text,
         $img: phrase.img,
-        $quoteById: phrase.$quoteById,
+        $quotedById: phrase.$quotedById,
         $authorId: phrase.authorId,
         $isFinished: phrase.isFinished,
         $date: phrase.date + "",

@@ -62,12 +62,9 @@ exports.get_page = (req, res) => {
             })
         })
         .catch(result => console.log(result));
-
-    /* res.render('admin/phrases/all'); */
 }
 
 exports.get_create = (req, res) => {
-
     peopleDB.read()
         .then(result => {
             console.log(result)
@@ -76,16 +73,6 @@ exports.get_create = (req, res) => {
             })
         })
         .catch(result => console.log(result))
-
-    /* let quotedBy = [{
-        "id": "1",
-        "name": "Charles",
-        "surname": "Leclerc"
-    }];
-
-    res.render('admin/phrases/create', {
-        quotedBy: quotedBy
-    }) */
 }
 
 exports.create = (req, res) => {
@@ -103,35 +90,30 @@ exports.create = (req, res) => {
         res.status(200).redirect('/admin/phrases')
     }) */
 
-    console.log(req.body)
+    /* console.log(req.body) */
 
-    let phrase = {
+    const phrase = {
         text: req.body.text,
         img: 'https://upload.wikimedia.org/wikipedia/commons/6/62/F12019_Leclerc_Schloss_Gabelhofen.jpg',
-        quotedById: 1,
+        quotedById: req.body.quotedById,
         authorId: 1,
         isFinished: 1,
-        date: new Date()
+        date: new Date().toLocaleDateString()
     }
 
     phrasesDB.create(phrase);
-
     res.status(200).redirect('/admin/phrases')
 }
 
 
 exports.get_update = (req, res) => {
-
-    console.log(req.params.id)
     phrasesDB.read(req.params.id)
         .then(phrase => {
-            console.log(phrase)
 
             peopleDB.read()
                 .then(people => {
-                    console.log(people)
                     res.render('admin/phrases/update', {
-                        phrase: phrase.rows,
+                        phrase: phrase.rows[0],
                         quotedById: people.rows
                     })
                 })
@@ -142,6 +124,7 @@ exports.get_update = (req, res) => {
 }
 
 exports.update = (req, res) => {
+
 
 }
 
