@@ -23,7 +23,7 @@
                                 <label class="input-group-text" for="quotedById">Citatato da ...&nbsp;<span class="text-danger">*</span></label>
                             </div>
                             <select class="custom-select" name="quotedById" id="quotedById" onchange="checkValue(this.value)">
-                                <option selected>Nessuno ...</option>
+                                <option value="" selected>Nessuno ...</option>
                                 <% quotedById.forEach(person => { %>
                                     <!-- aggiungere l'immagine della persona !!-->
                                     <% if (person.id === phrase.quotedById) { %>
@@ -51,7 +51,7 @@
                         <!-- slider "Utilizzare l'immagine relativa alla persona", se si switcha input type file.hidden = false; -->
 
 
-                        <div class="input-group">
+                        <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
                             </div>
@@ -63,6 +63,12 @@
                         <!-- aggiungere il nome del file caricato -->
 
 
+                        <div class="input-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished" data-status="<%= phrase.isFinished %>">
+                                <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
+                            </div>
+                        </div>
 
 
 
@@ -75,8 +81,8 @@
                 </div>
                 <div class="card-footer">
                     <div id="input-group">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> |Conferma creazione</button>
-                        <button type="submit" class="btn btn-dark"><i class="far fa-save"></i> | Salva come bozza</button>
+                        <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> |Conferma creazione</button>
+                        <button type="submit" class="btn btn-dark mb-2"><i class="far fa-save"></i> | Salva come bozza</button>
                     </div>
                     </form>
                 </div>
@@ -84,5 +90,14 @@
             </div>
 
         </div>
+
+
+        <script>
+            let statusSwitch = document.getElementById('statusSwitch')
+            if (statusSwitch.dataset.status == 1) {
+                const attr = document.createAttribute("checked")
+                statusSwitch.setAttributeNode(attr)
+            }
+        </script>
 
         <%- include('./../partials/footer') %>

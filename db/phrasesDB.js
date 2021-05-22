@@ -17,7 +17,7 @@ exports.read = (id = -1) => {
     /* const sql = 'SELECT name, surname, dateOfBirth, quotationMarksColor, job, countryCode FROM People' + ((id > -1) ? ` WHERE id = ${id}` : '') + ';'; */
     /* const sql = "SELECT * FROM Phrases" + ((id > -1) ? ` WHERE id = ${id}` : "") + ";"; */
 
-    const sql = "SELECT Phrases.id, Phrases.authorId, Users.username, Phrases.text, Phrases.img, Phrases.quotedById, People.name, People.surname, People.quotationMarksColor, Phrases.date" +
+    const sql = "SELECT Phrases.id, Phrases.authorId, Users.username, Phrases.text, Phrases.img, Phrases.isFinished, Phrases.quotedById, People.name, People.surname, People.quotationMarksColor, Phrases.date" +
         " FROM Phrases LEFT JOIN People ON (Phrases.quotedById = People.id) LEFT JOIN Users ON (Phrases.authorId = Users.id)" + ((id > -1) ? ` WHERE Phrases.id = ${id}` : "") + ";";
 
     return new Promise((resolve, reject) => {
@@ -65,7 +65,7 @@ exports.update = phrase => {
     db.run(sql, {
         $text: phrase.text,
         $img: phrase.img,
-        $quotedById: phrase.$quotedById,
+        $quotedById: phrase.quotedById,
         $authorId: phrase.authorId,
         $isFinished: phrase.isFinished,
         $date: phrase.date + "",

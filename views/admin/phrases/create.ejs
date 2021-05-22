@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="/admin/phrases/create" method="POST">
+                    <form action="/admin/phrases/create" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="text">Frase <span class="text-danger">*</span></label>
                             <!-- <input type="text" class="form-control" > -->
@@ -23,7 +23,7 @@
                                 <label class="input-group-text" for="quotedById">Citatato da ...&nbsp;<span class="text-danger">*</span></label>
                             </div>
                             <select class="custom-select" name="quotedById" id="quotedById" onchange="checkValue(this.value)">
-                                <option selected>Nessuno ...</option>
+                                <option value="" selected>Nessuno ...</option>
                                 <% quotedById.forEach(person => { %>
                                     <!-- aggiungere l'immagine della persona !!-->
                                     <option value="<%= person.id %>"><%= person.name %> <%= person.surname %> <!-- | <i class="fas fa-info-circle"></i> --></option>
@@ -47,18 +47,29 @@
                         <!-- slider "Utilizzare l'immagine relativa alla persona", se si switcha input type file.hidden = false; -->
 
 
-                        <div class="input-group">
+                        <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="phraseImage" id="phraseImage" aria-describedby="inputFile">
-                                <label class="custom-file-label" for="phraseImage">Selezione l'immagine</label>
+                                <input type="file" class="custom-file-input" name="myImg" id="myImg" aria-describedby="inputFile">
+                                <label class="custom-file-label" for="myImg">Selezione l'immagine</label>
                             </div>
                         </div>
                         <!-- aggiungere il nome del file caricato -->
 
 
+                        <!-- <div class="input-group">
+                            <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
+                            <input type="checkbox" class="custom-control-input" id="statusSwitch">
+                        </div> -->
+
+                        <div class="input-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished">
+                                <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
+                            </div>
+                        </div>
 
 
 
@@ -71,8 +82,8 @@
                 </div>
                 <div class="card-footer">
                     <div id="input-group">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> |Conferma creazione</button>
-                        <button type="submit" class="btn btn-dark"><i class="far fa-save"></i> | Salva come bozza</button>
+                        <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> |Conferma creazione</button>
+                        <button type="submit" class="btn btn-dark mb-2"><i class="far fa-save"></i> | Salva come bozza</button>
                     </div>
                     </form>
                 </div>

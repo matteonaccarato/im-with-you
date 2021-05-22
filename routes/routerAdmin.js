@@ -3,6 +3,8 @@ const controllerDashboard = require('../controllers/admin/controllerDashboard');
 const controllerPhrases = require('../controllers/admin/controllerPhrases');
 const controllerPosts = require('../controllers/admin/controllerPosts');
 
+const upload = require('./../controllers/admin/s3')
+const singleUpload = upload.single('myImg')
 
 const router = express.Router();
 
