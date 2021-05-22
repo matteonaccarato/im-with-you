@@ -1,74 +1,11 @@
 require('dotenv').config();
 const sqlite3 = require('sqlite3');
-/* const AWS = require('aws-sdk');
-const multerS3 = require('multer-s3');
-const multer = require('multer'); */
 
 const phrasesDB = require('../../db/phrasesDB');
 const peopleDB = require('../../db/peopleDB')
 
-const upload = require('./s3')
-const singleUpload = upload.single('myImg')
-
-// mettere tutto in un aws.init
-
-
-/* require('dotenv').config()
-const aws = require('aws-sdk');
-const multerS3 = require('multer-s3');
-const multer = require('multer');
-
-
-
-const bucketName = process.env.AWS_BUCKET_NAME
-const region = process.env.AWS_BUCKET_REGION
-const accessKeyId = process.env.AWS_ACCESS_KEY
-const secretAccessKey = process.env.AWS_SECRET_KEY
-
-aws.config.update({
-    secretAccessKey: secretAccessKey,
-    accessKeyId: accessKeyId,
-    region: region
-})
-const s3 = new aws.S3()
-
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-        cb(null, true)
-    } else {
-        cb(null, false)
-    }
-}
-
-const storage = multerS3({
-    s3: s3,
-    bucket: bucketName,
-    acl: 'public-read',
-    metadata: function(req, file, cb) {
-        cb(null, { fieldName: file.fieldname });
-    },
-    key: function(req, file, cb) {
-        let name = file.originalname.split('.').slice(0, -1).join('.');
-        let type = file.originalname.split('.').pop();
-        console.log(name + '.' + type);
-        cb(null, name + "-" + Date.now() + '.' + type);
-    }
-});
-
-var upload = multer({
-    storage: storage,
-    fileFilter: fileFilter,
-    limits: {
-        fileSize: 1024 * 1024 * 15
-    }
-}).single('myImg') */
-
-
-
-
-
-
-
+const s3 = require('./s3')
+const singleUpload = s3.upload.single('image')
 
 /* const failureCallback = () => {
     res.send('maybe')
@@ -154,7 +91,14 @@ exports.update = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-    phrasesDB.delete(req.params.id)
-    console.log('Phrase successfully deleted')
-    res.status(200).redirect('/admin/phrases')
+    phrasesDB.getImageUrl(req.params.id)
+        .then(obj => {
+            const tmp = obj.url.split('/')
+            s3.deleteImage(tmp[tmp.length - 1])
+            console.log('Image successfully deleted!')
+            phrasesDB.delete(req.params.id)
+            console.log('Phrase successfully deleted!')
+            res.status(200).redirect('/admin/phrases')
+        })
+
 }

@@ -1,6 +1,6 @@
 require('dotenv').config()
 const aws = require('aws-sdk');
-const multerS3 = require('multer-s3');
+const multerS3 = require('multer-s3'); /* https://www.npmjs.com/package/multer-s3 */
 const multer = require('multer');
 
 const bucketName = process.env.AWS_BUCKET_NAME
@@ -38,7 +38,7 @@ const storage = multerS3({
     }
 });
 
-var upload = multer({
+exports.upload = multer({
     storage: storage,
     fileFilter: fileFilter,
     limits: {
@@ -46,4 +46,11 @@ var upload = multer({
     }
 })
 
-module.exports = upload;
+exports.deleteImage = key => {
+    console.log('>> ' + key)
+    const params = { Bucket: bucketName, Key: key }
+    s3.deleteObject(params, function(err, data) {
+        if (err)
+            console.log(err, err.stack)
+    })
+}
