@@ -18,6 +18,10 @@ router.route('/phrases/create')
     .get(controllerPhrases.get_create)
     .post(controllerPhrases.create)
 
+router.route('/phrases/:id')
+    .get(controllerPhrases.get_update)
+    .post(controllerPhrases.update)
+
 router.route('/phrases/delete/:id')
     .delete(controllerPhrases.delete)
 

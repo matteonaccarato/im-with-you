@@ -5,6 +5,7 @@ const multerS3 = require('multer-s3');
 const multer = require('multer');
 
 const phrasesDB = require('../../db/phrasesDB');
+const peopleDB = require('../../db/peopleDB')
 
 // mettere tutto in un aws.init
 /* const s3 = new AWS.S3({
@@ -67,8 +68,16 @@ exports.get_page = (req, res) => {
 
 exports.get_create = (req, res) => {
 
+    peopleDB.read()
+        .then(result => {
+            console.log(result)
+            res.render('admin/phrases/create', {
+                quotedById: result.rows
+            })
+        })
+        .catch(result => console.log(result))
 
-    let quotedBy = [{
+    /* let quotedBy = [{
         "id": "1",
         "name": "Charles",
         "surname": "Leclerc"
@@ -76,7 +85,7 @@ exports.get_create = (req, res) => {
 
     res.render('admin/phrases/create', {
         quotedBy: quotedBy
-    })
+    }) */
 }
 
 exports.create = (req, res) => {
@@ -113,6 +122,23 @@ exports.create = (req, res) => {
 
 exports.get_update = (req, res) => {
 
+    console.log(req.params.id)
+    phrasesDB.read(req.params.id)
+        .then(phrase => {
+            console.log(phrase)
+
+            peopleDB.read()
+                .then(people => {
+                    console.log(people)
+                    res.render('admin/phrases/update', {
+                        phrase: phrase.rows,
+                        quotedById: people.rows
+                    })
+                })
+                .catch(result => console.log(result))
+
+        })
+        .catch(result => console.log(result))
 }
 
 exports.update = (req, res) => {

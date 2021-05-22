@@ -1,9 +1,7 @@
-/* https://github.com/mapbox/node-sqlite3/wiki/API#databaseallsql-param--callback */
 const sqlite3 = require('sqlite3').verbose();
 const db = require('./utilsDB');
 
 exports.connect = () => {
-    /* console.log(db.path.dev) */
     return new sqlite3.Database(db.path.dev, err => {
         if (err)
             return console.error(err.message);
@@ -15,7 +13,7 @@ exports.read = (id = -1) => {
     const db = this.connect();
 
     /* const sql = 'SELECT name, surname, dateOfBirth, quotationMarksColor, job, countryCode FROM People' + ((id > -1) ? ` WHERE id = ${id}` : '') + ';'; */
-    const sql = 'SELECT * FROM Phrases' + ((id > -1) ? ` WHERE id = ${id}` : '') + ';';
+    const sql = 'SELECT * FROM People' + ((id > -1) ? ` WHERE id = ${id}` : '') + ';';
 
     return new Promise((resolve, reject) => {
         var responseObj;
@@ -37,19 +35,19 @@ exports.read = (id = -1) => {
     })
 }
 
-exports.create = phrase => {
+exports.create = person => {
     const db = this.connect();
 
-    console.log(phrase)
+    console.log(person)
 
-    const sql = "INSERT INTO Phrases VALUES (null, $text, $img, $quotedById, $authorId, $isFinished, $date);"
+    const sql = "INSERT INTO People VALUES (null, $name, $surname, $dateOfBirth, $quotationMarksColor, $job, $countryCode);"
     db.run(sql, {
-        $text: phrase.text,
-        $img: phrase.img,
-        $quoteById: phrase.$quoteById,
-        $authorId: phrase.authorId,
-        $isFinished: phrase.isFinished,
-        $date: phrase.date + ""
+        $name: person.name,
+        $surname: person.surname,
+        $dateOfBirth: person.dateOfBirth,
+        $quotationMarksColor: person.quotationMarksColor,
+        $job: person.job,
+        $countryCode: person.countryCode
     })
 
     this.close(db);
@@ -58,15 +56,15 @@ exports.create = phrase => {
 exports.update = phrase => {
     const db = this.connect();
 
-    const sql = "UPDATE Phrases SET text = $text, img = $img, quotedById = $quotedById, authorId = $authorId, isFinished = $isFinished, date = $date WHERE id = $id;"
+    const sql = "UPDATE People SET name = $name, surname = $surname, dateOfBirth = $dateOfBirth, quotationMarksColor = $quotationMarksColor, job = $job, countryCode = $countryCode WHERE id = $id;"
     db.run(sql, {
-        $text: phrase.text,
-        $img: phrase.img,
-        $quoteById: phrase.$quoteById,
-        $authorId: phrase.authorId,
-        $isFinished: phrase.isFinished,
-        $date: phrase.date + "",
-        $id: phrase.id
+        $name: person.name,
+        $surname: person.surname,
+        $dateOfBirth: person.dateOfBirth,
+        $quotationMarksColor: person.quotationMarksColor,
+        $job: person.job,
+        $countryCode: person.countryCode,
+        $id: person.id
     })
 
     this.close(db);
@@ -74,7 +72,7 @@ exports.update = phrase => {
 
 exports.delete = id => {
     const db = this.connect();
-    const sql = `DELETE FROM Phrases WHERE id = ${id};`;
+    const sql = `DELETE FROM People WHERE id = ${id};`;
     db.run(sql);
     this.close(db)
 }
