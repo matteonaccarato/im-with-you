@@ -25,6 +25,7 @@ router.route('/phrases/delete/:id')
     .delete(controllerPhrases.delete)
 
 
+
 /* ------------- POSTS  ------------- */
 router.route('/posts')
     .get(controllerPosts.get_page);

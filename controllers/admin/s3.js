@@ -16,7 +16,7 @@ aws.config.update({
 const s3 = new aws.S3()
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.type === 'image/gif') {
         cb(null, true);
     } else {
         cb(null, false);
@@ -42,7 +42,7 @@ exports.upload = multer({
     storage: storage,
     fileFilter: fileFilter,
     limits: {
-        fileSize: 1024 * 1024 * 15
+        fileSize: 1024 * 1024 * 5
     }
 })
 
