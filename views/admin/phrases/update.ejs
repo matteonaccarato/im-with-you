@@ -97,51 +97,30 @@
                             </div>
 
 
-                            <% } else { %>
+                            <% } %>
 
-                                <!-- <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
-                                    </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="image" id="image" onchange="checkFile(this)" aria-describedby="inputFile">
-                                        <label class="custom-file-label" for="image">Selezione l'immagine</label>
+                                <div class="input-group">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished" data-status="<%= phrase.isFinished %>">
+                                        <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
                                     </div>
                                 </div>
 
-                                <div class="col-12 d-flex justify-content-center align-items-end">
-                                    <div class="col-xl-10 col-lg-12 mb-3">
-                                        <img id="imagePreview" src="#" style="width: 100%;" hidden>
-                                    </div>
-
-                                    <i class="fas fa-trash text-primary fa-2x mb-3" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
-                                </div> -->
-                                <% } %>
 
 
-
-
-
-                                    <div class="input-group">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished" data-status="<%= phrase.isFinished %>">
-                                            <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="form-group mt-5 mb-0">
-                                        <span class="text-danger">*</span> È obbligatorio!
-                                    </div>
+                                <div class="form-group mt-5 mb-0">
+                                    <span class="text-danger">*</span> È obbligatorio!
+                                </div>
 
 
 
                 </div>
                 <div class="card-footer">
                     <div id="input-group">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> | Conferma creazione</button>
-                        <!-- <button type="submit" class="btn btn-dark"><i class="far fa-save"></i> | Salva come bozza</button> -->
+                        <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> | Conferma modifica</button>
+                        <a href="/admin/phrases">
+                            <button type="button" class="btn btn-dark mb-2"><i class="fas fa-history"></i> | Annulla</button>
+                        </a>
                     </div>
                     </form>
                 </div>
@@ -152,13 +131,13 @@
 
 
         <script>
-            let statusSwitch = document.getElementById('statusSwitch')
-            if (statusSwitch.dataset.status == 1) {
-                const attr = document.createAttribute("checked")
-                statusSwitch.setAttributeNode(attr)
-            }
+            /* let statusSwitch = document.getElementById('statusSwitch')
+                                                                                                                                                if (statusSwitch.dataset.status == 1) {
+                                                                                                                                                    const attr = document.createAttribute("checked")
+                                                                                                                                                    statusSwitch.setAttributeNode(attr)
+                                                                                                                                                } */
         </script>
 
-        <script src="/js/admin/imageLoad.js"></script>
+        <script src="/js/admin/crudPhrases.js"></script>
 
         <%- include('./../partials/footer') %>

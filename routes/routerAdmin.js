@@ -1,6 +1,7 @@
 const express = require('express');
 const controllerDashboard = require('../controllers/admin/controllerDashboard');
 const controllerPhrases = require('../controllers/admin/controllerPhrases');
+const controllerPeople = require('../controllers/admin/controllerPeople')
 const controllerPosts = require('../controllers/admin/controllerPosts');
 
 const router = express.Router();
@@ -23,6 +24,11 @@ router.route('/phrases/:id')
 
 router.route('/phrases/delete/:id')
     .delete(controllerPhrases.delete)
+
+
+/* ------------- PEOPLE ------------- */
+router.route('/people')
+    .get(controllerPeople.get_page)
 
 
 

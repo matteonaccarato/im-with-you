@@ -1,5 +1,4 @@
 require('dotenv').config();
-const sqlite3 = require('sqlite3');
 
 const phrasesDB = require('../../db/phrasesDB');
 const peopleDB = require('../../db/peopleDB')
@@ -7,15 +6,10 @@ const peopleDB = require('../../db/peopleDB')
 const s3 = require('./s3')
 const singleUpload = s3.upload.single('image')
 
-/* const failureCallback = () => {
-    res.send('maybe')
-} */
-
 exports.get_page = (req, res) => {
 
     phrasesDB.read()
         .then(result => {
-            /* console.log(result); */
             res.render('admin/phrases/all', {
                 phrases: result.rows
             })
@@ -102,38 +96,6 @@ exports.update = (req, res) => {
             .catch(result => console.log(result))
 
     })
-
-
-
-    /* phrasesDB.getImageUrl(req.params.id)
-        .then(obj => {
-            if (obj && obj.url !== '') {
-                const tmp = obj.url.split('/')
-                s3.deleteImage(tmp[tmp.length - 1])
-            }
-
-
-            singleUpload(req, res, function(err) {
-                if (err) {
-                    console.log(err)
-                    return res.end('Error uploading file.')
-                } else console.log('Image updated!')
-
-                const phrase = {
-                    id: req.params.id,
-                    text: req.body.text,
-                    img: (req.file) ? req.file.location : '',
-                    quotedById: req.body.quotedById,
-                    authorId: 1,
-                    isFinished: (req.body.isFinished === 'on') ? 1 : 0,
-                    date: new Date().toLocaleDateString()
-                }
-                console.log(phrase)
-                phrasesDB.update(phrase)
-                res.status(200).redirect('/admin/phrases')
-            })
-        }) */
-
 }
 
 exports.delete = (req, res) => {

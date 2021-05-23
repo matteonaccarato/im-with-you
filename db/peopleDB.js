@@ -53,7 +53,7 @@ exports.create = person => {
     this.close(db);
 }
 
-exports.update = phrase => {
+exports.update = person => {
     const db = this.connect();
 
     const sql = "UPDATE People SET name = $name, surname = $surname, dateOfBirth = $dateOfBirth, quotationMarksColor = $quotationMarksColor, job = $job, countryCode = $countryCode WHERE id = $id;"

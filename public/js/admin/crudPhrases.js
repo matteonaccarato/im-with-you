@@ -14,6 +14,12 @@
 }); */
 // PER UN POSSIBILE CARIMENTO 'STATUS' DELL'IMMAGINE
 
+let statusSwitch = document.getElementById('statusSwitch')
+if (statusSwitch.dataset.status == 1) {
+    const attr = document.createAttribute("checked")
+    statusSwitch.setAttributeNode(attr)
+}
+
 const checkFile = fileToLoad => {
     const file = fileToLoad.files[0]
     console.log(file)
