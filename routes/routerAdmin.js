@@ -4,10 +4,13 @@ const controllerPhrases = require('../controllers/admin/controllerPhrases');
 const controllerPeople = require('../controllers/admin/controllerPeople')
 const controllerPosts = require('../controllers/admin/controllerPosts');
 
+const { ROLE, authUser, authRole } = require('../config/adminUtils');
+
 const router = express.Router();
 
 router.route('/dashboard')
     .get(controllerDashboard.get_page);
+/* .get(authUser, authRole(ROLE.ADMIN), controllerDashboard.get_page); */
 
 
 /* ------------- PHRASES  ------------- */
