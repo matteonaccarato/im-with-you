@@ -30,6 +30,17 @@ router.route('/phrases/delete/:id')
 router.route('/people')
     .get(controllerPeople.get_page)
 
+router.route('/people/create')
+    .get(controllerPeople.get_create)
+    .post(controllerPeople.create)
+
+router.route('/people/:id')
+    .get(controllerPeople.get_update)
+    .post(controllerPeople.update)
+
+router.route('/people/delete/:id')
+    .delete(controllerPeople.delete)
+
 
 
 /* ------------- POSTS  ------------- */

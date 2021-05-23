@@ -50,6 +50,7 @@
                                         <th>Nome</th>
                                         <th>Cognome</th>
                                         <th>Data di nascita</th>
+                                        <th>Immagine</th>
                                         <th>Lavoro</th>
                                         <th>Colore</th>
                                         <th>Nazione</th>
@@ -57,18 +58,52 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <a href="/admin/people/1">
-                                            <td>1</td>
-                                        </a>
-                                        <td>Lewis</td>
-                                        <td>Hamilton</td>
-                                        <td>07/01/1985</td>
-                                        <td>F1 driver @ Mercedes</td>
-                                        <td>blue:square | Blu</td>
-                                        <td>gb:flag | UK</td>
-                                        <td>edit | delete</td>
-                                    </tr>
+                                    <% people.forEach(person => { %>
+                                        <tr>
+                                            <td>
+                                                <a href="/admin/people/<%= person.id %>">
+                                                    <%= person.id %>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <%= person.name %>
+                                            </td>
+                                            <td>
+                                                <%= person.surname %>
+                                            </td>
+                                            <td>
+                                                <%= person.dateOfBirth %>
+                                            </td>
+                                            <td>
+                                                <% if (person.img) { %>
+                                                    <div class="img-hover-zoom">
+                                                        <img style="height: 150px;" src="<%= person.img %>">
+                                                    </div>
+                                                    <% } else { %>
+                                                        <i class="fas fa-times text-dark"></i>
+                                                        <% } %>
+                                            </td>
+                                            <td>
+                                                <%= person.job %>
+                                            </td>
+                                            <td>
+                                                <%= person.quotationMarksColor %>
+                                            </td>
+                                            <td>
+                                                <img src="/assets/flags/128x128/<%= person.countryCode %>.png">
+                                                <%= person.countryCode %>
+                                            </td>
+                                            <td class="d-flex justify-content-between align-items-center" style="height: 180px;">
+                                                <a href="/admin/people/<%= person.id %>"><i class="fas fa-edit text-info"></i></a>
+                                                <form method="post" action="/admin/people/delete/<%= person.id %>?_method=DELETE">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit" style="background-color: transparent; border: none;" id="myEditButton">
+                                                    <i class="fas fa-trash text-primary"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
                                 </tbody>
                             </table>
                         </div>
