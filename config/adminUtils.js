@@ -35,6 +35,7 @@ module.exports = {
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { // true: user auth; false: user not auth
+        console.log('CCCCC ' + req.user)
         return next()
     }
 

@@ -17,8 +17,10 @@
 
 <body>
     HOME | Hi
-    <%= name %>
 
+    <%= user.username %>
+        <br>
+        <br>
         <form action="/logout?_method=DELETE" method="POST">
             <button type="submit">Logout</button>
         </form>

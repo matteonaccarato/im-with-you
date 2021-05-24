@@ -6,23 +6,17 @@ const initalizePassport = require('../config/passport')
 const usersDB = require('./../db/usersDB')
 const { ROLE } = require('../config/adminUtils')
 
-const { readById, readByEmail } = require('./../db/usersDB')
+const { create, readById, readByEmail } = require('./../db/usersDB')
 initalizePassport(
-        passport,
-        readByEmail,
-        readById,
-    )
-    /* initalizePassport(
-        passport,
-        email => users.find(user => user.email === email),
-        id => users.find(user => user.id === id)
-    ) */
-
-// const users = []
+    passport,
+    readByEmail,
+    readById,
+)
 
 exports.get_home = (req, res) => {
+    console.log('AAAAAA ' + req.user)
     res.render('public/index', {
-        name: req.user.name
+        user: req.user
     });
 }
 
@@ -61,31 +55,23 @@ console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" 
 exports.register = async(req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10) // scrivere cosa è il 10!!?
-        usersDB.create({
-                email: req.body.email,
-                username: req.body.username,
-                password: hashedPassword,
-                name: req.body.name,
-                surname: req.body.surname,
-                dateOfBirth: req.body.dateOfBirth,
-                imgUrl: req.body.imgUrl,
-                lastSeen: new Date(),
-                countryCode: req.body.countryCode,
-                role: ROLE.BASIC
-                    /* lastSeen:  */
-            })
-            /* users.push({
-                id: Date.now().toString(),
-                name: req.body.name,
-                email: req.body.email,
-                password: hashedPassword
-            }) */
+        create({
+            email: req.body.email,
+            username: req.body.username,
+            password: hashedPassword,
+            name: req.body.name,
+            surname: req.body.surname,
+            dateOfBirth: req.body.dateOfBirth,
+            imgUrl: req.body.imgUrl,
+            lastSeen: new Date(),
+            countryCode: req.body.countryCode,
+            role: ROLE.BASIC
+        })
         res.redirect('/login')
     } catch { // because is async function
         res.redirect('/register')
     }
 
-    /* console.log(users) */
 }
 
 exports.get_login = (req, res) => {
@@ -96,5 +82,3 @@ exports.logout = (req, res) => {
     req.logOut()
     res.redirect('/login')
 }
-
-/* exports.login = () */

@@ -31,12 +31,10 @@ const read = (field = '', value = -1) => {
     })
 }
 
-exports.create = user => {
+const create = user => {
     const db = connect_dev();
-
-    console.log(user)
-
     const sql = "INSERT INTO Users VALUES (null, $email, $username, $password, $name, $surname, $dateOfBirth, $imgUrl, $lastSeen, $countryCode, $role);"
+
     db.run(sql, {
         $email: user.email,
         $username: user.username,
@@ -73,16 +71,43 @@ exports.delete = id => {
     close(db)
 }
 
-// hanno un nome questi DESIGN PATTERN??!!!!
-async function readById(id) {
-    return read(FIELDS.ID, id)
+
+const readById = async(id, callback) => {
+    const db = connect_dev();
+    const sql = `SELECT * FROM Users WHERE id = ${id}`;
+    db.get(sql, (err, row) => {
+        console.log('REEEEEEEAD BYYYYYYYYYY IDDDDDDDD')
+        console.log(row)
+        callback(row)
+        close(db)
+    })
 }
 
-async function readByEmail(email) {
-    return read(FIELDS.EMAIL, `'${email}'`)
+const readByEmail = async(email, callback) => {
+    const db = connect_dev();
+    const sql = `SELECT * FROM Users WHERE email = '${email}'`;
+    db.get(sql, (err, row) => {
+        console.log(row)
+        callback(row)
+        close(db)
+    })
 }
+
+// hanno un nome questi DESIGN PATTERN??!!!!
+/* async function readById(id) {
+    const data = await read(FIELDS.ID, id)
+    console.log('ciao mamma')
+    console.log(data.rows[0])
+    return data.rows[0]
+} */
+
+/* async function readByEmail(email) {
+    const data = await read(FIELDS.EMAIL, `'${email}'`)        
+    return data.rows[0]
+} */
 
 module.exports = {
+    create,
     readById,
     readByEmail
 }
