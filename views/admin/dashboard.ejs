@@ -1,0 +1,250 @@
+<%- include('./partials/header') %>
+    <!-- Begin page content -->
+    <div class="container-fluid">
+        <!-- page heading -->
+        <div class="d-flex align-items-center justify-content-between mb-4 ">
+            <h1 class="h3 mb-0 mr-4 text-gray-800 ">Dashboard</h1>
+            <a href="# " class="d-none d-sm-inline btn btn-sm btn-primary shadow-sm ">
+                <i class="fas fa-download fa-sm text-white-50"></i> Maybe download post
+            </a>
+            <a href="# " class="d-block d-sm-none btn btn-sm btn-primary shadow-sm" style="display: block; width: 80px;">
+                <i class="fas fa-download fa-sm text-white-50"></i>
+            </a>
+        </div>
+
+
+
+
+
+        <!-- Content row // valutare un FOREACH !! -->
+        <div class="row ">
+
+            <!-- Numero frasi (card) -->
+            <div class="col-xl-6 col-md-12 mb-4 ">
+                <div class="card border-left-primary shadow h-100 py-2 ">
+                    <div class="card-body ">
+                        <div class="row no-gutters align-items-center ">
+                            <div class="col mr-2 ">
+                                <div class="text-s font-weight-bold text-primary text-uppercase mb-2 ">
+                                    Numero di frasi
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 ">
+                                    <a href="/admin/phrases" class="text-dark">
+                                        <%= number_phrases %>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-auto ">
+                                <i class="fas fa-file-contract fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- numero utenti admin -->
+            <div class="col-xl-6 col-md-12 mb-4 ">
+                <div class="card border-left-success shadow h-100 py-2 ">
+                    <div class="card-body ">
+                        <div class="row no-gutters align-items-center ">
+                            <div class="col mr-2 ">
+                                <div class="text-s font-weight-bold text-success text-uppercase mb-2 ">
+                                    Numero di admin
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 ">
+                                    <a href="/admin/admins" class="text-dark">
+                                        <%= number_admins %>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-auto ">
+                                <i class="fas fa-user fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr />
+
+
+
+
+
+
+
+
+        <!-- Content row -->
+        <div class="row ">
+
+            <!-- Numero post (card) -->
+            <div class="col-xl-6 col-md-12 mb-4 ">
+                <div class="card border-left-primary shadow h-100 py-2 ">
+                    <div class="card-body ">
+                        <div class="row no-gutters align-items-center ">
+                            <div class="col mr-2 ">
+                                <div class="text-s font-weight-bold text-primary text-uppercase mb-2 ">
+                                    Numero di post
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 ">
+                                    <a href="/admin/phrase" class="text-dark">
+                                        <%= number_posts %>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-auto ">
+                                <i class="fas fa-file-contract fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- numero utenti -->
+            <div class="col-xl-6 col-md-12 mb-4 ">
+                <div class="card border-left-success shadow h-100 py-2 ">
+                    <div class="card-body ">
+                        <div class="row no-gutters align-items-center ">
+                            <div class="col mr-2 ">
+                                <div class="text-s font-weight-bold text-success text-uppercase mb-2 ">
+                                    Numero di utenti
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800 ">
+                                    <a href="/admin/users" class="text-dark">
+                                        <%= number_users %>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-auto ">
+                                <i class="fas fa-user fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr />
+
+
+        <div class="row ">
+
+            <!-- <div class="col-xl-8 col-md-12 mb-4">
+                <div class="card border-left-dark shadow h-100 py-2">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-dark">Crescita utenti e post</h6>
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Esporta</div>
+                                <div class="no-gutters align-items-center">
+                                    <a class="dropdown-item" href="#">
+                                        <div class="text-s font-weight-bold text-dark d-flex align-items-center">
+                                            <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="growingChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="col-xl-8 col-md-12 mb-4">
+                <div class="card border-left-dark shadow h-100 py-2">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-dark">TOP 3</h6>
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Esporta</div>
+                                <div class="no-gutters align-items-center">
+                                    <a class="dropdown-item" href="#">
+                                        <div class="text-s font-weight-bold text-dark d-flex align-items-center">
+                                            <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">Header + link</div>
+                                        <div class="card-body">Body</div>
+                                        <div class="card-footer">Footer</div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">Header + link</div>
+                                        <div class="card-body">Body</div>
+                                        <div class="card-footer">Footer</div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">Header + link</div>
+                                        <div class="card-body">Body</div>
+                                        <div class="card-footer">Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- numero di utenti attivi nelle ultime 24h (contando anche quelli senza account?) o num chat aperte-->
+            <div class="col-xl-4 col-md-12 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+
+                            <div class="col">
+                                <div class="card shadow mb-2">
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-info">Utenti attivi nelle ultime 24h</h6>
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        <div class="chart-pie pt-4 pb-2">
+                                            <canvas id="usersActivePieChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- end of container-fluid -->
+    </div>
+
+    <!-- script only for this page -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js " integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin=" anonymous "></script>
+    <script src="/js/admin/dashboard.js "></script>
+
+
+    <%- include('./partials/footer') %>

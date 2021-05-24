@@ -1,0 +1,134 @@
+<%- include('./../partials/header') %>
+
+    <div class="container-fluid">
+
+
+        <div class="row">
+
+
+            <div class="col-12 mb-4">
+                <div class="card border-right-primary shadow h-100 py-2">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold">Tabella PERSONE</h6>
+
+                        <div class="dropdown no-arrow">
+                            <!-- IE => Import/Export -->
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownIELink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownIE">
+                                <!-- IMPORT -->
+                                <div class="dropdown-header">(icon) Importa</div>
+                                <div class="no-gutters align-items-center">
+                                    <a class="dropdown-item" href="#">
+                                        <div class="text-s font-weight-bold text-dark d-flex align-items-center">
+                                            <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <!-- EXPORT -->
+                                <div class="dropdown-header">(icon) Esporta</div>
+                                <div class="no-gutters align-items-center">
+                                    <a class="dropdown-item" href="#">
+                                        <div class="text-s font-weight-bold text-dark d-flex align-items-center">
+                                            <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Cognome</th>
+                                        <th>Data di nascita</th>
+                                        <th>Immagine</th>
+                                        <th>Lavoro</th>
+                                        <th>Colore</th>
+                                        <th>Nazione</th>
+                                        <th>Azioni</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% people.forEach(person => { %>
+                                        <tr>
+                                            <td>
+                                                <a href="/admin/people/<%= person.id %>">
+                                                    <%= person.id %>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <%= person.name %>
+                                            </td>
+                                            <td>
+                                                <%= person.surname %>
+                                            </td>
+                                            <td>
+                                                <% if (person.dateOfBirth) { %>
+                                                    <%= person.dateOfBirth %>
+                                                        <% } else { %>
+                                                            <%- include('./../partials/table/notAvailable') %>
+                                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (person.img) { %>
+                                                    <div class="img-hover-zoom">
+                                                        <img style="height: 150px;" src="<%= person.img %>">
+                                                    </div>
+                                                    <% } else { %>
+                                                        <%- include('./../partials/table/notAvailable') %>
+                                                            <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (person.job) { %>
+                                                    <%= person.job %>
+                                                        <% } else { %>
+                                                            <%- include('./../partials/table/notAvailable') %>
+                                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="square" data-color="<%= person.quotationMarksColor %>"></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <% if (person.countryCode) { %>
+                                                    <img title="<%= person.cName %>" src="/assets/flags/128x128/<%= person.countryCode %>.png">
+                                                    <% } else { %>
+                                                        <%- include('./../partials/table/notAvailable') %>
+                                                            <% } %>
+                                            </td>
+                                            <td class="d-flex justify-content-around align-items-center" style="height: 180px;">
+                                                <a href="/admin/people/<%= person.id %>"><i class="fas fa-edit text-info"></i></a>
+                                                <form method="post" action="/admin/people/delete/<%= person.id %>?_method=DELETE">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit" style="background-color: transparent; border: none;" id="myEditButton">
+                                                    <i class="fas fa-trash text-primary"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/js/admin/allPeople.js"></script>
+
+
+    <%- include('./../partials/footer') %>

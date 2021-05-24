@@ -1,0 +1,95 @@
+<%- include('./../partials/header') %>
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+
+            <div class="col-12 mb-4">
+                <div class="card border-right-primary shadow h-100 py-2">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold">Tabella POSTS</h6>
+
+                        <div class="dropdown no-arrow">
+                            <!-- IE => Import/Export -->
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownIELink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownIE">
+                                <!-- IMPORT -->
+                                <div class="dropdown-header">(icon) Importa</div>
+                                <div class="no-gutters align-items-center">
+                                    <a class="dropdown-item" href="#">
+                                        <div class="text-s font-weight-bold text-dark d-flex align-items-center">
+                                            <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <!-- EXPORT -->
+                                <div class="dropdown-header">(icon) Esporta</div>
+                                <div class="no-gutters align-items-center">
+                                    <a class="dropdown-item" href="#">
+                                        <div class="text-s font-weight-bold text-dark d-flex align-items-center">
+                                            <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Titolo</th>
+                                        <th>Testo (max. 128 caratteri)</th>
+                                        <th>img url</th>
+                                        <th>Stato</th>
+                                        <th>...</th>
+                                        <th>Likes</th>
+                                        <th>Autore</th>
+                                        <th>Azioni</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- LIMITE MASSIMO DI RIGHE VISUALIZZABILI -->
+                                    <tr>
+                                        <td>Dorian</td>
+                                        <td>Dorian era ...</td>
+                                        <td>img</td>
+                                        <td>stato</td>
+                                        <td>...</td>
+                                        <td>89 :likes</td>
+                                        <td>
+                                            <!-- per visualizzare profilo dell'utente -->
+                                            <a href="/users/1">
+                                                Matteo Naccarato
+                                            </a>
+                                        </td>
+                                        <td>matita + cestino</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+    <!-- <script src="cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> -->
+    <!-- <script src="/js/admin/tables.js"></script> -->
+
+    <%- include('./../partials/footer') %>
