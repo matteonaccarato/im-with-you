@@ -31,10 +31,13 @@ const storage = multerS3({
         cb(null, { fieldName: file.fieldname });
     },
     key: function(req, file, cb) {
-        let name = file.originalname.split('.').slice(0, -1).join('.');
+        /* let name = file.originalname.split('.').slice(0, -1).join('.');
         let type = file.originalname.split('.').pop();
-        console.log(name + '.' + type);
-        cb(null, name + "-" + Date.now() + '.' + type);
+        console.log(name + '.' + type); */
+        const name = Date.now() + '.' + file.originalname.split('.').pop();
+        console.log(name);
+        cb(null, name)
+            /* cb(null, name + "-" + Date.now() + '.' + type); */
     }
 });
 
@@ -55,7 +58,7 @@ exports.deleteImage = key => {
     })
 }
 
-exports.getImageNameFromLink = url => {
+/* exports.getImageNameFromLink = url => {
     const tmp = obj.url.split('/')
     return tmp[tmp.length - 1]
-}
+} */

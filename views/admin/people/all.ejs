@@ -72,7 +72,11 @@
                                                 <%= person.surname %>
                                             </td>
                                             <td>
-                                                <%= person.dateOfBirth %>
+                                                <% if (person.dateOfBirth) { %>
+                                                    <%= person.dateOfBirth %>
+                                                        <% } else { %>
+                                                            <%- include('./../partials/table/notAvailable') %>
+                                                                <% } %>
                                             </td>
                                             <td>
                                                 <% if (person.img) { %>
@@ -84,7 +88,11 @@
                                                             <% } %>
                                             </td>
                                             <td>
-                                                <%= person.job %>
+                                                <% if (person.job) { %>
+                                                    <%= person.job %>
+                                                        <% } else { %>
+                                                            <%- include('./../partials/table/notAvailable') %>
+                                                                <% } %>
                                             </td>
                                             <td>
                                                 <div class="square" data-color="<%= person.quotationMarksColor %>"></div>

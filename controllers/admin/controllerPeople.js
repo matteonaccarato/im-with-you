@@ -76,14 +76,16 @@ exports.update = (req, res) => {
             return res.send('Error uploading file')
         } else console.log('Image uploaded')
 
+        console.log(req.body.deleteImage)
+
         peopleDB.getImageUrl(req.params.id)
             .then(obj => {
-                if (obj && obj.url !== '') {
+                if (obj && obj.url !== '' && req.body.deleteImage == 1) {
                     const tmp = obj.url.split('/')
+                    console.log('ciaoooooooooooo ' + tmp[tmp.length - 1])
                     s3.deleteImage(tmp[tmp.length - 1])
+                    console.log('Image updated!')
                 }
-
-                console.log(req.file.location)
 
                 const person = {
                     id: req.params.id,
@@ -91,9 +93,9 @@ exports.update = (req, res) => {
                     surname: req.body.surname,
                     dateOfBirth: req.body.dateOfBirth,
                     quotationMarksColor: req.body.quotationMarksColor,
-                    img: (req.file) ? req.file.location : '',
+                    img: (req.body.deleteImage == 0) ? req.body.oldImgUrl : (req.file) ? req.file.location : '',
                     job: req.body.job,
-                    country: req.body.country
+                    countryCode: req.body.countryCode
                 }
                 console.log(person)
                 peopleDB.update(person)
@@ -107,7 +109,9 @@ exports.delete = (req, res) => {
     peopleDB.getImageUrl(req.params.id)
         .then(obj => {
             if (obj.url && obj.url !== '') {
-                s3.deleteImage(getImageNameFromLink(obj.url))
+                /* s3.deleteImage(s3.getImageNameFromLink(obj.url)) */
+                const tmp = obj.url.split('/')
+                s3.deleteImage(tmp[tmp.length - 1])
                 console.log('Image successfully deleted')
             }
             peopleDB.delete(req.params.id)

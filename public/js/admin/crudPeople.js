@@ -30,6 +30,7 @@ const checkFile = fileToLoad => {
     }
 
     if (valido) {
+        $('#deleteImage').val('1')
         $('#oldImg').attr('hidden', true)
         $('#trashOldImg').attr('hidden', true)
         var reader = new FileReader();
@@ -48,6 +49,8 @@ const deleteSavedImage = (els) => {
     els.forEach(el => {
         $(`#${el}`).attr('hidden', true)
     })
+
+    $('#deleteImage').val('1')
 }
 
 const deleteImage = () => {
