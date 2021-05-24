@@ -6,7 +6,7 @@ exports.read = (id = -1) => {
     const db = connect_dev();
 
     /* const sql = 'SELECT name, surname, dateOfBirth, quotationMarksColor, job, countryCode FROM People' + ((id > -1) ? ` WHERE id = ${id}` : '') + ';'; */
-    const sql = 'SELECT People.id, People.name, People.surname, People.dateOfBirth, People.img, People.job, People.countryCode, Countries.name AS cName FROM People ' +
+    const sql = 'SELECT People.id, People.name, People.surname, People.dateOfBirth, People.img, People.job, People.quotationMarksColor, People.countryCode, Countries.name AS cName FROM People ' +
         'LEFT JOIN Countries ON (People.countryCode = Countries.alpha_2)' + ((id > -1) ? ` WHERE People.id = ${id}` : '') + ';';
 
     return new Promise((resolve, reject) => {
