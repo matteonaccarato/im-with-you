@@ -14,7 +14,7 @@ initalizePassport(
 )
 
 exports.get_home = (req, res) => {
-    res.render((req.user.role === ROLE.ADMIN) ? 'admin/landing' : 'public/index', {
+    res.render('public/index', {
         user: req.user
     });
 }

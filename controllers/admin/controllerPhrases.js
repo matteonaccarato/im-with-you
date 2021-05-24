@@ -39,7 +39,7 @@ exports.create = (req, res) => {
             text: req.body.text,
             img: (req.file) ? req.file.location : '',
             quotedById: req.body.quotedById,
-            authorId: 1,
+            authorId: req.user.id,
             isFinished: (req.body.isFinished === 'on') ? 1 : 0,
             date: new Date().toLocaleDateString()
         }
@@ -86,7 +86,7 @@ exports.update = (req, res) => {
                     text: req.body.text,
                     img: (req.file) ? req.file.location : '',
                     quotedById: req.body.quotedById,
-                    authorId: 1,
+                    authorId: req.user.id,
                     isFinished: (req.body.isFinished === 'on') ? 1 : 0,
                     date: new Date().toLocaleDateString()
                 }

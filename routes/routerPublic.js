@@ -17,12 +17,26 @@ router.route('/register')
 router.route('/login')
     .get(checkNotAuthenticated, controllerPublic.get_login)
     .post(checkNotAuthenticated, passport.authenticate('local', {
-        successRedirect: '/',
+        // successRedirect: '/',
+        successRedirect: '/landing',
         failureRedirect: '/login',
         failureFlash: true
     }))
 
 router.route('/logout')
     .delete(controllerPublic.logout)
+
+
+router.route('/landing')
+    .get(checkAuthenticated, (req, res) => {
+        /* (req.user.role === ROLE.ADMIN) ? 'admin/landing' : 'public/index' */
+        if (req.user.role === ROLE.ADMIN) {
+            res.render('admin/landing', {
+                user: req.user
+            })
+        } else {
+            res.redirect('/')
+        }
+    })
 
 module.exports = router;
