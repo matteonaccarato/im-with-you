@@ -7,7 +7,7 @@ const FIELDS = {
 }
 
 
-const read = (field = '', value = -1) => {
+const readAll = (field = '', value = -1) => {
     const db = connect_dev();
     const sql = 'SELECT * FROM Users' + ((field != '') ? ` WHERE ${field} = ${value}` : '') + ';';
 
@@ -72,7 +72,7 @@ exports.delete = id => {
 }
 
 
-const readById = async(id, callback) => {
+/* const readById = async(id, callback) => {
     const db = connect_dev();
     const sql = `SELECT * FROM Users WHERE id = ${id}`;
     db.get(sql, (err, row) => {
@@ -88,20 +88,26 @@ const readByEmail = async(email, callback) => {
         callback(row)
         close(db)
     })
+} */
+
+const read = async(field, value, callback) => {
+    const db = connect_dev();
+    const sql = `SELECT * FROM Users WHERE ${field} = ${value}`;
+    console.log(sql)
+    db.get(sql, (err, row) => {
+        callback(row)
+        close(db)
+    })
 }
 
-// hanno un nome questi DESIGN PATTERN??!!!!
-/* async function readById(id) {
-    const data = await read(FIELDS.ID, id)
-    console.log('ciao mamma')
-    console.log(data.rows[0])
-    return data.rows[0]
-} */
+const readById = async(id, callback) => {
+    read(FIELDS.ID, id, callback)
+}
 
-/* async function readByEmail(email) {
-    const data = await read(FIELDS.EMAIL, `'${email}'`)        
-    return data.rows[0]
-} */
+const readByEmail = async(email, callback) => [
+    read(FIELDS.EMAIL, `'${email}'`, callback)
+]
+
 
 module.exports = {
     create,
