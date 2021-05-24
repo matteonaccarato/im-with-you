@@ -76,8 +76,6 @@ const readById = async(id, callback) => {
     const db = connect_dev();
     const sql = `SELECT * FROM Users WHERE id = ${id}`;
     db.get(sql, (err, row) => {
-        console.log('REEEEEEEAD BYYYYYYYYYY IDDDDDDDD')
-        console.log(row)
         callback(row)
         close(db)
     })
@@ -87,7 +85,6 @@ const readByEmail = async(email, callback) => {
     const db = connect_dev();
     const sql = `SELECT * FROM Users WHERE email = '${email}'`;
     db.get(sql, (err, row) => {
-        console.log(row)
         callback(row)
         close(db)
     })

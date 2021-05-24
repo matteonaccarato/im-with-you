@@ -12,8 +12,6 @@ function initalize(passport, getUserByEmail, getUserById) {
             try {
                 if (await bcrypt.compare(password, user.password)) { // la prima è quella messa nel form, l'altra è quella salvata 
                     // true => tutto a posto, user autenticato
-                    console.log('aaa ')
-                    console.log(user)
                     return done(null, user) // return user authenticated
                 } else {
                     return done(null, false, { messaage: 'Password incorrect' })
@@ -31,22 +29,11 @@ function initalize(passport, getUserByEmail, getUserById) {
     // cosa fanno di bello queste righe ???
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser((id, done) => {
-            console.log('AAA ' + id)
-            getUserById(id, async(user, err) => {
-
-                    console.log('YYYYYYYYYYYYYYYYYYYYY')
-                    console.log(user)
-                    done(err, user)
-                })
-                /* getUserById(id, function(err, user) {
-                    console.log('YYYYYYYYYYYYYYYYYYYYY')
-                    console.log(user)
-                    done(err, user)
-                }) */
-        })
-        /* done(null, getUserById(id, function(err, user) {
+        getUserById(id, async(user, err) => {
+            console.log(user)
             done(err, user)
-        })) */
+        })
+    })
 }
 
 module.exports = initalize
