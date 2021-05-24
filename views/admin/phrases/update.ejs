@@ -1,0 +1,141 @@
+<%- include('./../partials/header') %>
+
+    <div class="container-fluid">
+
+        <div class="col-12 mb-4">
+
+            <div class="card border-left-secondary shadow h-100 py-2">
+
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold">Modifica FRASE</h6>
+                </div>
+
+                <div class="card-body">
+                    <form action="/admin/phrases/<%= phrase.id %>" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="text">Frase <span class="text-danger">*</span></label>
+                            <!-- <input type="text" class="form-control" > -->
+                            <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." style="min-height: 60px;" required><%= phrase.text %></textarea>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="quotedById">Citatato da ...&nbsp;<span class="text-danger">*</span></label>
+                            </div>
+                            <select class="custom-select" name="quotedById" id="quotedById">
+                                <option value="" selected>Nessuno ...</option>
+                                <% quotedById.forEach(person => { %>
+                                    <!-- aggiungere l'immagine della persona !!-->
+                                    <% if (person.id === phrase.quotedById) { %>
+                                        <option value="<%= person.id %>" selected><%= person.name %> <%= person.surname %> <!-- | <i class="fas fa-info-circle"></i> --></option>
+                                    <% } else { %>
+                                        <option value="<%= person.id %>"><%= person.name %> <%= person.surname %> <!-- | <i class="fas fa-info-circle"></i> --></option>
+                                    <% } %>
+                                <% }); %>
+                                <!-- <option value='new'>Crea uno nuovo (sei proprio sicuro di voler creare un modal???)</option> -->
+                            </select>
+
+                            <!-- <script>
+                                const checkValue = param => {
+                                    if (param === 'new') {
+                                        console.log(param + 'opening modal ...')
+                                    }
+                                }
+                            </script> -->
+                        </div>
+
+                        <!-- <div class="form-group col-md-6">
+                            Input palette (per le quote "")
+                        </div> ;; già presente nella person -->
+
+                        <!-- slider "Utilizzare l'immagine relativa alla persona", se si switcha input type file.hidden = false; -->
+
+
+
+
+
+
+
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="image" id="image" onchange="checkFile(this)" aria-describedby="inputFile">
+                                <label class="custom-file-label" for="image">Selezionare l'immagine</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-center align-items-end">
+                            <div class="col-xl-10 col-lg-12 mb-3">
+                                <img id="imagePreview" src="#" style="width: 100%;" hidden>
+                            </div>
+
+                            <i class="fas fa-trash text-primary fa-2x mb-3" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
+                        </div>
+
+
+
+
+
+
+
+
+
+                        <% if (phrase.img && phrase.img !== '') { %>
+
+                            <div class="col-12 d-flex justify-content-center align-items-end">
+                                <div class="col-xl-10 col-lg-12 mb-3">
+                                    <img src="<%= phrase.img %>" style="width: 100%;" id="oldImg">
+                                </div>
+
+                                <button type="submit" style="background-color: transparent; border: none;" id="trashOldImg">
+                                        <i class="fas fa-trash text-primary fa-2x mb-3"></i>
+                                    </button>
+
+                            </div>
+
+
+                            <% } %>
+
+                                <div class="input-group">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished" data-status="<%= phrase.isFinished %>">
+                                        <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
+                                    </div>
+                                </div>
+
+
+
+                                <%- include('../partials/form/required') %>
+
+
+
+                </div>
+                <div class="card-footer">
+                    <div id="input-group">
+                        <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> | Conferma modifica</button>
+                        <a href="/admin/phrases">
+                            <button type="button" class="btn btn-dark mb-2"><i class="fas fa-history"></i> | Annulla</button>
+                        </a>
+                    </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <script>
+            /* let statusSwitch = document.getElementById('statusSwitch')
+                                                                                                                                                                        if (statusSwitch.dataset.status == 1) {
+                                                                                                                                                                            const attr = document.createAttribute("checked")
+                                                                                                                                                                            statusSwitch.setAttributeNode(attr)
+                                                                                                                                                                        } */
+        </script>
+
+        <script src="/js/admin/crudPhrases.js"></script>
+
+        <%- include('./../partials/footer') %>
