@@ -50,7 +50,7 @@
                                     <select class="selectpicker show-tick" name="countryCode" id="countryCode" data-live-search="true" data-live-search-normalize="true" data-size="6">  
                                         <option value="" selected>Nessuno ...</option>
                                         <% countries.forEach(country => { %>
-                                            <option value="<%= country.alpha_2 %>" style><%= country.name %></option>
+                                            <option value="<%= country.alpha_2 %>"><%= country.name %></option>
                                         <% }) %>
                                     </select>
                                 </div>

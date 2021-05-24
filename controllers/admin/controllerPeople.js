@@ -53,10 +53,17 @@ exports.create = (req, res) => {
 
 exports.get_update = (req, res) => {
     peopleDB.read(req.params.id)
-        .then(result => {
-            res.render('admin/people/update', {
-                person: result.rows[0]
-            })
+        .then(resultPeople => {
+            console.log(resultPeople)
+
+            countriesDB.read()
+                .then(resultCountries => {
+                    res.render('admin/people/update', {
+                        person: resultPeople.rows[0],
+                        countries: resultCountries.rows
+                    })
+                })
+                .catch(result => console.log(result))
         })
         .catch(result => console.log(result))
 
@@ -76,7 +83,10 @@ exports.update = (req, res) => {
                     s3.deleteImage(tmp[tmp.length - 1])
                 }
 
+                console.log(req.file.location)
+
                 const person = {
+                    id: req.params.id,
                     name: req.body.name,
                     surname: req.body.surname,
                     dateOfBirth: req.body.dateOfBirth,

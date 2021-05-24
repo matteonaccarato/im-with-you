@@ -44,6 +44,12 @@ const checkFile = fileToLoad => {
     }
 }
 
+const deleteSavedImage = (els) => {
+    els.forEach(el => {
+        $(`#${el}`).attr('hidden', true)
+    })
+}
+
 const deleteImage = () => {
     $("#image").val('');
     $('#imagePreview').attr('hidden', true)

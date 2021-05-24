@@ -51,12 +51,13 @@ exports.create = person => {
 exports.update = person => {
     const db = connect_dev();
 
-    const sql = "UPDATE People SET name = $name, surname = $surname, dateOfBirth = $dateOfBirth, quotationMarksColor = $quotationMarksColor, job = $job, countryCode = $countryCode WHERE id = $id;"
+    const sql = "UPDATE People SET name = $name, surname = $surname, dateOfBirth = $dateOfBirth, quotationMarksColor = $quotationMarksColor, job = $job, img = $img, countryCode = $countryCode WHERE id = $id;"
     db.run(sql, {
         $name: person.name,
         $surname: person.surname,
         $dateOfBirth: person.dateOfBirth,
         $quotationMarksColor: person.quotationMarksColor,
+        $img: person.img,
         $job: person.job,
         $countryCode: person.countryCode,
         $id: person.id
@@ -70,4 +71,30 @@ exports.delete = id => {
     const sql = `DELETE FROM People WHERE id = ${id};`;
     db.run(sql);
     close(db)
+}
+
+
+exports.getImageUrl = id => {
+    const db = connect_dev()
+
+    const sql = `SELECT img FROM People WHERE id = ${id};`
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.get(sql, (err, value) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                };
+                reject(responseObj);
+            } else {
+                responseObj = {
+                    statement: this,
+                    url: value.img
+                };
+                resolve(responseObj);
+            }
+            close(db)
+        })
+    })
+
 }
