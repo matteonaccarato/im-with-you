@@ -80,18 +80,21 @@
                                                         <img style="height: 150px;" src="<%= person.img %>">
                                                     </div>
                                                     <% } else { %>
-                                                        <i class="fas fa-times text-dark"></i>
-                                                        <% } %>
+                                                        <%- include('./../partials/table/notAvailable') %>
+                                                            <% } %>
                                             </td>
                                             <td>
                                                 <%= person.job %>
                                             </td>
                                             <td>
-                                                <%= person.quotationMarksColor %>
+                                                <div class="square" data-color="<%= person.quotationMarksColor %>"></div>
                                             </td>
                                             <td>
-                                                <img src="/assets/flags/128x128/<%= person.countryCode %>.png">
-                                                <%= person.countryCode %>
+                                                <% if (person.countryCode) { %>
+                                                    <img title="<%= person.cName %>" src="/assets/flags/128x128/<%= person.countryCode %>.png">
+                                                    <% } else { %>
+                                                        <%- include('./../partials/table/notAvailable') %>
+                                                            <% } %>
                                             </td>
                                             <td class="d-flex justify-content-around align-items-center" style="height: 180px;">
                                                 <a href="/admin/people/<%= person.id %>"><i class="fas fa-edit text-info"></i></a>
@@ -114,6 +117,8 @@
         </div>
 
     </div>
+
+    <script src="/js/admin/allPeople.js"></script>
 
 
     <%- include('./../partials/footer') %>

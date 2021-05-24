@@ -24,3 +24,23 @@
 /* #myEditButton:hover {
     border: 1px solid black;
 } */
+
+.square {
+    height: 50px;
+    width: 50px;
+}
+
+.bootstrap-select>.dropdown-toggle.bs-placeholder,
+.bootstrap-select>.dropdown-toggle.bs-placeholder:active,
+.bootstrap-select>.dropdown-toggle.bs-placeholder:focus,
+.bootstrap-select>.dropdown-toggle.bs-placeholder:hover,
+.btn:not(:disabled):not(.disabled) {
+    /* border-top-left-radius: 0;
+    border-bottom-left-radius: 0; */
+    margin-left: 1px !important;
+    border: 1px solid #D1D3E2 !important;
+}
+
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    width: 60% !important;
+}

@@ -1,19 +1,13 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = require('./utilsDB');
+const { connect_dev, connect_prod, close } = require('./utilsDB')
 
-exports.connect = () => {
-    return new sqlite3.Database(db.path.dev, err => {
-        if (err)
-            return console.error(err.message);
-        console.log("I'm with you ♥ | Connected to the sqlite DB!");
-    });
-}
 
 exports.read = (id = -1) => {
-    const db = this.connect();
+    const db = connect_dev();
 
     /* const sql = 'SELECT name, surname, dateOfBirth, quotationMarksColor, job, countryCode FROM People' + ((id > -1) ? ` WHERE id = ${id}` : '') + ';'; */
-    const sql = 'SELECT * FROM People' + ((id > -1) ? ` WHERE id = ${id}` : '') + ';';
+    const sql = 'SELECT People.id, People.name, People.surname, People.dateOfBirth, People.img, People.job, People.countryCode, Countries.name AS cName FROM People ' +
+        'LEFT JOIN Countries ON (People.countryCode = Countries.alpha_2)' + ((id > -1) ? ` WHERE People.id = ${id}` : '') + ';';
 
     return new Promise((resolve, reject) => {
         var responseObj;
@@ -30,31 +24,32 @@ exports.read = (id = -1) => {
                 };
                 resolve(responseObj);
             }
-            db.close();
+            close(db)
         })
     })
 }
 
 exports.create = person => {
-    const db = this.connect();
+    const db = connect_dev();
 
     console.log(person)
 
-    const sql = "INSERT INTO People VALUES (null, $name, $surname, $dateOfBirth, $quotationMarksColor, $job, $countryCode);"
+    const sql = "INSERT INTO People VALUES (null, $name, $surname, $dateOfBirth, $quotationMarksColor, $img, $job, $countryCode);"
     db.run(sql, {
         $name: person.name,
         $surname: person.surname,
         $dateOfBirth: person.dateOfBirth,
         $quotationMarksColor: person.quotationMarksColor,
+        $img: person.img,
         $job: person.job,
         $countryCode: person.countryCode
     })
 
-    this.close(db);
+    close(db);
 }
 
 exports.update = person => {
-    const db = this.connect();
+    const db = connect_dev();
 
     const sql = "UPDATE People SET name = $name, surname = $surname, dateOfBirth = $dateOfBirth, quotationMarksColor = $quotationMarksColor, job = $job, countryCode = $countryCode WHERE id = $id;"
     db.run(sql, {
@@ -67,20 +62,12 @@ exports.update = person => {
         $id: person.id
     })
 
-    this.close(db);
+    close(db);
 }
 
 exports.delete = id => {
-    const db = this.connect();
+    const db = connect_dev();
     const sql = `DELETE FROM People WHERE id = ${id};`;
     db.run(sql);
-    this.close(db)
-}
-
-exports.close = db => {
-    db.close(err => {
-        if (err)
-            console.error(err.message);
-        console.log("I'm with you ♥ | Disconnected from the sqlite DB!")
-    })
+    close(db)
 }

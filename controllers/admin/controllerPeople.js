@@ -19,10 +19,10 @@ exports.get_page = (req, res) => {
 }
 
 exports.get_create = (req, res) => {
-    countriesD.read()
-        .then(countries => {
+    countriesDB.read()
+        .then(result => {
             res.render('admin/people/create', {
-                countries: countries
+                countries: result.rows
             })
         })
         .catch(result => console.log(result))
@@ -42,7 +42,7 @@ exports.create = (req, res) => {
             quotationMarksColor: req.body.quotationMarksColor,
             img: (req.file) ? req.file.location : '',
             job: req.body.job,
-            country: req.body.country
+            countryCode: req.body.countryCode
         }
 
         peopleDB.create(person)
@@ -54,7 +54,6 @@ exports.create = (req, res) => {
 exports.get_update = (req, res) => {
     peopleDB.read(req.params.id)
         .then(result => {
-
             res.render('admin/people/update', {
                 person: result.rows[0]
             })
