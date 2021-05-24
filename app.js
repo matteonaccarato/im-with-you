@@ -15,6 +15,8 @@ const app = express();
 const routerPublic = require('./routes/routerPublic');
 const routerAdmin = require('./routes/routerAdmin');
 
+const { ROLE, checkRole, checkAuthenticated, checkNotAuthenticated } = require('./config/adminUtils')
+
 /* const initalizePassport = require('./config/passport')
 initalizePassport(
     passport,
@@ -42,6 +44,6 @@ app.use(methodOverride('_method'))
 app.use(morgan('dev'));
 
 app.use('/', routerPublic);
-app.use('/admin', routerAdmin);
+app.use('/admin', checkAuthenticated, checkRole(ROLE.ADMIN), routerAdmin);
 
 module.exports = app;

@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport')
 const controllerPublic = require('../controllers/controllerPublic');
-const { checkAuthenticated, checkNotAuthenticated } = require('../config/adminUtils')
+const { ROLE, checkRole, checkAuthenticated, checkNotAuthenticated } = require('../config/adminUtils')
 
 const router = express.Router();
 

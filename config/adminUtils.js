@@ -10,35 +10,29 @@ const ROLE = {
     }
 
     next()
-}
+} */
 
-function authRole(role) {
+function checkRole(role) {
     // return a middleware
     return (req, res, next) => {
         // check the role
         if (req.user.role !== role) {
             // you are forbidden
-            res.status(401)
-            return res.send('Not allowed')
+            // (not allowed)
+            res.redirect( /* 401  ,*/ '/login')
         }
 
         next()
     }
 }
 
-module.exports = {
-    ROLE,
-    authUser,
-    authRole
-} */
-
-
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { // true: user auth; false: user not auth
         return next()
     }
 
-    res.redirect('/login')
+    // You need to sign in
+    res.redirect(403, '/login')
 }
 
 function checkNotAuthenticated(req, res, next) {
@@ -50,6 +44,7 @@ function checkNotAuthenticated(req, res, next) {
 
 module.exports = {
     ROLE,
+    checkRole,
     checkAuthenticated,
     checkNotAuthenticated
 }
