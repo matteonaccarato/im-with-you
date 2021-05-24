@@ -49,6 +49,7 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 module.exports = {
+    ROLE,
     checkAuthenticated,
     checkNotAuthenticated
 }

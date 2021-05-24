@@ -4,7 +4,10 @@ const bcrypt = require('bcrypt')
 function initalize(passport, getUserByEmail, getUserById) {
     // if the user is correct
     const authenticateUser = async(email, password, done) => {
-        const user = getUserByEmail(email) // it returns email if user exits, rather 'no'
+        const tmp = await getUserByEmail(email);
+        const user = tmp.rows[0];
+        console.log(user)
+
         if (user == null) {
             return done(null, false, { message: 'No user with that email' }) // no err, no user found, message
         }
@@ -20,10 +23,12 @@ function initalize(passport, getUserByEmail, getUserById) {
             return done(e)
         }
 
+
     }
 
     passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser)) // options: la prima è il nome dell'utente => metto poi username
 
+    // cosa fanno di bello queste righe ???
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser((id, done) => {
         return done(null, getUserById(id))
