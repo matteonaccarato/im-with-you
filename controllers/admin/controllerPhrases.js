@@ -77,6 +77,7 @@ exports.update = (req, res) => {
         phrasesDB.getImageUrl(req.params.id)
             .then(obj => {
                 if (obj && obj.url !== '') {
+                    // getImageNameFromUrl
                     const tmp = obj.url.split('/')
                     s3.deleteImage(tmp[tmp.length - 1])
                 }
@@ -102,6 +103,7 @@ exports.delete = (req, res) => {
     phrasesDB.getImageUrl(req.params.id)
         .then(obj => {
             if (obj.url && obj.url !== '') {
+                // metto getImageFameFromUrl
                 const tmp = obj.url.split('/')
                 s3.deleteImage(tmp[tmp.length - 1])
                 console.log('Image successfully deleted!')

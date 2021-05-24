@@ -54,3 +54,8 @@ exports.deleteImage = key => {
             console.log(err, err.stack)
     })
 }
+
+exports.getImageNameFromLink = url => {
+    const tmp = obj.url.split('/')
+    return tmp[tmp.length - 1]
+}
