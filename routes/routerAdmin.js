@@ -3,6 +3,8 @@ const controllerDashboard = require('../controllers/admin/controllerDashboard');
 const controllerPhrases = require('../controllers/admin/controllerPhrases');
 const controllerPeople = require('../controllers/admin/controllerPeople')
 const controllerPosts = require('../controllers/admin/controllerPosts');
+const controllerBasics = require('../controllers/admin/users/controllerBasics')
+const controllerAdmins = require('../controllers/admin/users/controllerAdmins')
 
 const { ROLE, authUser, authRole } = require('../config/adminUtils');
 
@@ -53,5 +55,28 @@ router.route('/posts')
 router.route('/posts/create')
     .get(controllerPosts.get_create)
     .post(controllerPosts.create);
+
+
+
+/* ------------- USERS  ------------- */
+router.route('/users')
+    .get(controllerBasics.get_page)
+
+
+/* ------------- ADMINS  ------------- */
+router.route('/admins')
+    .get(controllerAdmins.get_page)
+
+router.route('/admins/create')
+    .get(controllerAdmins.get_create)
+    .post(controllerAdmins.create)
+
+router.route('/admins/:id')
+    .get(controllerAdmins.get_update)
+    .post(controllerAdmins.update)
+
+router.route('/admins/delete/:id')
+    .delete(controllerAdmins.delete)
+
 
 module.exports = router;

@@ -12,7 +12,8 @@ exports.get_page = (req, res) => {
     peopleDB.read()
         .then(result => {
             res.render('admin/people/all', {
-                people: result.rows
+                people: result.rows,
+                user: req.user
             })
         })
         .catch(result => console.log(result));
@@ -22,7 +23,8 @@ exports.get_create = (req, res) => {
     countriesDB.read()
         .then(result => {
             res.render('admin/people/create', {
-                countries: result.rows
+                countries: result.rows,
+                user: req.user
             })
         })
         .catch(result => console.log(result))
@@ -60,7 +62,8 @@ exports.get_update = (req, res) => {
                 .then(resultCountries => {
                     res.render('admin/people/update', {
                         person: resultPeople.rows[0],
-                        countries: resultCountries.rows
+                        countries: resultCountries.rows,
+                        user: req.user
                     })
                 })
                 .catch(result => console.log(result))

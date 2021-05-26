@@ -1,2 +1,22 @@
-<a href="/admin/dashboard">ADMIN</a>
-<a href="/">BASIC</a>
+<%- include('./../public/partials/header') %>
+
+
+    <div class="container-fluid">
+
+        <!-- page heading -->
+        <div class="d-flex align-items-center justify-content-between mb-4 ">
+            <h1 class="h3 mb-0 mr-4 text-gray-800 ">Landing page</h1>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center align-items-center">
+
+            <p>Welcome back
+                <%= user.name %>
+            </p>
+            <a href="/admin/dashboard">ADMIN</a>
+            <a href="/">BASIC</a>
+        </div>
+    </div>
+
+
+    <%- include('./../public/partials/footer') %>

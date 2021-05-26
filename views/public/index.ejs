@@ -24,6 +24,11 @@
         <form action="/logout?_method=DELETE" method="POST">
             <button type="submit">Logout</button>
         </form>
+
+        <!-- cercare di fare require-->
+        <% if (user.role === 'admin') { %>
+            <div>Passa alla schermata admin: <a href="/admin/dashboard">ADMIN</a></div>
+            <% } %>
 </body>
 
 </html>
