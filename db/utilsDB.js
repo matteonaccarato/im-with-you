@@ -17,7 +17,7 @@ const connect = path => {
     return new sqlite3.Database(path, err => {
         if (err)
             return console.error(err.message);
-        console.log("I'm with you ♥ | Connected to the sqlite DB!");
+        /* console.log("I'm with you ♥ | Connected to the sqlite DB!"); */
     });
 }
 
@@ -25,7 +25,7 @@ const close = db => {
     db.close(err => {
         if (err)
             console.error(err.message);
-        console.log("I'm with you ♥ | Disconnected from the sqlite DB!")
+        /* console.log("I'm with you ♥ | Disconnected from the sqlite DB!") */
     })
 }
 

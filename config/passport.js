@@ -30,7 +30,7 @@ function initalize(passport, getUserByEmail, getUserById) {
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser((id, done) => {
         getUserById(id, async(user, err) => {
-            console.log(user)
+            /* console.log(user) */
             done(err, user)
         })
     })

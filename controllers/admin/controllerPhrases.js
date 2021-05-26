@@ -37,13 +37,16 @@ exports.create = (req, res) => {
             return res.end("Error uploading file.");
         } else console.log('Image uploaded')
 
+        const date = new Date().toISOString().split('T')[0] // 2021-05-26T21:53:36.244Z
         const phrase = {
             text: req.body.text,
             img: (req.file) ? req.file.location : '',
             quotedById: req.body.quotedById,
             authorId: req.user.id,
             isFinished: (req.body.isFinished === 'on') ? 1 : 0,
-            date: new Date().toLocaleDateString()
+            yearOfPublication: date.split('-')[0],
+            monthOfPublication: date.split('-')[1],
+            dayOfPublication: date.split('-')[2]
         }
 
         phrasesDB.create(phrase);
@@ -84,16 +87,20 @@ exports.update = (req, res) => {
                     const tmp = obj.url.split('/')
                     s3.deleteImage(tmp[tmp.length - 1])
                 }
+                const date = new Date().toISOString().split('T')[0] // 2021-05-26T21:53:36.244Z
+                console.log(date)
                 const phrase = {
-                    id: req.params.id,
-                    text: req.body.text,
-                    img: (req.file) ? req.file.location : '',
-                    quotedById: req.body.quotedById,
-                    authorId: req.user.id,
-                    isFinished: (req.body.isFinished === 'on') ? 1 : 0,
-                    date: new Date().toLocaleDateString()
-                }
-                console.log(phrase)
+                        id: req.params.id,
+                        text: req.body.text,
+                        img: (req.file) ? req.file.location : '',
+                        quotedById: req.body.quotedById,
+                        authorId: req.user.id,
+                        isFinished: (req.body.isFinished === 'on') ? 1 : 0,
+                        yearOfPublication: date.split('-')[0],
+                        monthOfPublication: date.split('-')[1],
+                        dayOfPublication: date.split('-')[2]
+                    }
+                    /* console.log(phrase) */
                 phrasesDB.update(phrase)
                 res.status(200).redirect('/admin/phrases')
             })

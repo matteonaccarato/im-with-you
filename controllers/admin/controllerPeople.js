@@ -37,10 +37,13 @@ exports.create = (req, res) => {
             return res.send('Error uploading file.')
         } else console.log('Image uploaded')
 
+        const date = req.body.dateOfBirth.split('-');
         const person = {
             name: req.body.name,
             surname: req.body.surname,
-            dateOfBirth: req.body.dateOfBirth,
+            yearOfBirth: date[0],
+            monthOfBirth: date[1],
+            dayOfBirth: date[2],
             quotationMarksColor: req.body.quotationMarksColor,
             img: (req.file) ? req.file.location : '',
             job: req.body.job,
@@ -85,16 +88,18 @@ exports.update = (req, res) => {
             .then(obj => {
                 if (obj && obj.url !== '' && req.body.deleteImage == 1) {
                     const tmp = obj.url.split('/')
-                    console.log('ciaoooooooooooo ' + tmp[tmp.length - 1])
                     s3.deleteImage(tmp[tmp.length - 1])
                     console.log('Image updated!')
                 }
 
+                const date = req.body.dateOfBirth.split('-');
                 const person = {
                     id: req.params.id,
                     name: req.body.name,
                     surname: req.body.surname,
-                    dateOfBirth: req.body.dateOfBirth,
+                    yearOfBirth: date[0],
+                    monthOfBirth: date[1],
+                    dayOfBirth: date[2],
                     quotationMarksColor: req.body.quotationMarksColor,
                     img: (req.body.deleteImage == 0) ? req.body.oldImgUrl : (req.file) ? req.file.location : '',
                     job: req.body.job,

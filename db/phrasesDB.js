@@ -4,15 +4,17 @@ const { connect_dev, connect_prod, close } = require('./utilsDB')
 
 exports.create = phrase => {
     const db = connect_dev();
-    const sql = "INSERT INTO Phrases VALUES (null, $text, $img, $quotedById, $authorId, $isFinished, $date);"
 
+    const sql = "INSERT INTO Phrases VALUES (null, $text, $img, $quotedById, $authorId, $isFinished, $yearOfPublication, $monthOfPublication, $dayOfPublication);"
     db.run(sql, {
         $text: phrase.text,
         $img: phrase.img,
         $quotedById: phrase.quotedById * 1,
         $authorId: phrase.authorId,
         $isFinished: phrase.isFinished,
-        $date: phrase.date + ""
+        $yearOfPublication: phrase.yearOfPublication,
+        $monthOfPublication: phrase.monthOfPublication,
+        $dayOfPublication: phrase.dayOfPublication,
     })
 
     close(db);
@@ -20,7 +22,7 @@ exports.create = phrase => {
 
 exports.read = (id = -1) => {
     const db = connect_dev();
-    const sql = "SELECT Phrases.id, Phrases.authorId, Users.username, Phrases.text, Phrases.img, Phrases.isFinished, Phrases.quotedById, People.name, People.surname, People.quotationMarksColor, Phrases.date" +
+    const sql = "SELECT Phrases.id, Phrases.authorId, Users.username, Phrases.text, Phrases.img, Phrases.isFinished, Phrases.quotedById, People.name, People.surname, People.quotationMarksColor, Phrases.yearOfPublication, Phrases.monthOfPublication, Phrases.dayOfPublication" +
         " FROM Phrases LEFT JOIN People ON (Phrases.quotedById = People.id) LEFT JOIN Users ON (Phrases.authorId = Users.id)" + ((id > -1) ? ` WHERE Phrases.id = ${id}` : "") + ";";
 
     return new Promise((resolve, reject) => {
@@ -47,14 +49,19 @@ exports.read = (id = -1) => {
 exports.update = phrase => {
     const db = connect_dev();
 
-    const sql = "UPDATE Phrases SET text = $text, img = $img, quotedById = $quotedById, authorId = $authorId, isFinished = $isFinished, date = $date WHERE id = $id;"
+    console.log('AAA\n')
+    console.log(phrase)
+
+    const sql = "UPDATE Phrases SET text = $text, img = $img, quotedById = $quotedById, authorId = $authorId, isFinished = $isFinished, yearOfPublication = $yearOfPublication, monthOfPublication = $monthOfPublication, dayOfPublication = $dayOfPublication WHERE id = $id;"
     db.run(sql, {
         $text: phrase.text,
         $img: phrase.img,
         $quotedById: phrase.quotedById,
         $authorId: phrase.authorId,
         $isFinished: phrase.isFinished,
-        $date: phrase.date + "",
+        $yearOfPublication: phrase.yearOfPublication,
+        $monthOfPublication: phrase.monthOfPublication,
+        $dayOfPublication: phrase.dayOfPublication,
         $id: phrase.id
     })
 

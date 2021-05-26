@@ -90,7 +90,11 @@
 
                                             </td>
                                             <td>
-                                                <%= phrase.date %>
+                                                <% if (phrase.yearOfPublication) { %>
+                                                    <%= phrase.dayOfPublication %> /
+                                                        <%= phrase.monthOfPublication %> /
+                                                            <%= phrase.yearOfPublication %>
+                                                                <% } %>
                                             </td>
                                             <td style="width: 5%;">
                                                 105 V

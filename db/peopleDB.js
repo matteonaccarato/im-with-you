@@ -4,9 +4,7 @@ const { connect_dev, connect_prod, close } = require('./utilsDB')
 
 exports.read = (id = -1) => {
     const db = connect_dev();
-
-    /* const sql = 'SELECT name, surname, dateOfBirth, quotationMarksColor, job, countryCode FROM People' + ((id > -1) ? ` WHERE id = ${id}` : '') + ';'; */
-    const sql = 'SELECT People.id, People.name, People.surname, People.dateOfBirth, People.img, People.job, People.quotationMarksColor, People.countryCode, Countries.name AS cName FROM People ' +
+    const sql = 'SELECT People.id, People.name, People.surname, People.yearOfBirth, People.monthOfBirth, People.dayOfBirth, People.img, People.job, People.quotationMarksColor, People.countryCode, Countries.name AS cName FROM People ' +
         'LEFT JOIN Countries ON (People.countryCode = Countries.alpha_2)' + ((id > -1) ? ` WHERE People.id = ${id}` : '') + ';';
 
     return new Promise((resolve, reject) => {
@@ -18,6 +16,7 @@ exports.read = (id = -1) => {
                 };
                 reject(responseObj);
             } else {
+                console.log(rows)
                 responseObj = {
                     statement: this,
                     rows: rows
@@ -32,13 +31,13 @@ exports.read = (id = -1) => {
 exports.create = person => {
     const db = connect_dev();
 
-    console.log(person)
-
-    const sql = "INSERT INTO People VALUES (null, $name, $surname, $dateOfBirth, $quotationMarksColor, $img, $job, $countryCode);"
+    const sql = "INSERT INTO People VALUES (null, $name, $surname, $yearOfBirth, $monthOfBirth, $dayOfBirth, $quotationMarksColor, $img, $job, $countryCode);"
     db.run(sql, {
         $name: person.name,
         $surname: person.surname,
-        $dateOfBirth: person.dateOfBirth,
+        $yearOfBirth: person.yearOfBirth,
+        $monthOfBirth: person.monthOfBirth,
+        $dayOfBirth: person.dayOfBirth,
         $quotationMarksColor: person.quotationMarksColor,
         $img: person.img,
         $job: person.job,
@@ -51,11 +50,13 @@ exports.create = person => {
 exports.update = person => {
     const db = connect_dev();
 
-    const sql = "UPDATE People SET name = $name, surname = $surname, dateOfBirth = $dateOfBirth, quotationMarksColor = $quotationMarksColor, job = $job, img = $img, countryCode = $countryCode WHERE id = $id;"
+    const sql = "UPDATE People SET name = $name, surname = $surname, yearOfBirth = $yearOfBirth, monthOfBirth = $monthOfBirth, dayOfBirth = $dayOfBirth, quotationMarksColor = $quotationMarksColor, job = $job, img = $img, countryCode = $countryCode WHERE id = $id;"
     db.run(sql, {
         $name: person.name,
         $surname: person.surname,
-        $dateOfBirth: person.dateOfBirth,
+        $yearOfBirth: person.yearOfBirth,
+        $monthOfBirth: person.monthOfBirth,
+        $dayOfBirth: person.dayOfBirth,
         $quotationMarksColor: person.quotationMarksColor,
         $img: person.img,
         $job: person.job,
@@ -79,7 +80,7 @@ exports.getImageUrl = id => {
 
     const sql = `SELECT img FROM People WHERE id = ${id};`
 
-    console.log(sql)
+    /* console.log(sql) */
     return new Promise((resolve, reject) => {
         var responseObj;
         db.get(sql, (err, value) => {
