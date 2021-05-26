@@ -6,7 +6,7 @@ const { ROLE, checkRole, checkAuthenticated, checkNotAuthenticated } = require('
 const router = express.Router();
 
 router.route('/')
-    .get(checkAuthenticated, controllerPublic.get_home);
+    .get( /* checkAuthenticated, */ controllerPublic.get_home);
 
 
 // maybe li metto in un controller a parte

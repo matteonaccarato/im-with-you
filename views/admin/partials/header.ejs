@@ -89,7 +89,7 @@
                 <div id="collapsePhrases" class="collapse" aria-labelledby="headingPhrases" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Azioni</h6>
-                        <a class="collapse-item" href="/admin/phrases">Storico?</a>
+                        <a class="collapse-item" href="/admin/phrases">Storico</a>
                         <a class="collapse-item text-info" href="/admin/phrases/create">Crea</a>
                     </div>
                 </div>
@@ -191,22 +191,9 @@
                                 <img style="width:60px; height:60px; object-fit: cover;" class="rounded-circle" src="https://www.monaco-tribune.com/wp-content/uploads/2020/10/charles-leclerc.jpeg ">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in " aria-labelledby="userDropdown ">
-                                <a class="dropdown-item " href="# ">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 "></i> Profile
-                                </a>
-                                <div class="dropdown-divider "></div>
-                                <a class="dropdown-item " href="# " data-toggle="modal " data-target="#logoutModal ">
-                                    <form action="/logout?_method=DELETE" method="POST">
-                                        <button type="submit" class="btn btn-light">
-                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 "></i> Logout
-                                        </button>
-                                    </form>
-                                </a>
 
 
-
-                            </div>
+                            <%- include('./profileDropdown') %>
                         </li>
 
                     </ul>
