@@ -11,7 +11,8 @@ exports.get_page = (req, res) => {
     phrasesDB.read()
         .then(result => {
             res.render('admin/phrases/all', {
-                phrases: result.rows
+                phrases: result.rows,
+                user: req.user
             })
         })
         .catch(result => console.log(result));
@@ -22,7 +23,8 @@ exports.get_create = (req, res) => {
         .then(result => {
             console.log(result)
             res.render('admin/phrases/create', {
-                quotedById: result.rows
+                quotedById: result.rows,
+                user: req.user
             })
         })
         .catch(result => console.log(result))
@@ -58,7 +60,8 @@ exports.get_update = (req, res) => {
                 .then(people => {
                     res.render('admin/phrases/update', {
                         phrase: phrase.rows[0],
-                        quotedById: people.rows
+                        quotedById: people.rows,
+                        user: req.user
                     })
                 })
                 .catch(result => console.log(result))

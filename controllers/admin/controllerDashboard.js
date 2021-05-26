@@ -5,6 +5,9 @@ const sqlite3 = require('sqlite3').verbose();
     countUsers: 'SELECT COUNT(id) AS nPosts FROM Posts;'
 } */
 
+// aggiungere dbUtils
+const { ROLE } = require('./../../config/adminUtils')
+
 exports.get_page = (req, res) => {
 
     const db = new sqlite3.Database('./db/im-with-you-dev.db', err => {
@@ -22,14 +25,14 @@ exports.get_page = (req, res) => {
             return console.error(err.message);
         nPosts = row.nPosts;
 
-        sql = "SELECT COUNT(username) AS nUsers FROM Users WHERE role = 'BASIC';"
+        sql = `SELECT COUNT(username) AS nUsers FROM Users WHERE role = '${ROLE.BASIC}'`;
         db.get(sql, (err, row) => {
             if (err)
                 return console.error(err.message);
 
             nUsers = row.nUsers;
 
-            sql = "SELECT COUNT(username) as nAdmins FROM Users WHERE role = 'ADMIN'";
+            sql = `SELECT COUNT(username) as nAdmins FROM Users WHERE role = '${ROLE.BASIC}'`;
             db.get(sql, (err, row) => {
 
 
@@ -45,7 +48,8 @@ exports.get_page = (req, res) => {
                         number_phrases: nPhrases,
                         number_admins: nAdmins,
                         number_posts: nPosts,
-                        number_users: nUsers
+                        number_users: nUsers,
+                        user: req.user
                     });
                 })
             })
