@@ -32,7 +32,7 @@ exports.get_page = (req, res) => {
 
             nUsers = row.nUsers;
 
-            sql = `SELECT COUNT(username) as nAdmins FROM Users WHERE role = '${ROLE.BASIC}'`;
+            sql = `SELECT COUNT(username) as nAdmins FROM Users WHERE role = '${ROLE.ADMIN}'`;
             db.get(sql, (err, row) => {
 
 

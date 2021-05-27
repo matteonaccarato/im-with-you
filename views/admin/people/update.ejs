@@ -126,16 +126,16 @@
                 </div>
                 <div class="card-footer ">
                     <div class="col-12 d-flex justify-content-between align-items-center">
-                        <div id="input-group ">
-                            <button type="submit " class="btn btn-primary mb-2 "><i class="fas fa-check "></i> | Conferma creazione</button>
-                            <a href="/admin/people ">
-                                <button type="button " class="btn btn-dark mb-2 "><i class="fas fa-history "></i> | Annulla</button>
+                        <div id="input-group">
+                            <button type="submit" class="btn btn-primary mb-2 "><i class="fas fa-check "></i> | Conferma creazione</button>
+                            <a href="/admin/people">
+                                <button type="button" class="btn btn-dark mb-2 "><i class="fas fa-history "></i> | Annulla</button>
                             </a>
                         </div>
                         </form>
 
-                        <form action="/admin/people/delete/<%= person.id %>">
-                            <button type="submit" class="btn btn-danger mb-2"><i class=""></i> | Cancella</button>
+                        <form action="/admin/people/delete/<%= person.id %>?_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-trash text-primary"></i> | Cancella</button>
                         </form>
                     </div>
 

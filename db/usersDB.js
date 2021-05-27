@@ -79,25 +79,23 @@ const create = user => {
     close(db);
 }
 
-exports.update = user => {
+const update = user => {
     const db = connect_dev();
 
-    console.log(user)
-
-    const sql = "UPDATE Users SET email = $email, username = $username, password = $password, name = $name, surname = $surname, yearOfBirth = $yearOfBirth, monthOfBirth = $montOfBirth, dayOfBirth = $dayOfBirth, img = $img, yearOfLastSeen = $yearOfLastSeen, monthOfLastSeen = $monthOfLastSeen, dayOfLastSeen = $dayOfLastSeen, countryCode = $countryCode, role = $role WHERE id = $id;"
+    const sql = "UPDATE Users SET email = $email, username = $username, name = $name, surname = $surname, yearOfBirth = $yearOfBirth, monthOfBirth = $monthOfBirth, dayOfBirth = $dayOfBirth, img = $img, yearOfLastSeen = $yearOfLastSeen, monthOfLastSeen = $monthOfLastSeen, dayOfLastSeen = $dayOfLastSeen, countryCode = $countryCode, role = $role WHERE id = $id;"
     db.run(sql, {
         $email: user.email,
         $username: user.username,
-        $password: user.password,
+        /* $password: user.password, */
         $name: user.name,
         $surname: user.surname,
         $yearOfBirth: user.yearOfBirth,
         $monthOfBirth: user.monthOfBirth,
         $dayOfBirth: user.dayOfBirth,
         $img: user.img,
-        $yearOfBirth: user.yearOfBirth,
-        $montOfBirth: user.montOfBirth,
-        $dayOfBirth: user.dayOfBirth,
+        $yearOfLastSeen: user.yearOfLastSeen,
+        $monthOfLastSeen: user.monthOfLastSeen,
+        $dayOfLastSeen: user.dayOfLastSeen,
         $countryCode: user.countryCode,
         $role: user.role,
         $id: user.id
@@ -106,7 +104,7 @@ exports.update = user => {
     close(db);
 }
 
-exports.delete = id => {
+const deleteUser = id => {
     const db = connect_dev();
     const sql = `DELETE FROM Users WHERE id = ${id};`;
     db.run(sql);
@@ -114,7 +112,7 @@ exports.delete = id => {
 }
 
 
-exports.getImageUrl = id => {
+const getImageUrl = id => {
     const db = connect_dev()
 
     const sql = `SELECT img FROM Users WHERE id = ${id};`
@@ -165,5 +163,8 @@ module.exports = {
     readById,
     readByEmail,
     readByRole,
-    readGeneric
+    readGeneric,
+    getImageUrl,
+    update,
+    deleteUser
 }

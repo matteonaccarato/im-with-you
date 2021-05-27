@@ -3,7 +3,7 @@ const { ROLE } = require('../../../config/adminUtils')
 
 exports.get_page = (req, res) => {
 
-    usersDB.readTest(ROLE.BASIC)
+    usersDB.readByRole(ROLE.BASIC)
         .then(result => {
             console.log(result)
             res.render('admin/users/all', {

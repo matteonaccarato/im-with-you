@@ -1,4 +1,15 @@
 <select class="selectpicker show-tick" name="role" id="role">
-    <option value="<%= roles.admin %>">ADMIN</option>
-    <option value="<%= roles.basic %>">BASIC</option>
+
+    <% if (userToUpdate.role) { %>
+        <% if (userToUpdate.role === roles.admin) { %>
+            <option value="<%= roles.admin %>" selected><%= roles.admin %></option>
+            <option value="<%= roles.basic %>"><%= roles.basic %></option>
+        <% } else { %>
+            <option value="<%= roles.admin %>"><%= roles.admin %></option>
+            <option value="<%= roles.basic %>" selected><%= roles.basic %></option>
+             <% } %>
+    <% } else { %>
+        <option value="<%= roles.admin %>" ><%= roles.admin %></option>
+        <option value="<%= roles.basic %>"><%= roles.basic %></option>
+        <% } %>
 </select>
