@@ -12,6 +12,7 @@ function initalize(passport, getUserByEmail, getUserById) {
             try {
                 if (await bcrypt.compare(password, user.password)) { // la prima è quella messa nel form, l'altra è quella salvata 
                     // true => tutto a posto, user autenticato
+                    // usersDB.update(user.id, )
                     return done(null, user) // return user authenticated
                 } else {
                     return done(null, false, { messaage: 'Password incorrect' })

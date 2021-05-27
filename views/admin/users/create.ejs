@@ -1,0 +1,97 @@
+<%- include('./../partials/header') %>
+
+
+
+
+    <!-- provo pagina create e update sullo stesso file -->
+
+
+
+
+
+    <div class="container-fluid">
+
+        <div class="col-12 mb-4">
+
+            <div class="card border-left-secondary shadow h-100 py-2">
+
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold">Crea UTENTE |
+                        <%= role %>
+                    </h6>
+                </div>
+
+                <div class="card-body">
+                    <form action="/admin/users/create" method="POST" enctype="multipart/form-data">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="name">Nome <span class="text-danger">*</span></label>
+                                    <input type="text" name="name" id="name" class="form-control">
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="surname">Cognome <span class="text-danger">*</span></label>
+                                    <input type="text" name="surname" id="surname" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="dateOfBirth">Data di nascita</label>
+                                    <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-7">
+                                <div class="input-group mb-3">
+
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="countryCode">Paese</label>
+                                    </div>
+                                    <!-- data-live-search-normalize : accent-insensitive searching -->
+                                    <select class="selectpicker show-tick" name="countryCode" id="countryCode" data-live-search="true" data-live-search-normalize="true" data-size="6">  
+                                        <option value="" selected>Nessuno ...</option>
+                                        <% countries.forEach(country => { %>
+                                            <option value="<%= country.alpha_2 %>"><%= country.name %></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                        <%- include('../partials/form/imageUpload')>
+
+
+
+                </div>
+                <div class="card-footer ">
+                    <div id="input-group ">
+                        <button type="submit " class="btn btn-primary mb-2 "><i class="fas fa-check "></i> | Conferma creazione</button>
+                        <a href="/admin/users ">
+                            <button type="button " class="btn btn-dark mb-2 "><i class="fas fa-history "></i> | Annulla</button>
+                        </a>
+                    </div>
+                    </form>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- <script src="/js/admin/crudPhrases.js"></script> -->
+
+    <%- include('./../partials/footer') %>

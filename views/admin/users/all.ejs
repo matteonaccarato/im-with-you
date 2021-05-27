@@ -1,0 +1,163 @@
+<%- include('./../partials/header') %>
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card border-right-primary shadow h-100 py-2">
+                    <div class="
+            card-header
+            py-3
+            d-flex
+            flex-row
+            align-items-center
+            justify-content-between
+          ">
+                        <h6 class="m-0 font-weight-bold">Tabella UTENTI |
+                            <%= role %>
+                        </h6>
+
+                        <h7>Crea utente
+                            <%= role %>
+                        </h7>
+
+                        <div class="dropdown no-arrow">
+                            <!-- IE => Import/Export -->
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownIELink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownIE">
+                                <!-- IMPORT -->
+                                <div class="dropdown-header">(icon) Importa</div>
+                                <div class="no-gutters align-items-center">
+                                    <a class="dropdown-item" href="#">
+
+
+                                        <!-- era TEXT-S ??-->
+                                        <div class="text-s
+                      font-weight-bold
+                      text-dark
+                      d-flex
+                      align-items-center
+                    ">
+                                            <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <!-- EXPORT -->
+                                <div class="dropdown-header">(icon) Esporta</div>
+                                <div class="no-gutters align-items-center">
+                                    <a class="dropdown-item" href="#">
+                                        <div class="
+                      text-s
+                      font-weight-bold
+                      text-dark
+                      d-flex
+                      align-items-center
+                    ">
+                                            <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Email</th>
+                                        <th>Username</th>
+                                        <th>Nome</th>
+                                        <th>Cognome</th>
+                                        <th>Data di nascita</th>
+                                        <th>Immagine</th>
+                                        <th>Nazione</th>
+                                        <th>Azioni</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% users.forEach(user=> { %>
+                                        <tr>
+                                            <td>
+                                                <a href="/admin/users/<%= user.id %>">
+                                                    <%= user.id %>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <%= user.email %>
+                                            </td>
+                                            <td>
+                                                <%= user.username %>
+                                            </td>
+                                            <td>
+                                                <% if (user.name) { %>
+                                                    <%= user.name %>
+                                                        <% } else { %>
+                                                            <%- include('./../partials/table/notAvailable') %>
+                                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (user.surname) { %>
+                                                    <%= user.surname %>
+                                                        <% } else { %>
+                                                            <%- include('./../partials/table/notAvailable') %>
+                                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (user.yearOfBirth) { %>
+                                                    <%= user.dayOfBirth %> /
+                                                        <%= user.monthOfBirth %> /
+                                                            <%= user.yearOfBirth %>
+                                                                <% } else { %>
+                                                                    <%- include('./../partials/table/notAvailable') %>
+                                                                        <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (user.img) { %>
+                                                    <div class="img-hover-zoom">
+                                                        <img style="height: 150px" src="<%= user.img %>" />
+                                                    </div>
+                                                    <% } else { %>
+                                                        <%- include('./../partials/table/notAvailable') %>
+                                                            <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (user.countryCode) { %>
+                                                    <img title="<%= user.cName %>" src="/assets/flags/128x128/<%= user.countryCode %>.png" />
+                                                    <% } else { %>
+                                                        <%- include('./../partials/table/notAvailable') %>
+                                                            <% } %>
+                                            </td>
+                                            <td class="d-flex justify-content-around align-items-center" style="height: 180px">
+                                                <a href="/admin/users/<%= user.id %>"><i
+                                                        class="fas fa-edit text-info"></i></a>
+                                                <form method="post" action="/admin/users/delete/<%= user.id %>?_method=DELETE">
+                                                    <input type="hidden" name="_method" value="DELETE" />
+                                                    <button type="submit" style="background-color: transparent; border: none" id="myEditButton">
+                                                        <i class="fas fa-trash text-primary"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  <script src="/js/admin/allPeople.js"></script> -->
+
+
+
+
+    <%- include('./../partials/footer') %>

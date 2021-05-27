@@ -1,23 +1,16 @@
+const usersDB = require('../../../db/usersDB')
+const { ROLE } = require('../../../config/adminUtils')
+
 exports.get_page = (req, res) => {
 
-}
-
-exports.get_create = (req, res) => {
-
-}
-
-exports.create = (req, res) => {
-
-}
-
-exports.get_update = (req, res) => {
-
-}
-
-exports.update = (req, res) => {
-
-}
-
-exports.delete = (req, res) => {
-
+    usersDB.readTest(ROLE.BASIC)
+        .then(result => {
+            console.log(result)
+            res.render('admin/users/all', {
+                user: req.user,
+                users: result.rows,
+                role: ROLE.BASIC
+            })
+        })
+        .catch(result => console.log(result))
 }

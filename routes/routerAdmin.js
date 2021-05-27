@@ -6,6 +6,7 @@ const controllerPeople = require('../controllers/admin/controllerPeople')
 const controllerPosts = require('../controllers/admin/controllerPosts');
 const controllerBasics = require('../controllers/admin/users/controllerBasics')
 const controllerAdmins = require('../controllers/admin/users/controllerAdmins')
+const controllerUsers = require('../controllers/admin/users/controllerUsers')
 
 const { ROLE, authUser, authRole } = require('../config/adminUtils');
 
@@ -71,20 +72,25 @@ router.route('/posts/create')
 router.route('/admins')
     .get(controllerAdmins.get_page)
 
-router.route('/admins/create')
-    .get(controllerAdmins.get_create)
-    .post(controllerAdmins.create)
 
-router.route('/admins/:id')
-    .get(controllerAdmins.get_update)
-    .post(controllerAdmins.update)
+/* ------------- BASICS  ------------- */
+router.route('/basics')
+    .get(controllerBasics.get_page)
 
-router.route('/admins/delete/:id')
-    .delete(controllerAdmins.delete)
 
 /* ------------- USERS  ------------- */
-router.route('/users')
-    .get(controllerBasics.get_page)
+router.route('/users/create')
+    .get(controllerUsers.get_create)
+    .post(controllerUsers.create)
+
+router.route('/users/:id')
+    .get(controllerUsers.get_update)
+    .post(controllerUsers.update)
+
+router.route('/users/delete/:id')
+    .delete(controllerUsers.delete)
+
+
 
 
 module.exports = router;
