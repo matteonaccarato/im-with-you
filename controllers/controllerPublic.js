@@ -22,7 +22,9 @@ exports.get_home = (req, res) => {
 }
 
 exports.get_register = (req, res) => {
-    res.render('register')
+    res.render('register', {
+        user: req.user
+    })
 }
 
 
@@ -76,7 +78,9 @@ exports.register = async(req, res) => {
 }
 
 exports.get_login = (req, res) => {
-    res.render('login')
+    res.render('login', {
+        user: req.user
+    })
 }
 
 exports.logout = (req, res) => {
