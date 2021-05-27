@@ -57,7 +57,7 @@ const readTest = (role, id = -1 /* , callback */ ) => {
 
 const create = user => {
     const db = connect_dev();
-    const sql = "INSERT INTO Users VALUES (null, $email, $username, $password, $name, $surname, $dateOfBirth, $imgUrl, $lastSeen, $countryCode, $role);"
+    const sql = "INSERT INTO Users VALUES (null, $email, $username, $password, $name, $surname, $yearOfBirth, $monthOfBirth, $dayOfBirth, $img, $countryCode, $yearOfLastSeen, $monthOfLastSeen, $dayOfLastSeen, $role);"
 
     db.run(sql, {
         $email: user.email,
@@ -65,9 +65,13 @@ const create = user => {
         $password: user.password,
         $name: user.name,
         $surname: user.surname,
-        $dateOfBirth: user.dateOfBirth,
-        $imgUrl: user.imgUrl,
-        $lastSeen: user.lastSeen,
+        $yearOfBirth: user.yearOfBirth,
+        $monthOfBirth: user.monthOfBirth,
+        $dayOfBirth: user.dayOfBirth,
+        $img: user.img,
+        $yearOfLastSeen: user.yearOfLastSeen,
+        $monthOfLastSeen: user.monthOfLastSeen,
+        $dayOfLastSeen: user.dayOfLastSeen,
         $countryCode: user.countryCode,
         $role: user.role,
     })
@@ -80,7 +84,7 @@ exports.update = user => {
 
     console.log(user)
 
-    const sql = "UPDATE Users SET email = $email, username = $username, password = $password, name = $name, surname = $surname, yearOfBirth = $yearOfBirth, monthOfBirth = $montOfBirth, dayOfBirth = $dayOfBirth, img = $img, lastSeen = $lastSeen, countryCode = $countryCode, role = $role WHERE id = $id;"
+    const sql = "UPDATE Users SET email = $email, username = $username, password = $password, name = $name, surname = $surname, yearOfBirth = $yearOfBirth, monthOfBirth = $montOfBirth, dayOfBirth = $dayOfBirth, img = $img, yearOfLastSeen = $yearOfLastSeen, monthOfLastSeen = $monthOfLastSeen, dayOfLastSeen = $dayOfLastSeen, countryCode = $countryCode, role = $role WHERE id = $id;"
     db.run(sql, {
         $email: user.email,
         $username: user.username,
@@ -91,7 +95,9 @@ exports.update = user => {
         $monthOfBirth: user.monthOfBirth,
         $dayOfBirth: user.dayOfBirth,
         $img: user.img,
-        $lastSeen: user.lastSeen,
+        $yearOfBirth: user.yearOfBirth,
+        $montOfBirth: user.montOfBirth,
+        $dayOfBirth: user.dayOfBirth,
         $countryCode: user.countryCode,
         $role: user.role,
         $id: user.id

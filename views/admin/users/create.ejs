@@ -16,25 +16,50 @@
             <div class="card border-left-secondary shadow h-100 py-2">
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold">Crea UTENTE |
-                        <%= role %>
-                    </h6>
+                    <h6 class="m-0 font-weight-bold">Crea UTENTE</h6>
                 </div>
 
                 <div class="card-body">
+
+
+
                     <form action="/admin/users/create" method="POST" enctype="multipart/form-data">
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="email">Email <%- include('../partials/form/requiredSymbols') %></label>
+                                    <input type="text" name="email" id="email" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="username">Username <%- include('../partials/form/requiredSymbols') %></label>
+                                    <input type="text" name="username" id="username" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="password">Password <%- include('../partials/form/requiredSymbols') %></label>
+                                    <input type="password" name="password" id="password" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="name">Nome <span class="text-danger">*</span></label>
+                                    <label for="name">Nome</label>
                                     <input type="text" name="name" id="name" class="form-control">
                                 </div>
 
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="surname">Cognome <span class="text-danger">*</span></label>
+                                    <label for="surname">Cognome</label>
                                     <input type="text" name="surname" id="surname" class="form-control">
                                 </div>
                             </div>
@@ -47,43 +72,40 @@
                         </div>
 
                         <div class="row">
-
-                            <div class="col-md-7">
-                                <div class="input-group mb-3">
-
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="countryCode">Paese</label>
-                                    </div>
-                                    <!-- data-live-search-normalize : accent-insensitive searching -->
-                                    <select class="selectpicker show-tick" name="countryCode" id="countryCode" data-live-search="true" data-live-search-normalize="true" data-size="6">  
-                                        <option value="" selected>Nessuno ...</option>
-                                        <% countries.forEach(country => { %>
-                                            <option value="<%= country.alpha_2 %>"><%= country.name %></option>
-                                        <% }) %>
-                                    </select>
-                                </div>
+                            <div class="col-12">
+                                <%- include('./../partials/form/countries') %>
                             </div>
-
-
                         </div>
 
 
 
+                        <%- include('../partials/form/imageUpload') %>
 
-                        <%- include('../partials/form/imageUpload')>
 
+                            <%- include('../partials/form/userRoles') %>
+
+
+
+
+
+
+
+                                <%- include('../partials/form/required') %>
 
 
                 </div>
                 <div class="card-footer ">
                     <div id="input-group ">
                         <button type="submit " class="btn btn-primary mb-2 "><i class="fas fa-check "></i> | Conferma creazione</button>
-                        <a href="/admin/users ">
+                        <a href="/admin/users">
                             <button type="button " class="btn btn-dark mb-2 "><i class="fas fa-history "></i> | Annulla</button>
                         </a>
                     </div>
                     </form>
                 </div>
+
+
+
 
 
             </div>

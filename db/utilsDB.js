@@ -5,6 +5,8 @@ const path = {
     'prod': "./db/im-with-you.db"
 }
 
+const SALT_ROUNDS = 10 // for brcypt.hash(plainText, saltRounds)
+
 const connect_dev = () => {
     return connect(path.dev)
 }
@@ -32,5 +34,6 @@ const close = db => {
 module.exports = {
     connect_dev,
     connect_prod,
-    close
+    close,
+    SALT_ROUNDS
 }

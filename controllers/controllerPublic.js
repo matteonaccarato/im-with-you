@@ -5,6 +5,7 @@ const passport = require('passport')
 const initalizePassport = require('../config/passport')
 const usersDB = require('./../db/usersDB')
 const { ROLE } = require('../config/adminUtils')
+const { SALT_ROUNDS } = require('../db/utilsDB')
 
 const { create, readById, readByEmail } = require('./../db/usersDB')
 initalizePassport(
@@ -53,7 +54,7 @@ console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" 
 
 exports.register = async(req, res) => {
     try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10) // scrivere cosa è il 10!!?
+        const hashedPassword = await bcrypt.hash(req.body.password, SALT_ROUNDS) // scrivere cosa è il 10!!?
         create({
             email: req.body.email,
             username: req.body.username,
