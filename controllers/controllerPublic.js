@@ -4,6 +4,7 @@ const passport = require('passport')
 
 const initalizePassport = require('../config/passport')
 const usersDB = require('./../db/usersDB')
+const { updateLastSeen } = require('../db/usersDB')
 const { ROLE } = require('../config/adminUtils')
 const { SALT_ROUNDS } = require('../db/utilsDB')
 
@@ -79,6 +80,7 @@ exports.get_login = (req, res) => {
 }
 
 exports.logout = (req, res) => {
+    updateLastSeen(req.user.id)
     req.logOut()
     res.redirect('/login')
 }

@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport')
 const controllerPublic = require('../controllers/controllerPublic');
 const { ROLE, checkRole, checkAuthenticated, checkNotAuthenticated } = require('../config/adminUtils')
+const { updateLastSeen } = require('../db/usersDB')
 
 const router = express.Router();
 
@@ -30,6 +31,7 @@ router.route('/logout')
 router.route('/landing')
     .get(checkAuthenticated, (req, res) => {
         /* (req.user.role === ROLE.ADMIN) ? 'admin/landing' : 'public/index' */
+        updateLastSeen(req.user.id)
         if (req.user.role === ROLE.ADMIN) {
             res.render('admin/landing', {
                 user: req.user

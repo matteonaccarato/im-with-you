@@ -104,6 +104,22 @@ const update = user => {
     close(db);
 }
 
+const updateLastSeen = id => {
+    const db = connect_dev();
+
+    const date = new Date().toISOString().split('T')[0] // 2021-05-26T21:53:36.244Z
+    const sql = "UPDATE Users SET yearOfLastSeen = $yearOfLastSeen, monthOfLastSeen = $monthOfLastSeen, dayOfLastSeen = $dayOfLastSeen WHERE id = $id;"
+    db.run(sql, {
+        $yearOfLastSeen: date.split('-')[0],
+        $monthOfLastSeen: date.split('-')[1],
+        $dayOfLastSeen: date.split('-')[2],
+        $id: id
+    })
+    console.log('Last seen updated!')
+
+    close(db)
+}
+
 const deleteUser = id => {
     const db = connect_dev();
     const sql = `DELETE FROM Users WHERE id = ${id};`;
@@ -166,5 +182,6 @@ module.exports = {
     readGeneric,
     getImageUrl,
     update,
+    updateLastSeen,
     deleteUser
 }
