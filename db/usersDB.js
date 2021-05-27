@@ -7,10 +7,10 @@ const FIELDS = {
 }
 
 
-/* const readAll = (field = '', value = -1) => {
+const readGeneric = (field = '', value = -1) => {
     const db = connect_dev();
     const sql = 'SELECT * FROM Users' + ((field != '') ? ` WHERE ${field} = ${value}` : '') + ';';
-
+    console.log(sql)
     return new Promise((resolve, reject) => {
         var responseObj;
         db.all(sql, function(err, rows) {
@@ -29,9 +29,9 @@ const FIELDS = {
             close(db)
         })
     })
-} */
+}
 
-const readTest = (role, id = -1 /* , callback */ ) => {
+const readByRole = (role, id = -1 /* , callback */ ) => {
     const db = connect_dev();
     const sql = `SELECT * FROM Users WHERE role = '${role}'` + ((id > -1) ? ` AND Users.id = ${id}` : "") + ";";
 
@@ -139,10 +139,12 @@ exports.getImageUrl = id => {
 
 }
 
+
+
+// for passport
 const read = async(field, value, callback) => {
     const db = connect_dev();
     const sql = `SELECT * FROM Users WHERE ${field} = ${value}`;
-    /* console.log(sql) */
     db.get(sql, (err, row) => {
         callback(row)
         close(db)
@@ -162,5 +164,6 @@ module.exports = {
     create,
     readById,
     readByEmail,
-    readTest
+    readByRole,
+    readGeneric
 }

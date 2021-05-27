@@ -5,7 +5,7 @@ exports.get_page = (req, res) => {
 
     /* try { */
 
-    usersDB.readTest(ROLE.ADMIN)
+    usersDB.readByRole(ROLE.ADMIN)
         .then(result => {
             console.log(result)
             res.render('admin/users/all', {

@@ -9,19 +9,6 @@ const s3 = require('../s3')
 const singleUpload = s3.upload.single('image')
 
 exports.get_create = async(req, res) => {
-    /* countriesDB.read()
-        .then(result => {
-            res.render('admin/users/create', {
-                countries: result.rows,
-                user: req.user,
-                roles: {
-                    "admin": ROLE.ADMIN,
-                    "basic": ROLE.BASIC
-                }
-            })
-        })
-        .catch(result => console.log(result)) */
-
     const response = await countriesDB.read()
 
     res.render('admin/users/create', {
@@ -69,8 +56,34 @@ exports.create = (req, res) => {
     })
 }
 
-exports.get_update = (req, res) => {
+exports.get_update = async(req, res) => {
+    try {
+        const countries = await countriesDB.read()
+        await usersDB.readById(req.params.id, userToUpdate => {
+            res.render('admin/users/update', {
+                user: req.user,
+                roles: {
+                    "admin": ROLE.ADMIN,
+                    "basic": ROLE.BASIC
+                },
+                countries: countries.rows,
+                userToUpdate: userToUpdate
+            })
+        })
+    } catch (e) {
+        console.log(e)
+    }
 
+
+    /* res.render('admin/users/update', {
+        user: req.user,
+        roles: {
+            "admin": ROLE.ADMIN,
+            "basic": ROLE.BASIC
+        },
+        countries: countries.rows,
+        userToUpdate: userToUpdate
+    }) */
 }
 
 exports.update = (req, res) => {
