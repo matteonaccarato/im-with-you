@@ -72,34 +72,21 @@
                     <ul class="navbar-nav ml-auto ">
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow ">
-                            <a class="nav-link dropdown-toggle " href="# " id="userDropdown " role="button " data-toggle="dropdown " aria-haspopup="true " aria-expanded="false ">
-                                <span class="mr-2 d-block text-gray-600 large "><%= user.name %> <%= user.surname %></span>
-                                <div class="topbar-divider d-block d-sm-block "></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="# " id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-block text-gray-600 large"><%= user.name %> <%= user.surname %></span>
+                                <div class="topbar-divider d-block d-sm-block"></div>
 
                                 <% if (user.img != '') { %>
-                                    <img style="width:60px; height:60px; object-fit: cover; " class="rounded-circle " src="<%= user.img %>">
+                                    <img style="width:60px; height:60px; object-fit: cover;" class="rounded-circle" src="<%= user.img %>">
                                     <% } else { %>
                                         <%- include('./partials/tempPhoto') %>
                                             <% } %>
                             </a>
+
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in " aria-labelledby="userDropdown ">
-                                <a class="dropdown-item " href="# ">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 "></i> Profile
-                                </a>
-                                <div class="dropdown-divider "></div>
-                                <a class="dropdown-item " href="# " data-toggle="modal " data-target="#logoutModal ">
-                                    <form action="/logout?_method=DELETE " method="POST ">
-                                        <button type="submit " class="btn btn-light ">
-                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 "></i> Logout
-                                        </button>
-                                    </form>
-                                </a>
+                            <%- include('./partials/profileDropdown') %>
 
-
-
-                            </div>
                         </li>
 
                     </ul>

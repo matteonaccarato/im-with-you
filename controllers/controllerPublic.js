@@ -17,7 +17,8 @@ initalizePassport(
 
 exports.get_home = (req, res) => {
     res.render('public/index', {
-        user: req.user
+        user: req.user,
+        ROLE: ROLE
     });
 }
 

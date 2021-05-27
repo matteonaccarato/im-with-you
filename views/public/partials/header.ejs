@@ -48,7 +48,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
 </head>
 
-<body class="min-vh-100 bg-gradient-primary">
+<body>
 
     <!-- page wrapper -->
     <div id="wrapper">
@@ -64,7 +64,7 @@
                 <nav class="navbar navbar-expand topbar mb-4 static-top shadow">
 
                     <a href="/" class="d-flex justify-content-center align-items-center">
-                        <i class="far fa-heart text-primary"></i>&nbsp;<span class="d-none d-sm-block">| Home</span>
+                        <i class="far fa-heart text-primary"></i>&nbsp;<span class="d-none d-sm-block text-dark"> | Home</span>
                     </a>
 
 
@@ -84,23 +84,10 @@
                                             <%- include('./tempPhoto') %>
                                                 <% } %>
                                 </a>
+
                                 <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in " aria-labelledby="userDropdown ">
-                                    <a class="dropdown-item " href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 "></i> Profile
-                                    </a>
-                                    <div class="dropdown-divider "></div>
-                                    <a class="dropdown-item " href="# " data-toggle="modal " data-target="#logoutModal ">
-                                        <form action="/logout?_method=DELETE" method="POST">
-                                            <button type="submit" class="btn btn-light">
-                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 "></i> Logout
-                                        </button>
-                                        </form>
-                                    </a>
+                                <%- include('./profileDropdown') %>
 
-
-
-                                </div>
                             </li>
 
                             <% } else { %>
