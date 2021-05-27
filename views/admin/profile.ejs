@@ -18,16 +18,22 @@
                     <form action="/admin/profile/<%= user.id %>" method="POST" enctype="multipart/form-data">
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="text" name="email" class="form-control" value="<%= user.email %>" required disabled>
+                                    <label for="email">Email <%- include('./partials/form/requiredSymbols') %></label>
+                                    <input type="email" name="email" id="email" class="form-control" required value="<%= user.email %>">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="username">Username</label>
                                     <input type="text" name="username" class="form-control" value="<%= user.username %>" required>
+                                </div>
+                            </div>
+                            <div class=" col-md-4 ">
+                                <div class="form-group ">
+                                    <label for="password">Password <%- include('./partials/form/requiredSymbols') %></label>
+                                    <input type="password" name="password" id="password" class="form-control" required disabled>
                                 </div>
                             </div>
                         </div>
@@ -115,13 +121,17 @@
                                     <button type="button" style="background-color: transparent; border: none;" id="trashOldImg" onclick="deleteSavedImage(['oldImg', 'trashOldImg', 'iconOldImg'])">
                                     <i class="fas fa-trash text-primary fa-2x mb-3" id="iconOldImg"></i>
                                 </button>
-
                                 </div>
+
 
                                 <% } %>
 
                                     <input type="text" name="deleteImage" id="deleteImage" value="0" hidden>
                                     <input type="text" name="oldImgUrl" value="<%= user.img %>" hidden>
+
+                                    <input type="text" name="role" id="role" value="<%= role %>" hidden>
+
+
 
                                     <%- include('./partials/form/required') %>
 
@@ -146,6 +156,8 @@
 
     </div>
 
+
+    <script src="/js/admin/crudPeople.js"></script>
 
 
 

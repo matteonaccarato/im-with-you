@@ -75,7 +75,12 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-block text-gray-600 large"><%= user.name %> <%= user.surname %></span>
                                     <div class="topbar-divider d-block d-sm-block"></div>
-                                    <img style="width:60px; height:60px; object-fit: cover;" class="rounded-circle" src="https://www.monaco-tribune.com/wp-content/uploads/2020/10/charles-leclerc.jpeg ">
+
+                                    <% if (user.img != '') { %>
+                                        <img style="width:60px; height:60px; object-fit: cover;" class="rounded-circle" src="<%= user.img %>">
+                                        <% } else { %>
+                                            <%- include('./tempPhoto') %>
+                                                <% } %>
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in " aria-labelledby="userDropdown ">
