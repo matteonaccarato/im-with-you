@@ -2,9 +2,9 @@
     "it": {
         "dashboard": {
             "numberOfPhrases": "Numero di frasi",
-            "numberoOfAdmins": "Numero di admin",
-            "numberoOfPosts": "Numero di post",
-            "numberoOfUsers": "Numero di utenti"
+            "numberOfAdmins": "Numero di admin",
+            "numberOfPosts": "Numero di post",
+            "numberOfUsers": "Numero di utenti"
         }
     },
     "en": {

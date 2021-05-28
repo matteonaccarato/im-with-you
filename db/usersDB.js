@@ -127,6 +127,29 @@ const deleteUser = id => {
     close(db)
 }
 
+const getCount = role => {
+    const db = connect_dev();
+    const sql = `SELECT COUNT(username) as nUsers FROM Users WHERE role = '${role}'`
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.get(sql, (err, value) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                }
+                reject(responseObj)
+            } else {
+                responseObj = {
+                    statement: this,
+                    nUsers: value.nUsers
+                }
+                resolve(responseObj)
+            }
+            close(db)
+        })
+    })
+}
+
 
 const getImageUrl = id => {
     const db = connect_dev()
@@ -180,6 +203,7 @@ module.exports = {
     readByEmail,
     readByRole,
     readGeneric,
+    getCount,
     getImageUrl,
     update,
     updateLastSeen,

@@ -49,9 +49,6 @@ exports.read = (id = -1) => {
 exports.update = phrase => {
     const db = connect_dev();
 
-    console.log('AAA\n')
-    console.log(phrase)
-
     const sql = "UPDATE Phrases SET text = $text, img = $img, quotedById = $quotedById, authorId = $authorId, isFinished = $isFinished, yearOfPublication = $yearOfPublication, monthOfPublication = $monthOfPublication, dayOfPublication = $dayOfPublication WHERE id = $id;"
     db.run(sql, {
         $text: phrase.text,
@@ -75,6 +72,28 @@ exports.delete = id => {
     close(db)
 }
 
+exports.getCount = () => {
+    const db = connect_dev();
+    const sql = "SELECT COUNT(id) AS nPhrases FROM Phrases;"
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.get(sql, (err, value) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                }
+                reject(responseObj)
+            } else {
+                responseObj = {
+                    statement: this,
+                    nPhrases: value.nPhrases
+                }
+                resolve(responseObj)
+            }
+            close(db)
+        })
+    })
+}
 
 exports.getImageUrl = id => {
     const db = connect_dev()

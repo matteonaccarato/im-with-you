@@ -1,4 +1,4 @@
-const { ROLE } = require('../config/adminUtils')
+/* const { ROLE } = require('../config/adminUtils')
 
 function canViewElement(user, element) {
     return (
@@ -9,4 +9,4 @@ function canViewElement(user, element) {
 
 module.exports = {
     canViewElement
-}
+} */
