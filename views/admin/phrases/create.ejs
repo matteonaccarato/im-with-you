@@ -35,7 +35,7 @@
 
 
 
-                        <div class="input-group mb-3">
+                        <!-- <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
                             </div>
@@ -51,18 +51,20 @@
                             </div>
 
                             <i class="fas fa-trash text-primary fa-2x mb-3" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
-                        </div>
+                        </div> -->
+
+                        <%- include('../partials/form/imageUpload') %>
 
 
-                        <div class="input-group">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished">
-                                <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
+                            <div class="input-group">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished">
+                                    <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
+                                </div>
                             </div>
-                        </div>
 
 
-                        <%- include('../partials/form/required') %>
+                            <%- include('../partials/form/required') %>
 
                 </div>
                 <div class="card-footer">

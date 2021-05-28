@@ -1,5 +1,23 @@
 <%- include('./partials/header') %>
 
+    <!-- <style>
+        .alert {
+            display: none;
+        }
+        
+        .requirements {
+            list-style-type: none;
+        }
+        
+        .wrong .fa-check {
+            display: none;
+        }
+        
+        .good .fa-times {
+            display: none;
+        }
+    </style> -->
+
     <div class="container-fluid">
 
 
@@ -15,33 +33,74 @@
 
                 <div class="card-body">
 
-                    <form action="/admin/profile/<%= user.id %>" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/profile/<%= user.id %>" method="POST" enctype="multipart/form-data" id="form">
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="email">Email <%- include('./partials/form/requiredSymbol') %></label>
                                     <input type="email" name="email" id="email" class="form-control" required value="<%= user.email %>">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="username">Username</label>
-                                    <input type="text" name="username" class="form-control" value="<%= user.username %>" required>
+                                    <input type="text" name="username" class="form-control" value="<%= user.username %>" required hidden>
                                 </div>
                             </div>
-                            <div class=" col-md-4">
-                                <div class="form-group">
-                                    <!-- maybe direttamente hidden -->
-                                    <label for="password">Password <%- include('./partials/form/requiredSymbol') %></label>
-                                    <input type="password" name="currentPassword" id="currentPassword" class="form-control" required disabled>
-                                </div>
+
+                        </div>
+
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                Vuoi cambiare la <span class="font-italic font">password</span>?
                             </div>
                         </div>
 
-                        <!-- <div class="row">
-                            modifica password
-                        </div> -->
+
+                        <div class="row">
+
+                            <div class="input-group col-md-4 mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-2">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                </div>
+                                <input type="password" id="oldPassword" name="oldPassword" placeholder="Password" class="form-control" required>
+                            </div>
+
+                            <div class="input-group col-md-4 mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-2">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                </div>
+                                <input type="password" id="password" name="password" placeholder="Inserire la nuova password" class="form-control">
+                            </div>
+
+
+                            <div class="input-group col-md-4 mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-2">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                </div>
+                                <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confermare la nuova password" class="form-control">
+                            </div>
+
+                            <div class="row" id="passwordErrors" class="alert alert-warning password-alert" role="alert" hidden>
+                                <ul>
+                                    <li class="requirements len"><i class="fas fa-check text-success" id="validLen" hidden></i><i class="fas fa-times text-danger" id="wrongLen"></i> La password deve essere almeno di 8 caratteri</li>
+                                    <li class="requirements len"><i class="fas fa-check text-success" id="validEquals" hidden></i><i class="fas fa-times text-danger" id="wrongEquals"></i> Le due password NON combaciano</li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <hr>
 
 
                         <div class="row">
@@ -115,12 +174,12 @@
                             <% if (user.img && user.img !== '') { %>
 
                                 <div class="col-12 d-flex justify-content-center align-items-end">
-                                    <div class="col-xl-10 col-lg-12 mb-3">
-                                        <img id="oldImg" src="<%= user.img %>" style="width: 100%;" id="oldImg">
-                                    </div>
+
+                                    <img id="oldImg" src="<%= user.img %>" style="width: 60%; max-width: 550px;" id="oldImg">
+
 
                                     <button type="button" style="background-color: transparent; border: none;" id="trashOldImg" onclick="deleteSavedImage(['oldImg', 'trashOldImg', 'iconOldImg'])">
-                                    <i class="fas fa-trash text-primary fa-2x mb-3" id="iconOldImg"></i>
+                                    <i class="fas fa-trash text-primary fa-2x mb-3 ml-2" id="iconOldImg"></i>
                                 </button>
                                 </div>
 
@@ -141,45 +200,10 @@
                 <div class="card-footer">
                     <div class="col-12 d-flex justify-content-between align-items-center">
                         <div id="input-group">
-                            <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> | Conferma modifica</button>
+                            <button type="submit" id="btn-submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> | Conferma modifica</button>
                             <a href="/admin">
                                 <button type="button" class="btn btn-dark mb-2"><i class="fas fa-history"></i> | Annulla</button>
                             </a>
-                        </div>
-                        <div class="">
-                            <button type="button" class="btn btn-secondary">:changeIcon | Cambia password</button>
-
-                            <div class=" col-md-4">
-                                <div class="form-group ">
-                                    <label for="oldPassword">Vecchia password <%- include('./partials/form/requiredSymbol') %></label>
-                                    <input type="password" name="oldPassword" id="oldPassword" class="form-control">
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="input-group col-lg-6 mb-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white px-4">
-                                            <i class="fas fa-key"></i>
-                                        </span>
-                                    </div>
-                                    <input type="password" id="password" name="password" placeholder="Password" class="form-control" required>
-                                </div>
-
-                                <div class="input-group col-lg-6 mb-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white px-4">
-                                            <i class="fas fa-key"></i>
-                                        </span>
-                                    </div>
-                                    <input type="password" id="passwordConfirmation" class="form-control" placeholder="Conferma password" required>
-                                </div>
-                            </div>
-
-
-                            <p>modal per cambio password</p>
-                            <!-- modal -->
                         </div>
                         </form>
                     </div>

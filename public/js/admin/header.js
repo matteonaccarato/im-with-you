@@ -1,0 +1,3 @@
+$(() => {
+    document.getElementById('sidebarToggleTop').click()
+})

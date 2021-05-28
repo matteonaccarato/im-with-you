@@ -74,7 +74,7 @@
                         </div>
 
 
-                        <div class="input-group mb-3">
+                        <!-- <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
                             </div>
@@ -86,11 +86,13 @@
 
                         <div class="col-12 d-flex justify-content-center align-items-end">
                             <div class="col-xl-10 col-lg-12 mb-3">
-                                <img id="imagePreview" src="#" style="width: 100%;" hidden>
+                                <img id="imagePreview" src="#" style="width: 50%;" hidden>
                             </div>
 
                             <i class="fas fa-trash text-primary fa-2x mb-3" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
-                        </div>
+                        </div> -->
+
+                        <%- include('../partials/form/imageUpload') %>
 
 
 
@@ -99,7 +101,7 @@
 
 
 
-                        <%- include('../partials/form/required') %>
+                            <%- include('../partials/form/required') %>
 
                 </div>
                 <div class="card-footer ">

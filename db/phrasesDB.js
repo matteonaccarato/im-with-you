@@ -22,7 +22,7 @@ exports.create = phrase => {
 
 exports.read = (id = -1) => {
     const db = connect_dev();
-    const sql = "SELECT Phrases.id, Phrases.authorId, Users.username, Phrases.text, Phrases.img, Phrases.isFinished, Phrases.quotedById, People.name, People.surname, People.quotationMarksColor, Phrases.yearOfPublication, Phrases.monthOfPublication, Phrases.dayOfPublication" +
+    const sql = "SELECT Phrases.*, Users.username, People.name, People.surname, People.quotationMarksColor, Phrases.yearOfPublication, Phrases.monthOfPublication, Phrases.dayOfPublication" +
         " FROM Phrases LEFT JOIN People ON (Phrases.quotedById = People.id) LEFT JOIN Users ON (Phrases.authorId = Users.id)" + ((id > -1) ? ` WHERE Phrases.id = ${id}` : "") + ";";
 
     return new Promise((resolve, reject) => {

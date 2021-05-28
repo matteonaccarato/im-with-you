@@ -81,11 +81,11 @@ const create = user => {
 const update = user => {
     const db = connect_dev();
 
-    const sql = "UPDATE Users SET email = $email, username = $username, name = $name, surname = $surname, yearOfBirth = $yearOfBirth, monthOfBirth = $monthOfBirth, dayOfBirth = $dayOfBirth, img = $img, yearOfLastSeen = $yearOfLastSeen, monthOfLastSeen = $monthOfLastSeen, dayOfLastSeen = $dayOfLastSeen, countryCode = $countryCode, role = $role WHERE id = $id;"
+    const sql = "UPDATE Users SET email = $email," + ((user.password != '') ? ` password = '${user.password}', ` : "") + "username = $username, name = $name, surname = $surname, yearOfBirth = $yearOfBirth, monthOfBirth = $monthOfBirth, dayOfBirth = $dayOfBirth, img = $img, yearOfLastSeen = $yearOfLastSeen, monthOfLastSeen = $monthOfLastSeen, dayOfLastSeen = $dayOfLastSeen, countryCode = $countryCode, role = $role WHERE id = $id;"
+    console.log(sql)
     db.run(sql, {
         $email: user.email,
         $username: user.username,
-        /* $password: user.password, */
         $name: user.name,
         $surname: user.surname,
         $yearOfBirth: user.yearOfBirth,

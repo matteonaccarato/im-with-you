@@ -4,7 +4,7 @@ const { connect_dev, connect_prod, close } = require('./utilsDB')
 
 exports.read = (id = -1) => {
     const db = connect_dev();
-    const sql = 'SELECT People.id, People.name, People.surname, People.yearOfBirth, People.monthOfBirth, People.dayOfBirth, People.img, People.job, People.quotationMarksColor, People.countryCode, Countries.name AS cName FROM People ' +
+    const sql = 'SELECT People.*, Countries.name AS cName FROM People ' +
         'LEFT JOIN Countries ON (People.countryCode = Countries.alpha_2)' + ((id > -1) ? ` WHERE People.id = ${id}` : '') + ';';
 
     return new Promise((resolve, reject) => {

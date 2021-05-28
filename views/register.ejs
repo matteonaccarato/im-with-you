@@ -10,7 +10,7 @@
         </div>
 
         <div class="col-md-7 col-lg-6">
-            <form action="/register" method="POST">
+            <form action="/register" method="POST" id="form">
 
 
                 <!-- metto un benvenuto con NODEMAILER -->
@@ -18,7 +18,7 @@
                     <div class="input-group col-lg-12 mb-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-white px-4">
-                                    <i class="fa fa-envelope"></i>
+                                    <i class="fa fa-envelope"></i>&nbsp;<%- include('./admin/partials/form/requiredSymbol') %>
                                 </span>
                         </div>
                         <input id="email" type="email" name="email" placeholder="abc@example.com" class="form-control" required>
@@ -29,7 +29,7 @@
                     <div class="input-group col-lg-12 mb-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-white px-4">
-                                <i class="fa fa-user"></i>
+                                <i class="fa fa-user"></i>&nbsp;<%- include('./admin/partials/form/requiredSymbol') %>
                             </span>
                         </div>
                         <input type="text" id="username" name="username" placeholder="username" class="form-control" required>
@@ -60,7 +60,7 @@
                     <div class="input-group col-lg-6 mb-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-white px-4">
-                                <i class="fas fa-key"></i>
+                                <i class="fas fa-key"></i>&nbsp;<%- include('./admin/partials/form/requiredSymbol') %>
                             </span>
                         </div>
                         <input type="password" id="password" name="password" placeholder="Password" class="form-control" required>
@@ -69,16 +69,24 @@
                     <div class="input-group col-lg-6 mb-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-white px-4">
-                                <i class="fas fa-key"></i>
+                                <i class="fas fa-key"></i>&nbsp;<%- include('./admin/partials/form/requiredSymbol') %>
                             </span>
                         </div>
-                        <input type="password" id="passwordConfirmation" class="form-control" placeholder="Conferma password" required>
+                        <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control" placeholder="Conferma password" required>
                     </div>
                 </div>
 
+                <div class="row" id="passwordErrors" class="alert alert-warning password-alert" role="alert" hidden>
+                    <ul>
+                        <li class="requirements len"><i class="fas fa-check text-success" id="validLen" hidden></i><i class="fas fa-times text-danger" id="wrongLen"></i> La password deve essere almeno di 8 caratteri</li>
+                        <li class="requirements len"><i class="fas fa-check text-success" id="validEquals" hidden></i><i class="fas fa-times text-danger" id="wrongEquals"></i> Le due password NON combaciano</li>
+                    </ul>
+                </div>
+
+
                 <div class="row">
                     <div class="form-group col-lg-12 mx-auto mb-0">
-                        <button type="submit" class="btn btn-block py-2 btn-outline-primary" onclick="checkPassword()">Register</button>
+                        <button type="submit" class="btn btn-block py-2 btn-outline-primary">Register</button>
                     </div>
                 </div>
 
@@ -103,16 +111,10 @@
                     <p class="font-weight-bold">Hai già un account? <a href="/login" class="ml-1 text-info">Login</a></p>
                 </div>
 
-
-
-
-
-
             </form>
         </div>
 
 
         <script src="/js/password.js"></script>
-
 
         <%- include('./public/partials/footer') %>

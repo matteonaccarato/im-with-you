@@ -78,7 +78,7 @@
                                     <span class="mr-2 d-block text-gray-600 large"><%= user.name %> <%= user.surname %></span>
                                     <div class="topbar-divider d-block d-sm-block"></div>
 
-                                    <% if (user.img != '') { %>
+                                    <% if (user.img && user.img != '') { %>
                                         <img style="width:60px; height:60px; object-fit: cover;" class="rounded-circle" src="<%= user.img %>">
                                         <% } else { %>
                                             <%- include('./tempPhoto') %>

@@ -86,12 +86,12 @@
                             <% if (phrase.img && phrase.img !== '') { %>
 
                                 <div class="col-12 d-flex justify-content-center align-items-end">
-                                    <div class="col-xl-10 col-lg-12 mb-3">
-                                        <img id="oldImg" src="<%= phrase.img %>" style="width: 100%;" id="oldImg">
-                                    </div>
+
+                                    <img id="oldImg" src="<%= phrase.img %>" style="width: 60%; max-width: 550px;" id="oldImg">
+
 
                                     <button type="button" style="background-color: transparent; border: none;" id="trashOldImg" onclick="deleteSavedImage(['oldImg', 'trashOldImg', 'iconOldImg'])">
-                                    <i class="fas fa-trash text-primary fa-2x mb-3" id="iconOldImg"></i>
+                                    <i class="fas fa-trash text-primary fa-2x mb-3 ml-2" id="iconOldImg"></i>
                                 </button>
 
                                     <!-- <i class="fas fa-trash text-primary fa-2x mb-3 " id="deleteSavedImage " hidden></i> -->

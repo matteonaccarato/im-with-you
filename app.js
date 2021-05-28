@@ -44,7 +44,10 @@ app.use('/err', routerError)
 app.use('/admin', checkAuthenticated, checkRole(ROLE.ADMIN), routerAdmin);
 app.use('/', routerPublic);
 app.get('/*', (req, res) => {
-    res.status(404).render('errors/404')
+    res.status(404).render('errors/404', {
+        user: req.user,
+        ROLE: ROLE
+    })
 })
 
 module.exports = app;

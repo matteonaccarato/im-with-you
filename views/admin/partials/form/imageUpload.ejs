@@ -4,14 +4,11 @@
     </div>
     <div class="custom-file">
         <input type="file" class="custom-file-input" name="image" id="image" onchange="checkFile(this)" aria-describedby="inputFile">
-        <label class="custom-file-label" for="image">Selezione l'immagine</label>
+        <label class="custom-file-label" for="image">Selezionare l'immagine</label>
     </div>
 </div>
 
 <div class="col-12 d-flex justify-content-center align-items-end">
-    <div class="col-xl-10 col-lg-12 mb-3">
-        <img id="imagePreview" src="#" style="width: 100%;" hidden>
-    </div>
-
-    <i class="fas fa-trash text-primary fa-2x mb-3" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
+    <img id="imagePreview" src="#" style="width: 60%; max-width: 550px;" hidden>
+    <i class="fas fa-trash text-primary fa-2x ml-2" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
 </div>

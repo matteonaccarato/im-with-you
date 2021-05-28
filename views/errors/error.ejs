@@ -16,7 +16,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous"></script>
 
     <link href="/startbootstrap-sb-admin-2-gh-pages/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="/css/mycss.css" rel="stylesheet">
 
 </head>
 
@@ -43,26 +42,30 @@
 
 
                 <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
-                    <div class="row">
-                        <div class="col-md-12 d-flex justify-content-center align-items-center">
-                            <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
-                            <span class="text-dark px-5">|</span>
-                            <div>
-                                <h1>
-                                    <span class="font-weight-bold">
+                    <div class="col-10">
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
+                                <span class="text-dark px-5">|</span>
+                                <div>
+                                    <h3>
+                                        <span class="font-weight-bold">
                                         <%= code %>
                                     </span>,
-                                    <span class="font-italic">
+                                        <span class="font-italic">
                                         <%= message %>
                                     </span>
-                                </h1>
+                                    </h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row my-5">
-                        <div class="spinner-border mx-3"></div>
-                        Redirecting to <a href="/login" class="text-info font-italic">&nbsp;login</a>
+                        <div class="row my-5">
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <div class="spinner-border mx-3"></div>
+                                Redirecting to <a href="/login" class="text-info font-italic">&nbsp;login</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
