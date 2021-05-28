@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express');
 const morgan = require('morgan');
-const bcrypt = require('bcrypt')
+/* const bcrypt = require('bcrypt') */
 const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
@@ -14,14 +14,11 @@ const app = express();
 
 const routerPublic = require('./routes/routerPublic');
 const routerAdmin = require('./routes/routerAdmin');
+const routerError = require('./routes/routerError')
+
 
 const { ROLE, checkRole, checkAuthenticated, checkNotAuthenticated } = require('./config/adminUtils')
 
-/* const initalizePassport = require('./config/passport')
-initalizePassport(
-    passport,
-    email => users.find(user => user.email === email)
-) */
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -43,7 +40,11 @@ app.use(methodOverride('_method'))
 
 app.use(morgan('dev'));
 
-app.use('/', routerPublic);
+app.use('/err', routerError)
 app.use('/admin', checkAuthenticated, checkRole(ROLE.ADMIN), routerAdmin);
+app.use('/', routerPublic);
+app.get('/*', (req, res) => {
+    res.status(404).render('errors/404')
+})
 
 module.exports = app;
