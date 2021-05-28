@@ -1,0 +1,225 @@
+<%- include('./partials/header') %>
+
+    <!-- <style>
+        .alert {
+            display: none;
+        }
+        
+        .requirements {
+            list-style-type: none;
+        }
+        
+        .wrong .fa-check {
+            display: none;
+        }
+        
+        .good .fa-times {
+            display: none;
+        }
+    </style> -->
+
+    <div class="container-fluid">
+
+
+
+        <div class="col-12 mb-4">
+
+            <div class="card border-left-secondary shadow h-100 py-2">
+
+
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold">Aggiorna profilo</h6>
+                </div>
+
+                <div class="card-body">
+
+                    <form action="/admin/profile/<%= user.id %>" method="POST" enctype="multipart/form-data" id="form">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email">Email <%- include('./partials/form/requiredSymbol') %></label>
+                                    <input type="email" name="email" id="email" class="form-control" required value="<%= user.email %>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" name="username" class="form-control" value="<%= user.username %>" required hidden>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                Vuoi cambiare la <span class="font-italic font">password</span>?
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="input-group col-md-4 mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-2">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                </div>
+                                <input type="password" id="oldPassword" name="oldPassword" placeholder="Password" class="form-control" required>
+                            </div>
+
+                            <div class="input-group col-md-4 mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-2">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                </div>
+                                <input type="password" id="password" name="password" placeholder="Inserire la nuova password" class="form-control">
+                            </div>
+
+
+                            <div class="input-group col-md-4 mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-2">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                </div>
+                                <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confermare la nuova password" class="form-control">
+                            </div>
+
+                            <div class="row" id="passwordErrors" class="alert alert-warning password-alert" role="alert" hidden>
+                                <ul>
+                                    <li class="requirements len"><i class="fas fa-check text-success" id="validLen" hidden></i><i class="fas fa-times text-danger" id="wrongLen"></i> La password deve essere almeno di 8 caratteri</li>
+                                    <li class="requirements len"><i class="fas fa-check text-success" id="validEquals" hidden></i><i class="fas fa-times text-danger" id="wrongEquals"></i> Le due password NON combaciano</li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="name">Nome <span class="text-danger">*</span></label>
+                                    <input type="text" name="name" id="name" class="form-control" value="<%= user.name %>">
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="surname">Cognome <span class="text-danger">*</span></label>
+                                    <input type="text" name="surname" id="surname" class="form-control" value="<%= user.surname %>">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="dateOfBirth">Data di nascita</label>
+                                    <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" value="<%= user.yearOfBirth %>-<%= user.monthOfBirth %>-<%= user.dayOfBirth %>">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="country">Paese</label>
+                                    </div>
+                                    <!-- data-live-search-normalize : accent-insensitive searching -->
+                                    <select class="selectpicker show-tick" name="countryCode" id="countryCode" data-live-search="true" data-live-search-normalize="true" data-size="6">  
+                                        <option value="" selected>Nessuno ...</option>
+                                        <% countries.forEach(country => { %>
+                                            <% if (user.countryCode == country.alpha_2) { %>
+                                                <option value="<%= country.alpha_2 %>" selected><%= country.name %></option>
+                                                <% } else { %>
+                                                    <option value="<%= country.alpha_2 %>"><%= country.name %></option>
+                                                <% } %>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- <script>
+                            $(function() {
+                                $('#countryCode').selectpicker({
+                                    container: 'body'
+                                });
+
+                                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                                    $('#countryCode').selectpicker('mobile');
+                                }
+                            });
+                        </script> -->
+
+
+
+
+                        <%- include('./partials/form/imageUpload') %>
+
+
+
+
+
+                            <% if (user.img && user.img !== '') { %>
+
+                                <div class="col-12 d-flex justify-content-center align-items-end">
+
+                                    <img id="oldImg" src="<%= user.img %>" style="width: 60%; max-width: 550px;" id="oldImg">
+
+
+                                    <button type="button" style="background-color: transparent; border: none;" id="trashOldImg" onclick="deleteSavedImage(['oldImg', 'trashOldImg', 'iconOldImg'])">
+                                    <i class="fas fa-trash text-primary fa-2x mb-3 ml-2" id="iconOldImg"></i>
+                                </button>
+                                </div>
+
+
+                                <% } %>
+
+                                    <input type="text" name="deleteImage" id="deleteImage" value="0" hidden>
+                                    <input type="text" name="oldImgUrl" value="<%= user.img %>" hidden>
+
+                                    <input type="text" name="role" id="role" value="<%= role %>" hidden>
+
+
+
+                                    <%- include('./partials/form/required') %>
+
+                </div>
+
+                <div class="card-footer">
+                    <div class="col-12 d-flex justify-content-between align-items-center">
+                        <div id="input-group">
+                            <button type="submit" id="btn-submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> | Conferma modifica</button>
+                            <a href="/admin">
+                                <button type="button" class="btn btn-dark mb-2"><i class="fas fa-history"></i> | Annulla</button>
+                            </a>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script src="/js/password.js"></script>
+    <script src="/js/admin/crudPeople.js"></script>
+
+
+
+    <%- include('./partials/footer') %>

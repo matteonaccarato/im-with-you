@@ -51,7 +51,7 @@
 <body>
 
     <!-- page wrapper -->
-    <div id="wrapper" class="min-vh-100">
+    <div id="wrapper">
 
 
         <!-- Content Wrapper -->
@@ -61,56 +61,40 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand topbar mb-4 static-top shadow">
 
-
-
-                    <i class="far fa-heart text-primary"></i>&nbsp;<span class="d-none d-sm-block">| Landing page</span>
+                    <a href="/" class="d-flex justify-content-center align-items-center">
+                        <i class="far fa-heart text-primary"></i>&nbsp;<span class="d-none d-sm-block text-dark"> | Home</span>
+                    </a>
 
 
                     <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto ">
+                    <ul class="navbar-nav ml-auto">
 
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="# " id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-block text-gray-600 large"><%= user.name %> <%= user.surname %></span>
-                                <div class="topbar-divider d-block d-sm-block"></div>
+                        <% if (user) { %>
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-block text-gray-600 large"><%= user.name %> <%= user.surname %></span>
+                                    <div class="topbar-divider d-block d-sm-block"></div>
 
-                                <% if (user.img != '') { %>
-                                    <img style="width:60px; height:60px; object-fit: cover;" class="rounded-circle" src="<%= user.img %>">
-                                    <% } else { %>
-                                        <%- include('./partials/tempPhoto') %>
-                                            <% } %>
-                            </a>
+                                    <% if (user.img && user.img != '') { %>
+                                        <img style="width:60px; height:60px; object-fit: cover;" class="rounded-circle" src="<%= user.img %>">
+                                        <% } else { %>
+                                            <%- include('./tempPhoto') %>
+                                                <% } %>
+                                </a>
 
-                            <!-- Dropdown - User Information -->
-                            <%- include('./partials/profileDropdown') %>
+                                <!-- Dropdown - User Information -->
+                                <%- include('./profileDropdown') %>
 
-                        </li>
+                            </li>
 
+                            <% } else { %>
+                                <a href="/register">Registrati</a>
+                                <a href="/login">Accedi</a>
+                                <% } %>
                     </ul>
 
                 </nav>
                 <!-- End of Topbar -->
-
-
-                <div class="jumbotron jumbotron-fluid mb-0">
-                    <div class="container ">
-                        <div class="row justify-content-center text-center ">
-                            <div class="col-md-10 col-lg-6 ">
-                                <h1>Welcome back, <span class="text-primary" style="font-weight: 600;"><%= user.name %></span></h1>
-                                <hr>
-                                <p class="lead ">Sei un admin, scegli dove vuoni andare </p>
-                                <a class="btn btn-primary" style="width: 100px;" href="/admin/dashboard">Admin</a>
-                                <a class="btn btn-primary" style="width: 100px;" href="/">Basic</a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </section>
-
-
-
-                <%- include('./../public/partials/footer') %>

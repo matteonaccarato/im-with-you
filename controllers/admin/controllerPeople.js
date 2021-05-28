@@ -1,5 +1,5 @@
-require('dotenv').config();
-const sqlite3 = require('sqlite3');
+/* require('dotenv').config(); */
+/* const sqlite3 = require('sqlite3'); */
 
 const peopleDB = require('../../db/peopleDB')
 const countriesDB = require('../../db/countriesDB')
@@ -12,7 +12,8 @@ exports.get_page = (req, res) => {
     peopleDB.read()
         .then(result => {
             res.render('admin/people/all', {
-                people: result.rows
+                people: result.rows,
+                user: req.user
             })
         })
         .catch(result => console.log(result));
@@ -22,7 +23,8 @@ exports.get_create = (req, res) => {
     countriesDB.read()
         .then(result => {
             res.render('admin/people/create', {
-                countries: result.rows
+                countries: result.rows,
+                user: req.user
             })
         })
         .catch(result => console.log(result))
@@ -35,10 +37,13 @@ exports.create = (req, res) => {
             return res.send('Error uploading file.')
         } else console.log('Image uploaded')
 
+        const date = req.body.dateOfBirth.split('-');
         const person = {
             name: req.body.name,
             surname: req.body.surname,
-            dateOfBirth: req.body.dateOfBirth,
+            yearOfBirth: date[0],
+            monthOfBirth: date[1],
+            dayOfBirth: date[2],
             quotationMarksColor: req.body.quotationMarksColor,
             img: (req.file) ? req.file.location : '',
             job: req.body.job,
@@ -60,7 +65,8 @@ exports.get_update = (req, res) => {
                 .then(resultCountries => {
                     res.render('admin/people/update', {
                         person: resultPeople.rows[0],
-                        countries: resultCountries.rows
+                        countries: resultCountries.rows,
+                        user: req.user
                     })
                 })
                 .catch(result => console.log(result))
@@ -82,16 +88,18 @@ exports.update = (req, res) => {
             .then(obj => {
                 if (obj && obj.url !== '' && req.body.deleteImage == 1) {
                     const tmp = obj.url.split('/')
-                    console.log('ciaoooooooooooo ' + tmp[tmp.length - 1])
                     s3.deleteImage(tmp[tmp.length - 1])
                     console.log('Image updated!')
                 }
 
+                const date = req.body.dateOfBirth.split('-');
                 const person = {
                     id: req.params.id,
                     name: req.body.name,
                     surname: req.body.surname,
-                    dateOfBirth: req.body.dateOfBirth,
+                    yearOfBirth: date[0],
+                    monthOfBirth: date[1],
+                    dayOfBirth: date[2],
                     quotationMarksColor: req.body.quotationMarksColor,
                     img: (req.body.deleteImage == 0) ? req.body.oldImgUrl : (req.file) ? req.file.location : '',
                     job: req.body.job,

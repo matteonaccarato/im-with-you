@@ -1,16 +1,28 @@
 const express = require('express');
 const controllerDashboard = require('../controllers/admin/controllerDashboard');
+const controllerProfile = require('../controllers/admin/controllerProfile');
 const controllerPhrases = require('../controllers/admin/controllerPhrases');
 const controllerPeople = require('../controllers/admin/controllerPeople')
 const controllerPosts = require('../controllers/admin/controllerPosts');
+const controllerBasics = require('../controllers/admin/users/controllerBasics')
+const controllerAdmins = require('../controllers/admin/users/controllerAdmins')
+const controllerUsers = require('../controllers/admin/users/controllerUsers')
 
 const { ROLE, authUser, authRole } = require('../config/adminUtils');
 
 const router = express.Router();
 
+/* ------------- DASHBOARD ------------- */
 router.route('/dashboard')
     .get(controllerDashboard.get_page);
-/* .get(authUser, authRole(ROLE.ADMIN), controllerDashboard.get_page); */
+
+
+/* ------------- PROFILE  ------------- */
+router.route('/profile')
+    .get(controllerProfile.get_page)
+
+router.route('/profile/:id')
+    .post(controllerProfile.update)
 
 
 /* ------------- PHRASES  ------------- */
@@ -53,5 +65,39 @@ router.route('/posts')
 router.route('/posts/create')
     .get(controllerPosts.get_create)
     .post(controllerPosts.create);
+
+router.route('/posts/:id')
+    .get(controllerPosts.get_update)
+    .post(controllerPosts.update)
+
+router.route('/posts/delete/:id')
+    .delete(controllerPosts.delete)
+
+
+
+/* ------------- ADMINS  ------------- */
+router.route('/admins')
+    .get(controllerAdmins.get_page)
+
+
+/* ------------- BASICS  ------------- */
+router.route('/basics')
+    .get(controllerBasics.get_page)
+
+
+/* ------------- USERS  ------------- */
+router.route('/users/create')
+    .get(controllerUsers.get_create)
+    .post(controllerUsers.create)
+
+router.route('/users/:id')
+    .get(controllerUsers.get_update)
+    .post(controllerUsers.update)
+
+router.route('/users/delete/:id')
+    .delete(controllerUsers.delete)
+
+
+
 
 module.exports = router;

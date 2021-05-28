@@ -1,0 +1,91 @@
+const { connect_dev, connect_prod, close } = require('./utilsDB')
+
+exports.create = post => {
+    const db = connect_dev();
+
+    const sql = "INSERT INTO Posts VALUES (null, $title, $text, $authorId, $isFinished, $yearOfPublication, $monthOfPublication, $dayOfPublication);"
+    db.run(sql, {
+        $title: post.title,
+        $text: post.text,
+        $authorId: post.authorId,
+        $isFinished: post.isFinished,
+        $yearOfPublication: post.yearOfPublication,
+        $monthOfPublication: post.monthOfPublication,
+        $dayOfPublication: post.dayOfPublication,
+    })
+
+    close(db);
+}
+
+exports.read = (id = -1) => {
+    const db = connect_dev();
+    const sql = "SELECT Posts.*, Users.username FROM Posts JOIN Users ON (Posts.authorId = Users.id)" + ((id > -1) ? ` WHERE Posts.id = ${id}` : "") + ";";
+
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.all(sql, function(err, rows) {
+            if (err) {
+                responseObj = {
+                    'error': err
+                };
+                reject(responseObj);
+            } else {
+                responseObj = {
+                    statement: this,
+                    rows: rows
+                };
+                resolve(responseObj);
+            }
+            close(db)
+        })
+    })
+}
+
+
+exports.update = post => {
+    const db = connect_dev();
+
+    const sql = "UPDATE Posts SET title = $title, text = $text, authorId = $authorId, isFinished = $isFinished, yearOfPublication = $yearOfPublication, monthOfPublication = $monthOfPublication, dayOfPublication = $dayOfPublication WHERE id = $id;"
+    db.run(sql, {
+        $title: post.title,
+        $text: post.text,
+        $authorId: post.authorId,
+        $isFinished: post.isFinished,
+        $yearOfPublication: post.yearOfPublication,
+        $monthOfPublication: post.monthOfPublication,
+        $dayOfPublication: post.dayOfPublication,
+        $id: post.id
+    })
+
+    close(db);
+}
+
+exports.delete = id => {
+    const db = connect_dev();
+    const sql = `DELETE FROM Posts WHERE id = ${id};`;
+    db.run(sql);
+    close(db)
+}
+
+exports.getCount = () => {
+    const db = connect_dev();
+    const sql = "SELECT COUNT(id) AS nPosts FROM Posts;"
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.get(sql, (err, value) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                }
+                reject(responseObj)
+            } else {
+                responseObj = {
+                    statement: this,
+                    nPosts: value.nPosts
+                }
+                resolve(responseObj)
+            }
+            close(db)
+        })
+    })
+}

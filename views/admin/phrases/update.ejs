@@ -57,7 +57,7 @@
 
 
 
-                        <div class="input-group mb-3">
+                        <!-- <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
                             </div>
@@ -73,7 +73,9 @@
                             </div>
 
                             <i class="fas fa-trash text-primary fa-2x mb-3" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
-                        </div>
+                        </div> -->
+
+                        <%- include('../partials/form/imageUpload') %>
 
 
 
@@ -81,34 +83,37 @@
 
 
 
+                            <% if (phrase.img && phrase.img !== '') { %>
+
+                                <div class="col-12 d-flex justify-content-center align-items-end">
+
+                                    <img id="oldImg" src="<%= phrase.img %>" style="width: 60%; max-width: 550px;" id="oldImg">
 
 
-                        <% if (phrase.img && phrase.img !== '') { %>
+                                    <button type="button" style="background-color: transparent; border: none;" id="trashOldImg" onclick="deleteSavedImage(['oldImg', 'trashOldImg', 'iconOldImg'])">
+                                    <i class="fas fa-trash text-primary fa-2x mb-3 ml-2" id="iconOldImg"></i>
+                                </button>
 
-                            <div class="col-12 d-flex justify-content-center align-items-end">
-                                <div class="col-xl-10 col-lg-12 mb-3">
-                                    <img src="<%= phrase.img %>" style="width: 100%;" id="oldImg">
+                                    <!-- <i class="fas fa-trash text-primary fa-2x mb-3 " id="deleteSavedImage " hidden></i> -->
+
                                 </div>
 
-                                <button type="submit" style="background-color: transparent; border: none;" id="trashOldImg">
-                                        <i class="fas fa-trash text-primary fa-2x mb-3"></i>
-                                    </button>
 
-                            </div>
+                                <% } %>
 
+                                    <input type="text" name="deleteImage" id="deleteImage" value="0" hidden>
+                                    <input type="text" name="oldImgUrl" value="<%= phrase.img %>" hidden>
 
-                            <% } %>
-
-                                <div class="input-group">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished" data-status="<%= phrase.isFinished %>">
-                                        <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
+                                    <div class="input-group">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished" data-status="<%= phrase.isFinished %>">
+                                            <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
+                                        </div>
                                     </div>
-                                </div>
 
 
 
-                                <%- include('../partials/form/required') %>
+                                    <%- include('../partials/form/required') %>
 
 
 
@@ -128,14 +133,8 @@
         </div>
 
 
-        <script>
-            /* let statusSwitch = document.getElementById('statusSwitch')
-                                                                                                                                                                        if (statusSwitch.dataset.status == 1) {
-                                                                                                                                                                            const attr = document.createAttribute("checked")
-                                                                                                                                                                            statusSwitch.setAttributeNode(attr)
-                                                                                                                                                                        } */
-        </script>
 
-        <script src="/js/admin/crudPhrases.js"></script>
+        <script src="/js/admin/crudPeople.js"></script>
+        <!-- <script src="/js/admin/crudPhrases.js"></script> -->
 
         <%- include('./../partials/footer') %>

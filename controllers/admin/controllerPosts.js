@@ -1,32 +1,84 @@
-const sqlite3 = require('sqlite3');
+const postsDB = require('../../db/postsDB')
 
 exports.get_page = (req, res) => {
-    //db.serialize()
-
-    res.render('admin/posts/all');
+    postsDB.read()
+        .then(result => {
+            res.render('admin/posts/all', {
+                posts: result.rows,
+                user: req.user
+            });
+        })
+        .catch(result => {
+            console.log(result)
+            res.render('errors/error', {
+                code: 500,
+                message: result.error
+            })
+        })
 }
 
 exports.get_create = (req, res) => {
-
-    const db = new sqlite3.Database('./db/im-with-you-dev.db', err => {
-        if (err)
-            return console.error(err.message);
-        console.log(`I'm with you ♥ | Connected to the sqlite DB!`);
-    });
-
-    let quotedBy = [{
-        "id": "1",
-        "name": "Charles",
-        "surname": "Leclerc"
-    }];
-    let sql = "SELECT name, surname, dateOfBirth, quotationMarksColor, job, countryCode FROM People;";
-
-    res.render('admin/posts/createPost', {
-
+    res.render('admin/posts/createModify', {
+        user: req.user,
+        formAction: 'create',
+        post: {},
     })
 }
 
 exports.create = (req, res) => {
-    console.log('ciao');
+    const date = new Date().toISOString().split('T')[0]
     console.log(req.body)
+    const post = {
+        title: req.body.title,
+        text: req.body.text,
+        authorId: req.user.id,
+        isFinished: (req.body.isFinished === 'on') ? 1 : 0,
+        yearOfPublication: date.split('-')[0],
+        monthOfPublication: date.split('-')[1],
+        dayOfPublication: date.split('-')[2],
+    }
+    console.log(post)
+
+    postsDB.create(post)
+    res.status(200).redirect('/admin/posts')
+}
+
+exports.get_update = (req, res) => {
+    postsDB.read(req.params.id)
+        .then(result => {
+            res.render('admin/posts/createModify', {
+                post: result.rows[0],
+                formAction: result.rows[0].id,
+                user: req.user
+            })
+        })
+        .catch(result => {
+            console.log(result)
+            res.render('errors/error', {
+                code: 500,
+                message: result.error
+            })
+        })
+}
+
+exports.update = (req, res) => {
+    const date = new Date().toISOString().split('T')[0]
+    const post = {
+        id: req.params.id,
+        title: req.body.title,
+        text: req.body.text,
+        authorId: req.user.id,
+        isFinished: (req.body.isFinished === 'on') ? 1 : 0,
+        yearOfPublication: date.split('-')[0],
+        monthOfPublication: date.split('-')[1],
+        dayOfPublication: date.split('-')[2],
+    }
+    postsDB.update(post)
+    res.status(200).redirect('/admin/posts')
+}
+
+exports.delete = (req, res) => {
+    postsDB.delete(req.params.id)
+    console.log('Post successfully deleted!')
+    res.status(200).redirect('/admin/posts')
 }

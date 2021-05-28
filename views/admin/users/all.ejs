@@ -1,14 +1,20 @@
 <%- include('./../partials/header') %>
 
+
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 mb-4">
                 <div class="card border-right-primary shadow h-100 py-2">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold">Tabella PERSONE</h6>
+
+                        <h6 class="m-0 font-weight-bold">Tabella UTENTI |
+                            <%= role %>
+                        </h6>
 
                         <div class="d-flex align-items-center justify-content-between">
-                            <a href="/admin/people/create" class="text-info mr-4"><i class="fas fa-plus-square"></i> | Crea nuovo</a>
+                            <a href="/admin/users/create" class="text-info mr-4"><i class="fas fa-plus-square"></i> | Crea nuovo</a>
+
                             <div class="dropdown no-arrow">
                                 <!-- IE => Import/Export -->
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownIELink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -20,6 +26,7 @@
                                     <div class="dropdown-header">(icon) Importa</div>
                                     <div class="no-gutters align-items-center">
                                         <a class="dropdown-item" href="#">
+
                                             <div class="font-weight-bold text-dark d-flex align-items-center">
                                                 <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
                                             </div>
@@ -45,72 +52,73 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>Email</th>
+                                        <th>Username</th>
                                         <th>Nome</th>
                                         <th>Cognome</th>
                                         <th>Data di nascita</th>
                                         <th>Immagine</th>
-                                        <th>Lavoro</th>
-                                        <th>Colore</th>
                                         <th>Nazione</th>
                                         <th>Azioni</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% people.forEach(person=> { %>
+                                    <% users.forEach(user=> { %>
                                         <tr>
                                             <td>
-                                                <a href="/admin/people/<%= person.id %>">
-                                                    <%= person.id %>
+                                                <a href="/admin/users/<%= user.id %>">
+                                                    <%= user.id %>
                                                 </a>
                                             </td>
                                             <td>
-                                                <%= person.name %>
+                                                <%= user.email %>
                                             </td>
                                             <td>
-                                                <%= person.surname %>
+                                                <%= user.username %>
                                             </td>
                                             <td>
-                                                <% if (person.yearOfBirth) { %>
-                                                    <%= person.dayOfBirth %> /
-                                                        <%= person.monthOfBirth %> /
-                                                            <%= person.yearOfBirth %>
-                                                                <% } else { %>
-                                                                    <%- include('./../partials/table/notAvailable') %>
-                                                                        <% } %>
-                                            </td>
-                                            <td>
-                                                <% if (person.img) { %>
-                                                    <div class="img-hover-zoom">
-                                                        <img style="height: 150px" src="<%= person.img %>" />
-                                                    </div>
-                                                    <% } else { %>
-                                                        <%- include('./../partials/table/notAvailable') %>
-                                                            <% } %>
-                                            </td>
-                                            <td>
-                                                <% if (person.job) { %>
-                                                    <%= person.job %>
+                                                <% if (user.name) { %>
+                                                    <%= user.name %>
                                                         <% } else { %>
                                                             <%- include('./../partials/table/notAvailable') %>
                                                                 <% } %>
                                             </td>
                                             <td>
-                                                <div class="d-flex justify-content-center align-items-center">
-                                                    <div class="square" data-color="<%= person.quotationMarksColor %>">
-                                                    </div>
-                                                </div>
+                                                <% if (user.surname) { %>
+                                                    <%= user.surname %>
+                                                        <% } else { %>
+                                                            <%- include('./../partials/table/notAvailable') %>
+                                                                <% } %>
                                             </td>
                                             <td>
-                                                <% if (person.countryCode) { %>
-                                                    <img title="<%= person.cName %>" src="/assets/flags/128x128/<%= person.countryCode %>.png" />
+                                                <% if (user.yearOfBirth) { %>
+                                                    <%= user.dayOfBirth %> /
+                                                        <%= user.monthOfBirth %> /
+                                                            <%= user.yearOfBirth %>
+                                                                <% } else { %>
+                                                                    <%- include('./../partials/table/notAvailable') %>
+                                                                        <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (user.img) { %>
+                                                    <div class="img-hover-zoom">
+                                                        <img style="height: 150px" src="<%= user.img %>" />
+                                                    </div>
+                                                    <% } else { %>
+                                                        <%- include('./../partials/table/notAvailable') %>
+                                                            <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (user.countryCode) { %>
+                                                    <img title="<%= user.cName %>" src="/assets/flags/128x128/<%= user.countryCode %>.png" />
                                                     <% } else { %>
                                                         <%- include('./../partials/table/notAvailable') %>
                                                             <% } %>
                                             </td>
                                             <td class="d-flex justify-content-around align-items-center" style="height: 180px">
-                                                <a href="/admin/people/<%= person.id %>"><i
+                                                <a href="/admin/users/<%= user.id %>"><i
                                                         class="fas fa-edit text-info"></i></a>
-                                                <form method="post" action="/admin/people/delete/<%= person.id %>?_method=DELETE">
+                                                <form method="post" action="/admin/users/delete/<%= user.id %>?_method=DELETE">
                                                     <input type="hidden" name="_method" value="DELETE" />
                                                     <button type="submit" style="background-color: transparent; border: none" id="myEditButton">
                                                         <i class="fas fa-trash text-primary"></i>
@@ -128,6 +136,9 @@
         </div>
     </div>
 
-    <script src="/js/admin/allPeople.js"></script>
+    <!--  <script src="/js/admin/allPeople.js"></script> -->
+
+
+
 
     <%- include('./../partials/footer') %>

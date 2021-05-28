@@ -11,7 +11,8 @@ exports.get_page = (req, res) => {
     phrasesDB.read()
         .then(result => {
             res.render('admin/phrases/all', {
-                phrases: result.rows
+                phrases: result.rows,
+                user: req.user
             })
         })
         .catch(result => console.log(result));
@@ -22,7 +23,8 @@ exports.get_create = (req, res) => {
         .then(result => {
             console.log(result)
             res.render('admin/phrases/create', {
-                quotedById: result.rows
+                quotedById: result.rows,
+                user: req.user
             })
         })
         .catch(result => console.log(result))
@@ -35,13 +37,16 @@ exports.create = (req, res) => {
             return res.end("Error uploading file.");
         } else console.log('Image uploaded')
 
+        const date = new Date().toISOString().split('T')[0] // 2021-05-26T21:53:36.244Z
         const phrase = {
             text: req.body.text,
             img: (req.file) ? req.file.location : '',
             quotedById: req.body.quotedById,
             authorId: req.user.id,
             isFinished: (req.body.isFinished === 'on') ? 1 : 0,
-            date: new Date().toLocaleDateString()
+            yearOfPublication: date.split('-')[0],
+            monthOfPublication: date.split('-')[1],
+            dayOfPublication: date.split('-')[2]
         }
 
         phrasesDB.create(phrase);
@@ -58,7 +63,8 @@ exports.get_update = (req, res) => {
                 .then(people => {
                     res.render('admin/phrases/update', {
                         phrase: phrase.rows[0],
-                        quotedById: people.rows
+                        quotedById: people.rows,
+                        user: req.user
                     })
                 })
                 .catch(result => console.log(result))
@@ -74,23 +80,28 @@ exports.update = (req, res) => {
             return res.end('Error uploading file.')
         } else console.log('Image updated!')
 
+        console.log(req.body.deleteImage)
+
         phrasesDB.getImageUrl(req.params.id)
             .then(obj => {
-                if (obj && obj.url !== '') {
+                if (obj && obj.url !== '' && req.body.deleteImage == 1) {
                     // getImageNameFromUrl
                     const tmp = obj.url.split('/')
                     s3.deleteImage(tmp[tmp.length - 1])
                 }
+                const date = new Date().toISOString().split('T')[0] // 2021-05-26T21:53:36.244Z
                 const phrase = {
-                    id: req.params.id,
-                    text: req.body.text,
-                    img: (req.file) ? req.file.location : '',
-                    quotedById: req.body.quotedById,
-                    authorId: req.user.id,
-                    isFinished: (req.body.isFinished === 'on') ? 1 : 0,
-                    date: new Date().toLocaleDateString()
-                }
-                console.log(phrase)
+                        id: req.params.id,
+                        text: req.body.text,
+                        img: (req.body.deleteImage == 0) ? req.body.oldImgUrl : (req.file) ? req.file.location : '',
+                        quotedById: req.body.quotedById,
+                        authorId: req.user.id,
+                        isFinished: (req.body.isFinished === 'on') ? 1 : 0,
+                        yearOfPublication: date.split('-')[0],
+                        monthOfPublication: date.split('-')[1],
+                        dayOfPublication: date.split('-')[2]
+                    }
+                    /* console.log(phrase) */
                 phrasesDB.update(phrase)
                 res.status(200).redirect('/admin/phrases')
             })
