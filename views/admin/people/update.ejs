@@ -33,7 +33,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="dateOfBirth">Data di nascita</label>
-                                    <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" value="<%= person.dateOfBirth %>">
+                                    <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" value="<%= person.yearOfBirth %>-<%= person.monthOfBirth %>-<%= person.dayOfBirth %>">
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                         </div>
 
 
-                        <div class="input-group mb-3">
+                        <!-- <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
                             </div>
@@ -94,48 +94,51 @@
                             </div>
 
                             <i class="fas fa-trash text-primary fa-2x mb-3" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
-                        </div>
+                        </div> -->
+
+
+                        <%- include('../partials/form/imageUpload') %>
 
 
 
 
 
-                        <% if (person.img && person.img !== '') { %>
+                            <% if (person.img && person.img !== '') { %>
 
-                            <div class="col-12 d-flex justify-content-center align-items-end">
-                                <div class="col-xl-10 col-lg-12 mb-3">
-                                    <img id="oldImg" src="<%= person.img %>" style="width: 100%;" id="oldImg">
-                                </div>
+                                <div class="col-12 d-flex justify-content-center align-items-end">
 
-                                <button type="button" style="background-color: transparent; border: none;" id="trashOldImg" onclick="deleteSavedImage(['oldImg', 'trashOldImg', 'iconOldImg'])">
-                                    <i class="fas fa-trash text-primary fa-2x mb-3" id="iconOldImg"></i>
+                                    <img id="oldImg" src="<%= person.img %>" style="width: 60%; max-width: 550px;" id="oldImg">
+
+
+                                    <button type="button" style="background-color: transparent; border: none;" id="trashOldImg" onclick="deleteSavedImage(['oldImg', 'trashOldImg', 'iconOldImg'])">
+                                    <i class="fas fa-trash text-primary fa-2x mb-3 ml-2" id="iconOldImg"></i>
                                 </button>
 
-                                <!-- <i class="fas fa-trash text-primary fa-2x mb-3 " id="deleteSavedImage " hidden></i> -->
+                                    <!-- <i class="fas fa-trash text-primary fa-2x mb-3 " id="deleteSavedImage " hidden></i> -->
 
-                            </div>
+                                </div>
 
 
-                            <% } %>
+                                <% } %>
 
-                                <input type="text" name="deleteImage" id="deleteImage" value="0" hidden>
-                                <input type="text" name="oldImgUrl" value="<%= person.img %>" hidden>
+                                    <input type="text" name="deleteImage" id="deleteImage" value="0" hidden>
+                                    <input type="text" name="oldImgUrl" value="<%= person.img %>" hidden>
 
-                                <%- include('../partials/form/required') %>
+                                    <%- include('../partials/form/required') %>
 
                 </div>
                 <div class="card-footer ">
                     <div class="col-12 d-flex justify-content-between align-items-center">
-                        <div id="input-group ">
-                            <button type="submit " class="btn btn-primary mb-2 "><i class="fas fa-check "></i> | Conferma creazione</button>
-                            <a href="/admin/people ">
-                                <button type="button " class="btn btn-dark mb-2 "><i class="fas fa-history "></i> | Annulla</button>
+                        <div id="input-group">
+                            <button type="submit" class="btn btn-primary mb-2 "><i class="fas fa-check "></i> | Conferma creazione</button>
+                            <a href="/admin/people">
+                                <button type="button" class="btn btn-dark mb-2 "><i class="fas fa-history "></i> | Annulla</button>
                             </a>
                         </div>
                         </form>
 
-                        <form action="/admin/people/delete/<%= person.id %>">
-                            <button type="submit" class="btn btn-danger mb-2"><i class=""></i> | Cancella</button>
+                        <form action="/admin/people/delete/<%= person.id %>?_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-trash text-primary"></i> | Cancella</button>
                         </form>
                     </div>
 

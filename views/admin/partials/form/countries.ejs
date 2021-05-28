@@ -1,0 +1,13 @@
+<div class="input-group mb-3">
+
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="countryCode">Paese</label>
+    </div>
+    <!-- data-live-search-normalize : accent-insensitive searching -->
+    <select class="selectpicker show-tick" name="countryCode" id="countryCode" data-live-search="true" data-live-search-normalize="true" data-size="6">  
+        <option value="" selected>Nessuno ...</option>
+        <% countries.forEach(country => { %>
+            <option value="<%= country.alpha_2 %>"><%= country.name %></option>
+        <% }) %>
+    </select>
+</div>

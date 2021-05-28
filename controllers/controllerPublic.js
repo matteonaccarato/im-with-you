@@ -4,7 +4,9 @@ const passport = require('passport')
 
 const initalizePassport = require('../config/passport')
 const usersDB = require('./../db/usersDB')
+const { updateLastSeen } = require('../db/usersDB')
 const { ROLE } = require('../config/adminUtils')
+const { SALT_ROUNDS } = require('../db/utilsDB')
 
 const { create, readById, readByEmail } = require('./../db/usersDB')
 initalizePassport(
@@ -15,12 +17,15 @@ initalizePassport(
 
 exports.get_home = (req, res) => {
     res.render('public/index', {
-        user: req.user
+        user: req.user,
+        ROLE: ROLE
     });
 }
 
 exports.get_register = (req, res) => {
-    res.render('register')
+    res.render('register', {
+        user: req.user
+    })
 }
 
 
@@ -53,7 +58,7 @@ console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" 
 
 exports.register = async(req, res) => {
     try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10) // scrivere cosa è il 10!!?
+        const hashedPassword = await bcrypt.hash(req.body.password, SALT_ROUNDS) // scrivere cosa è il 10!!?
         create({
             email: req.body.email,
             username: req.body.username,
@@ -74,10 +79,13 @@ exports.register = async(req, res) => {
 }
 
 exports.get_login = (req, res) => {
-    res.render('login')
+    res.render('login', {
+        user: req.user
+    })
 }
 
 exports.logout = (req, res) => {
+    updateLastSeen(req.user.id)
     req.logOut()
     res.redirect('/login')
 }

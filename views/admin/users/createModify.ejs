@@ -1,0 +1,164 @@
+<%- include('./../partials/header') %>
+
+    <div class="container-fluid">
+
+        <div class="col-12 mb-4">
+
+            <div class="card border-left-secondary shadow h-100 py-2">
+
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <% if (!userToUpdate.email) { %>
+                        <h6 class="m-0 font-weight-bold">Crea UTENTE</h6>
+                        <% } else { %>
+                            <h6 class="m-0 font-weight-bold">Modifica UTENTE</h6>
+                            <% } %>
+                </div>
+
+                <div class="card-body">
+
+
+                    <form action="/admin/users/<%= formAction %>" method="POST" enctype="multipart/form-data">
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="email">Email <%- include('../partials/form/requiredSymbol') %></label>
+                                    <input type="email" name="email" id="email" class="form-control" required value="<%= userToUpdate.email %>">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="username">Username <%- include('../partials/form/requiredSymbol') %></label>
+                                    <input type="text" name="username" id="username" class="form-control" required value="<%= userToUpdate.username %>">
+                                </div>
+                            </div>
+
+                            <div class=" col-md-4 ">
+                                <div class="form-group ">
+                                    <label for="password ">Password <%- include('../partials/form/requiredSymbol') %></label>
+                                    <% if (!userToUpdate.password) { %>
+                                        <input type="password" name="password" id="password" class="form-control" required>
+                                        <% } else { %>
+                                            <input type="password" name="password" id="password" class="form-control" required disabled>
+                                            <% } %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-md-4 ">
+                                <div class="form-group">
+                                    <label for="name ">Nome</label>
+                                    <input type="text" name="name" id="name" class="form-control" value="<%= userToUpdate.name %>">
+                                </div>
+
+                            </div>
+                            <div class="col-md-4 ">
+                                <div class="form-group ">
+                                    <label for="surname ">Cognome</label>
+                                    <input type="text " name="surname" id="surname" class="form-control " value="<%= userToUpdate.surname %>">
+                                </div>
+                            </div>
+                            <div class="col-md-4 ">
+                                <div class="form-group ">
+                                    <label for="dateOfBirth ">Data di nascita</label>
+                                    <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control " value="<%= userToUpdate.yearOfBirth %>-<%= userToUpdate.monthOfBirth %>-<%= userToUpdate.dayOfBirth %>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-12 ">
+                                <div class="input-group mb-3">
+
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="country">Paese</label>
+                                    </div>
+                                    <!-- data-live-search-normalize : accent-insensitive searching -->
+                                    <select class="selectpicker show-tick" name="countryCode" id="countryCode" data-live-search="true" data-live-search-normalize="true" data-size="6">  
+                                        <option value="" selected>Nessuno ...</option>
+                                        <% countries.forEach(country => { %>
+                                            <% if (userToUpdate.countryCode == country.alpha_2) { %>
+                                                <option value="<%= country.alpha_2 %>" selected><%= country.name %></option>
+                                                <% } else { %>
+                                                    <option value="<%= country.alpha_2 %>"><%= country.name %></option>
+                                                <% } %>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <%- include('../partials/form/imageUpload') %>
+
+
+
+
+                            <% if (userToUpdate.img && userToUpdate.img !== '') { %>
+
+                                <div class="col-12 d-flex justify-content-center align-items-end">
+
+                                    <img id="oldImg" src="<%= userToUpdate.img %>" style="width: 60%; max-width: 550px;" id="oldImg">
+
+
+                                    <button type="button" style="background-color: transparent; border: none;" id="trashOldImg" onclick="deleteSavedImage(['oldImg', 'trashOldImg', 'iconOldImg'])">
+                                        <i class="fas fa-trash text-primary fa-2x mb-3 ml-2" id="iconOldImg"></i>
+                                    </button>
+                                </div>
+
+
+                                <% } %>
+
+                                    <input type="text" name="deleteImage" id="deleteImage" value="0" hidden>
+                                    <input type="text" name="oldImgUrl" value="<%= userToUpdate.img %>" hidden>
+
+
+
+
+
+
+
+
+
+
+
+                                    <%- include('../partials/form/userRoles') %>
+
+
+
+
+                                        <%- include('../partials/form/required') %>
+
+
+                </div>
+                <div class="card-footer">
+                    <div class="col-12 d-flex justify-content-between align-items-center">
+                        <div id="input-group ">
+                            <button type="submit " class="btn btn-primary mb-2 "><i class="fas fa-check "></i> | Conferma creazione</button>
+                            <a href="/admin/admins" class="btn btn-dark mb-2">
+                                <i class="fas fa-history "></i> | Annulla</button>
+                            </a>
+                        </div>
+                        </form>
+                        <% if (userToUpdate.email) { %>
+                            <form action="/admin/users/delete/<%= userToUpdate.id %>?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-trash text-primary"></i> | Cancella</button>
+                            </form>
+                            <% } %>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/js/admin/crudPeople.js"></script>
+
+    <%- include('./../partials/footer') %>

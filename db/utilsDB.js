@@ -5,6 +5,8 @@ const path = {
     'prod': "./db/im-with-you.db"
 }
 
+const SALT_ROUNDS = 10 // for brcypt.hash(plainText, saltRounds)
+
 const connect_dev = () => {
     return connect(path.dev)
 }
@@ -17,7 +19,7 @@ const connect = path => {
     return new sqlite3.Database(path, err => {
         if (err)
             return console.error(err.message);
-        console.log("I'm with you ♥ | Connected to the sqlite DB!");
+        /* console.log("I'm with you ♥ | Connected to the sqlite DB!"); */
     });
 }
 
@@ -25,12 +27,13 @@ const close = db => {
     db.close(err => {
         if (err)
             console.error(err.message);
-        console.log("I'm with you ♥ | Disconnected from the sqlite DB!")
+        /* console.log("I'm with you ♥ | Disconnected from the sqlite DB!") */
     })
 }
 
 module.exports = {
     connect_dev,
     connect_prod,
-    close
+    close,
+    SALT_ROUNDS
 }

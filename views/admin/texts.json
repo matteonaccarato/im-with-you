@@ -1,0 +1,13 @@
+{
+    "it": {
+        "dashboard": {
+            "numberOfPhrases": "Numero di frasi",
+            "numberOfAdmins": "Numero di admin",
+            "numberOfPosts": "Numero di post",
+            "numberOfUsers": "Numero di utenti"
+        }
+    },
+    "en": {
+
+    }
+}
