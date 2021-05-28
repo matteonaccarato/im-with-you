@@ -45,33 +45,64 @@
                             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                        <th>Autore</th>
                                         <th>Titolo</th>
                                         <th>Testo (max. 128 caratteri)</th>
-                                        <th>img url</th>
-                                        <th>Stato</th>
-                                        <th>...</th>
                                         <th>Likes</th>
-                                        <th>Autore</th>
+                                        <th>Data pubblicazione</th>
+                                        <th>Stato</th>
                                         <th>Azioni</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- LIMITE MASSIMO DI RIGHE VISUALIZZABILI -->
-                                    <tr>
-                                        <td>Dorian</td>
-                                        <td>Dorian era ...</td>
-                                        <td>img</td>
-                                        <td>stato</td>
-                                        <td>...</td>
-                                        <td>89 :likes</td>
-                                        <td>
-                                            <!-- per visualizzare profilo dell'utente -->
-                                            <a href="/users/1">
-                                                Matteo Naccarato
-                                            </a>
-                                        </td>
-                                        <td>matita + cestino</td>
-                                    </tr>
+
+                                    <% posts.forEach(post => { %>
+                                        <tr>
+                                            <td>
+                                                <a class="text-info">
+                                                    <%= post.username %>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <%= post.title %>
+                                            </td>
+                                            <td>
+                                                <%= post.text %>
+                                                    <!-- serve un limite massimo (apro con modal)-->
+                                            </td>
+                                            <td style="width: 5%;">
+                                                100 :3
+                                            </td>
+                                            <td>
+                                                <% if (post.yearOfPublication) { %>
+                                                    <%= post.dayOfPublication %> /
+                                                        <%= post.monthOfPublication %> /
+                                                            <%= post.yearOfPublication %>
+                                                                <% } else { %>
+                                                                    <%- include('./../partials/table/notAvailable') %>
+                                                                        <% } %>
+                                            </td>
+                                            <td style="width: 3%;">
+                                                <% if (post.isFinished == 1) { %>
+                                                    <i class="fas fa-globe-europe"></i>
+                                                    <% } else { %>
+                                                        <i class="fas fa-lock"></i>
+                                                        <% } %>
+                                            </td>
+                                            <td class="d-flex justify-content-between align-items-center" style="height: 180px;">
+                                                <a href="/admin/posts/<%= post.id %>"><i class="fas fa-edit text-info"></i></a>
+                                                <form method="post" action="/admin/posts/delete/<%= post.id %>?_method=DELETE">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit" style="background-color: transparent; border: none;" id="myEditButton">
+                                                    <i class="fas fa-trash text-primary"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+
+
                                 </tbody>
                             </table>
                         </div>

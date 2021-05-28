@@ -66,6 +66,13 @@ router.route('/posts/create')
     .get(controllerPosts.get_create)
     .post(controllerPosts.create);
 
+router.route('/posts/:id')
+    .get(controllerPosts.get_update)
+    .post(controllerPosts.update)
+
+router.route('/posts/delete/:id')
+    .delete(controllerPosts.delete)
+
 
 
 /* ------------- ADMINS  ------------- */

@@ -19,7 +19,7 @@ exports.create = post => {
 
 exports.read = (id = -1) => {
     const db = connect_dev();
-    const sql = "SELECT FROM Posts" + ((id > -1) ? ` WHERE Posts.id = ${id}` : "") + ";";
+    const sql = "SELECT Posts.*, Users.username FROM Posts JOIN Users ON (Posts.authorId = Users.id)" + ((id > -1) ? ` WHERE Posts.id = ${id}` : "") + ";";
 
     return new Promise((resolve, reject) => {
         var responseObj;

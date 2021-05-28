@@ -16,7 +16,11 @@
             <div class="card border-left-secondary shadow h-100 py-2">
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold">Crea UTENTE</h6>
+                    <% if (!userToUpdate.email) { %>
+                        <h6 class="m-0 font-weight-bold">Crea UTENTE</h6>
+                        <% } else { %>
+                            <h6 class="m-0 font-weight-bold">Modifica UTENTE</h6>
+                            <% } %>
                 </div>
 
                 <div class="card-body">
@@ -29,21 +33,21 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="email">Email <%- include('../partials/form/requiredSymbols') %></label>
+                                    <label for="email">Email <%- include('../partials/form/requiredSymbol') %></label>
                                     <input type="email" name="email" id="email" class="form-control" required value="<%= userToUpdate.email %>">
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="username">Username <%- include('../partials/form/requiredSymbols') %></label>
+                                    <label for="username">Username <%- include('../partials/form/requiredSymbol') %></label>
                                     <input type="text" name="username" id="username" class="form-control" required value="<%= userToUpdate.username %>">
                                 </div>
                             </div>
 
                             <div class=" col-md-4 ">
                                 <div class="form-group ">
-                                    <label for="password ">Password <%- include('../partials/form/requiredSymbols') %></label>
+                                    <label for="password ">Password <%- include('../partials/form/requiredSymbol') %></label>
                                     <% if (!userToUpdate.password) { %>
                                         <input type="password" name="password" id="password" class="form-control" required>
                                         <% } else { %>
@@ -150,9 +154,11 @@
                             </a>
                         </div>
                         </form>
-                        <form action="/admin/users/delete/<%= userToUpdate.id %>?_method=DELETE" method="POST">
-                            <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-trash text-primary"></i> | Cancella</button>
-                        </form>
+                        <% if (userToUpdate.email) { %>
+                            <form action="/admin/users/delete/<%= userToUpdate.id %>?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-trash text-primary"></i> | Cancella</button>
+                            </form>
+                            <% } %>
                     </div>
                 </div>
 
