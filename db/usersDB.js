@@ -1,4 +1,3 @@
-const sqlite3 = require('sqlite3').verbose();
 const { connect_dev, connect_prod, close } = require('./utilsDB')
 
 const FIELDS = {
@@ -150,6 +149,38 @@ const getCount = role => {
     })
 }
 
+const getUsersActiveToday = () => {
+    const db = connect_dev()
+    const sql = "SELECT yearOfLastSeen, monthOfLastSeen, dayOfLastSeen FROM Users;"
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.all(sql, function(err, rows) {
+            if (err) {
+                responseObj = {
+                    'error': err
+                };
+                reject(responseObj);
+            } else {
+                responseObj = {
+                    statement: this,
+                    rows: rows,
+                    nActive: 0,
+                    nUsers: rows.length
+                };
+                const today = new Date()
+                responseObj.rows.forEach(row => {
+                    // if lastSeen == today
+                    if (row.dayOfLastSeen == today.getDate() && row.monthOfLastSeen == (today.getMonth() + 1) && row.yearOfLastSeen == today.getFullYear()) {
+                        responseObj.nActive++
+                    }
+                })
+                resolve(responseObj);
+            }
+            close(db)
+        })
+    })
+}
+
 
 const getImageUrl = id => {
     const db = connect_dev()
@@ -204,6 +235,7 @@ module.exports = {
     readByRole,
     readGeneric,
     getCount,
+    getUsersActiveToday,
     getImageUrl,
     update,
     updateLastSeen,
