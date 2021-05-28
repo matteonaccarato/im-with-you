@@ -45,7 +45,7 @@ exports.read = (id = -1) => {
 exports.update = post => {
     const db = connect_dev();
 
-    const sql = "UPDATE Phrases SET title = $title, text = $text, authorId = $authorId, isFinished = $isFinished, yearOfPublication = $yearOfPublication, monthOfPublication = $monthOfPublication, dayOfPublication = $dayOfPublication WHERE id = $id;"
+    const sql = "UPDATE Posts SET title = $title, text = $text, authorId = $authorId, isFinished = $isFinished, yearOfPublication = $yearOfPublication, monthOfPublication = $monthOfPublication, dayOfPublication = $dayOfPublication WHERE id = $id;"
     db.run(sql, {
         $title: post.title,
         $text: post.text,
@@ -54,6 +54,7 @@ exports.update = post => {
         $yearOfPublication: post.yearOfPublication,
         $monthOfPublication: post.monthOfPublication,
         $dayOfPublication: post.dayOfPublication,
+        $id: post.id
     })
 
     close(db);

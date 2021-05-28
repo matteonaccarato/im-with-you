@@ -19,8 +19,9 @@ exports.get_page = (req, res) => {
 
 exports.get_create = (req, res) => {
     res.render('admin/posts/createModify', {
+        user: req.user,
+        formAction: 'create',
         post: {},
-        user: req.user
     })
 }
 
@@ -47,6 +48,7 @@ exports.get_update = (req, res) => {
         .then(result => {
             res.render('admin/posts/createModify', {
                 post: result.rows[0],
+                formAction: result.rows[0].id,
                 user: req.user
             })
         })
@@ -75,7 +77,7 @@ exports.update = (req, res) => {
     res.status(200).redirect('/admin/posts')
 }
 
-exports.delete = id => {
+exports.delete = (req, res) => {
     postsDB.delete(req.params.id)
     console.log('Post successfully deleted!')
     res.status(200).redirect('/admin/posts')

@@ -15,21 +15,26 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="/admin/posts/create" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/posts/<%= formAction %>" method="POST">
 
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="title">Titolo <%- include('../partials/form/requiredSymbol') %></label>
-                                <input type="text" name="title" id="title" placeholder="Inserire il titolo ..." class="form-control" value="<%= post.title %>" required>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+
+                                    <label for="title">Titolo <%- include('../partials/form/requiredSymbol') %></label>
+                                    <input type="text" name="title" id="title" placeholder="Inserire il titolo ..." class="form-control" value="<%= post.title %>" required>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="text">Frase <span class="text-danger">*</span></label>
-                                <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." style="min-height: 60px;" required><%= post.text %></textarea>
+                        <div class="row">
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="text">Frase <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." style="min-height: 60px;" required><%= post.text %></textarea>
+                                </div>
                             </div>
                         </div>
-
 
 
 
@@ -41,6 +46,7 @@
                                 <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
                             </div>
                         </div>
+
 
 
                         <%- include('../partials/form/required') %>
