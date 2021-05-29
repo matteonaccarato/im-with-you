@@ -65,7 +65,7 @@
                 <nav class="navbar navbar-expand-md mb-4 shadow-lg rounded">
 
                     <a href="/" class="d-flex justify-content-center align-items-center">
-                        <i class="far fa-heart text-primary fa-2x"></i>&nbsp;<span class="d-block text-dark"> | <span class="h4">I'm with you</span></span>
+                        <i class="far fa-heart text-primary"></i>&nbsp;<span class="d-block text-dark"> | <span class="h4">I'm with you</span></span>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                         <i class="fa fa-bars text-dark"></i>
@@ -76,19 +76,27 @@
 
                             <li class="nav-item myNavItem">
 
-                                <a class="nav-link" href="/phrases">Frasi</a>
+                                <a class="nav-link" href="/phrases">
+                                    <%- language.nav.phrases %>
+                                </a>
 
                             </li>
                             <li class="nav-item myNavItem">
 
-                                <a class="nav-link" href="/posts">Post</a>
+                                <a class="nav-link" href="/posts">
+                                    <%- language.nav.posts %>
+                                </a>
 
                             </li>
                             <li class="nav-item myNavItem">
-                                <a class="nav-link" href="/vidoes">Video</a>
+                                <a class="nav-link" href="/vidoes">
+                                    <%- language.nav.videos %>
+                                </a>
                             </li>
                             <li class="nav-item myNavItem">
-                                <a class="nav-link" href="/musics">Musica</a>
+                                <a class="nav-link" href="/musics">
+                                    <%- language.nav.musics %>
+                                </a>
                             </li>
 
                             <% if (user) { %>
@@ -110,8 +118,14 @@
                                 </li>
 
                                 <% } else { %>
-                                    <a href="/login" class="btn btn-outline-primary mx-2 mb-2">Accedi</a>
-                                    <a href="/register" class="btn btn-primary mx-2 mb-2">Registrati</a>
+                                    <li class="nav-item d-flex align-items-center ml-3 d-flex justify-content-end">
+                                        <a href="/login" class="btn btn-outline-primary mx-2">
+                                            <%- language.nav.login %>
+                                        </a>
+                                        <a href="/register" class="btn btn-primary">
+                                            <%- language.nav.register %>
+                                        </a>
+                                    </li>
                                     <% } %>
                         </ul>
                     </div>

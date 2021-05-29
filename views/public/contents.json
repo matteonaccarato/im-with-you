@@ -1,0 +1,36 @@
+{
+    "it": {
+        "home": {
+            "nav": {
+                "phrases": "Frasi",
+                "posts": "Post",
+                "videos": "Video",
+                "musics": "Musica",
+                "login": "Accedi",
+                "register": "Registrati"
+            },
+            "parallax": {
+                "intro": "Benvenuto in <span class='h2 font-weight-bold'>I'm with you!</span><br><span class='font-italic'>Where empathy comes first</span>",
+                "what": "Cos'è?",
+                "why": "Perché?"
+            }
+        }
+    },
+    "en": {
+        "home": {
+            "nav": {
+                "phrases": "Phrases",
+                "posts": "Posts",
+                "videos": "Videos",
+                "musics": "Musics",
+                "login": "Log In",
+                "register": "Register"
+            },
+            "parallax": {
+                "intro": "Welcome to <span class='h2 font-weight-bold'>I'm with you!</span><br><span class='font-italic'>Where empathy comes first</span>",
+                "what": "What is it?",
+                "why": "Why?"
+            }
+        }
+    }
+}

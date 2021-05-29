@@ -1,30 +1,49 @@
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 
+const initalizePassport = require('../../config/passport')
+const usersDB = require('../../db/usersDB')
+const { updateLastSeen } = require('../../db/usersDB')
+const { ROLE } = require('../../config/adminUtils')
+const { SALT_ROUNDS } = require('../../db/utilsDB')
+const { PAGES, LANGUAGES } = require('./languages/langUtils')
 
-const initalizePassport = require('../config/passport')
-const usersDB = require('./../db/usersDB')
-const { updateLastSeen } = require('../db/usersDB')
-const { ROLE } = require('../config/adminUtils')
-const { SALT_ROUNDS } = require('../db/utilsDB')
-
-const { create, readById, readByEmail, checkUniqueFields } = require('./../db/usersDB')
+const { create, readById, readByEmail, checkUniqueFields } = require('../../db/usersDB')
 initalizePassport(
     passport,
     readByEmail,
     readById,
 )
 
+const getContents = user => {
+    const rawContents = require('../../views/public/contents.json')
+    if (user) {
+        switch (user.countryCode) {
+            case LANGUAGES.IT:
+                contents = rawContents[LANGUAGES.IT][PAGES['/']]
+                break;
+            default:
+                contents = rawContents[LANGUAGES.EN][PAGES['/']]
+        }
+    } else contents = rawContents[LANGUAGES.EN][PAGES['/']]
+
+    return contents;
+}
+
 exports.get_home = (req, res) => {
+    const contents = getContents(req.user)
     res.render('public/index', {
         user: req.user,
-        ROLE: ROLE
+        ROLE: ROLE,
+        language: contents
     });
 }
 
 exports.get_register = (req, res) => {
+    const contents = getContents(req.user)
     res.render('register', {
-        user: req.user
+        user: req.user,
+        language: contents
     })
 }
 
@@ -89,8 +108,10 @@ exports.register = async(req, res) => {
 }
 
 exports.get_login = (req, res) => {
+    const contents = getContents(req.user)
     res.render('login', {
-        user: req.user
+        user: req.user,
+        language: contents
     })
 }
 
