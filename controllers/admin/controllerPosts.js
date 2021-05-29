@@ -44,7 +44,7 @@ exports.create = (req, res) => {
 }
 
 exports.get_update = (req, res) => {
-    postsDB.read(req.params.id)
+    postsDB.read(postsDB.FIELDS.ID, req.params.id)
         .then(result => {
             res.render('admin/posts/createModify', {
                 post: result.rows[0],

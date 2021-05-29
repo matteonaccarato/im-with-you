@@ -24,9 +24,9 @@ exports.read = (tbl, userId) => {
 
     let sql
     if (tbl == this.SAVES_TBLS.PHRASE) {
-        sql = `SELECT ${tbl}.*, ${phrasesDB.TABLE}.*, ${peopleDB.TABLE}.name as quoterName, ${peopleDB.TABLE}.surname as quoterSurname, ${peopleDB.TABLE}.quotationMarksColor, ${peopleDB.TABLE}.img as quoterImg 
-                FROM ${tbl} JOIN ${phrasesDB.TABLE} ON (${tbl}.contentId = ${phrasesDB.TABLE}.id) LEFT JOIN ${peopleDB.TABLE} ON (phrases.quotedById = people.id)
-                WHERE ${tbl}.userId = ${userId};`
+        sql = `SELECT ${tbl}.*, ${phrasesDB.TABLE}.*, ${peopleDB.TABLE}.name as quoterName, ${peopleDB.TABLE}.surname as quoterSurname, ${peopleDB.TABLE}.quotationMarksColor, ${peopleDB.TABLE}.img as quoterImg, ${usersDB.TABLE}.username
+                FROM ${tbl} JOIN ${phrasesDB.TABLE} ON (${tbl}.contentId = ${phrasesDB.TABLE}.id) LEFT JOIN ${peopleDB.TABLE} ON (${phrasesDB.TABLE}.quotedById = people.id) LEFT JOIN ${usersDB.TABLE} ON (${phrasesDB.TABLE}.authorId = ${usersDB.TABLE}.id)
+                WHERE ${tbl}.userId = ${userId} AND ${phrasesDB.TABLE}.isFinished = 1;`
     } else {
         sql = `SELECT ${tbl}.*, ${postsDB.TABLE}.*, ${usersDB.TABLE}.username FROM ${tbl} JOIN ${postsDB.TABLE} ON (${tbl}.contentId = ${postsDB.TABLE}.id) JOIN ${usersDB.TABLE} ON (${tbl}.userId = Users.id) WHERE ${tbl}.userId = ${userId};`;
     }

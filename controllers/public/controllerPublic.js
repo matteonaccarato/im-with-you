@@ -89,19 +89,27 @@ exports.unsave_post = (req, res) => {
 
 exports.get_saved = async(req, res) => {
     const contents = getContents(req.user, PAGES['/saved'])
-    const phrasesSaved = (await savesDB.read(savesDB.SAVES_TBLS.PHRASE, req.user.id)).rows
-    const postsSaved = (await savesDB.read(savesDB.SAVES_TBLS.POST, req.user.id)).rows
+    try {
+        const phrasesSaved = (await savesDB.read(savesDB.SAVES_TBLS.PHRASE, req.user.id)).rows
+        const postsSaved = (await savesDB.read(savesDB.SAVES_TBLS.POST, req.user.id)).rows
 
-    console.log(phrasesSaved)
-    console.log(postsSaved)
+        console.log(phrasesSaved)
+        console.log(postsSaved)
 
-    res.render('public/saved', {
-        user: req.user,
-        ROLE: ROLE,
-        language: contents,
-        phrases: phrasesSaved,
-        posts: postsSaved
-    })
+        res.render('public/saved', {
+            user: req.user,
+            ROLE: ROLE,
+            language: contents,
+            phrases: phrasesSaved,
+            posts: postsSaved
+        })
+    } catch (err) {
+        res.render('errors/error', {
+            code: 500,
+            message: 'Internal error',
+            user: req.user
+        })
+    }
 }
 
 

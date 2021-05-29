@@ -71,7 +71,8 @@
                 "register": "Registrati"
             },
             "intro": "Ecco la tua <span class='font-weight-bold'>raccolta</span>! <i class='far fa-bookmark text-primary'></i>",
-            "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica"
+            "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica",
+            "noEntities": "<span class='h3 font-weight-bold'>Mi spiace</span>, ma al momento non è presente alcun elemento in questa sezione"
         },
         "404": {
             "nav": {
@@ -156,7 +157,8 @@
                 "register": "Register"
             },
             "intro": "Ecco la tua <span class='font-weight-bold'>raccolta</span>! <i class='far fa-bookmark'></i>",
-            "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica"
+            "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica",
+            "noEntities": "<span class='h3 font-weight-bold'>Sorry</span>, there is currently no item in this section"
         },
         "404": {
             "nav": {
