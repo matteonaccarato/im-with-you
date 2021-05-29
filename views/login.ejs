@@ -5,9 +5,8 @@
         <div class="row text-center">
             <div class="col-md-12">
                 <h1>Accedi</h1>
-                <% if (messages.error) { %>
-                    <%= messages.error %>
-                        <% } %>
+
+                <%- include('./partials/flashMessages') %>
             </div>
         </div>
 
@@ -69,5 +68,7 @@
             </form>
         </div>
 
+
+        <script src="/js/utilsFlashMessages.js"></script>
 
         <%- include('./public/partials/footer') %>

@@ -6,16 +6,16 @@ function initalize(passport, getUserByEmail, getUserById) {
     const authenticateUser = async(email, password, done) => {
         getUserByEmail(email, async(user) => {
             if (user == null) {
-                return done(null, false, { message: 'No user with that email' }) // no err, no user found, message
+                return done(null, false, { message: 'Nessun utente si è registrato con questa email' }) // no err, no user found, message ;; No user with that email
             }
 
             try {
                 if (await bcrypt.compare(password, user.password)) { // la prima è quella messa nel form, l'altra è quella salvata 
                     // true => tutto a posto, user autenticato
                     // usersDB.update(user.id, )
-                    return done(null, user) // return user authenticated
+                    return done(null, user, { message: 'User logged in' }) // return user authenticated
                 } else {
-                    return done(null, false, { message: 'Password incorrect' })
+                    return done(null, false) // Password incorrect
                 }
             } catch (e) {
                 return done(e)

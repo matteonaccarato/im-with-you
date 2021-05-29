@@ -19,14 +19,16 @@
 
     <div class="container-fluid">
 
+        <%- include('../partials/flashMessages') %>
 
-        Benvenuto in I'm with you! Where empathy comes first
+
+            Benvenuto in I'm with you! Where empathy comes first
 
 
-        <!-- cercare di fare require-->
-        <% if (user && user.role === 'admin') { %>
-            <div>Passa alla schermata admin: <a href="/admin/dashboard">ADMIN</a></div>
-            <% } %>
+            <!-- cercare di fare require-->
+            <% if (user && user.role === 'admin') { %>
+                <div>Passa alla schermata admin: <a href="/admin/dashboard">ADMIN</a></div>
+                <% } %>
 
 
 

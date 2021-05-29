@@ -32,6 +32,7 @@ router.route('/landing')
     .get(checkAuthenticated, (req, res) => {
         /* (req.user.role === ROLE.ADMIN) ? 'admin/landing' : 'public/index' */
         updateLastSeen(req.user.id)
+        req.flash('info', 'Login effettuato correttamente')
         if (req.user.role === ROLE.ADMIN) {
             res.render('admin/landing', {
                 user: req.user

@@ -8,7 +8,7 @@ const { updateLastSeen } = require('../db/usersDB')
 const { ROLE } = require('../config/adminUtils')
 const { SALT_ROUNDS } = require('../db/utilsDB')
 
-const { create, readById, readByEmail } = require('./../db/usersDB')
+const { create, readById, readByEmail, checkUniqueFields } = require('./../db/usersDB')
 initalizePassport(
     passport,
     readByEmail,
@@ -58,24 +58,34 @@ console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" 
 
 exports.register = async(req, res) => {
     try {
+        const lastSeen = new Date().toISOString().split('T')[0] // 2021-05-26T21:53:36.244Z
         const hashedPassword = await bcrypt.hash(req.body.password, SALT_ROUNDS) // scrivere cosa è il 10!!?
-        create({
-            email: req.body.email,
-            username: req.body.username,
-            password: hashedPassword,
-            name: req.body.name,
-            surname: req.body.surname,
-            dateOfBirth: req.body.dateOfBirth,
-            imgUrl: req.body.imgUrl,
-            lastSeen: new Date(),
-            countryCode: req.body.countryCode,
-            role: ROLE.BASIC
-        })
-        res.redirect('/login')
+
+        const usernameEmailValid = (await checkUniqueFields(req.body.email, req.body.username)).isValid
+        if (usernameEmailValid) {
+            create({
+                email: req.body.email,
+                username: req.body.username,
+                password: hashedPassword,
+                name: req.body.name,
+                surname: req.body.surname,
+                dateOfBirth: req.body.dateOfBirth,
+                img: '',
+                yearOfLastSeen: lastSeen.split('-')[0],
+                monthOfLastSeen: lastSeen.split('-')[1],
+                dayOfLastSeen: lastSeen.split('-')[2],
+                countryCode: '',
+                role: ROLE.BASIC
+            })
+            req.flash('info', 'Registrazione completata con successo')
+            res.redirect('/login')
+        } else {
+            req.flash('error', 'Qualcuno ha già utilizzato questa email o questo username')
+            res.redirect('/register')
+        }
     } catch { // because is async function
         res.redirect('/register')
     }
-
 }
 
 exports.get_login = (req, res) => {
@@ -86,6 +96,7 @@ exports.get_login = (req, res) => {
 
 exports.logout = (req, res) => {
     updateLastSeen(req.user.id)
+    req.flash('info', 'Logout completato con successo')
     req.logOut()
     res.redirect('/login')
 }
