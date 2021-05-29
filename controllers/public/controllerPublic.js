@@ -2,7 +2,10 @@ const bcrypt = require('bcrypt')
 const passport = require('passport')
 
 const initalizePassport = require('../../config/passport')
-const usersDB = require('../../db/usersDB')
+    /* const usersDB = require('../../db/usersDB') */
+const phrasesDB = require('../../db/phrasesDB')
+const postsDB = require('../../db/postsDB')
+const savesDB = require('../../db/savesDB')
 const { updateLastSeen } = require('../../db/usersDB')
 const { ROLE } = require('../../config/adminUtils')
 const { SALT_ROUNDS } = require('../../db/utilsDB')
@@ -15,23 +18,23 @@ initalizePassport(
     readById,
 )
 
-const getContents = user => {
+const getContents = (user, page) => {
     const rawContents = require('../../views/public/contents.json')
     if (user) {
         switch (user.countryCode) {
             case LANGUAGES.IT:
-                contents = rawContents[LANGUAGES.IT][PAGES['/']]
+                contents = rawContents[LANGUAGES.IT][page]
                 break;
             default:
-                contents = rawContents[LANGUAGES.EN][PAGES['/']]
+                contents = rawContents[LANGUAGES.EN][page]
         }
-    } else contents = rawContents[LANGUAGES.EN][PAGES['/']]
+    } else contents = rawContents[LANGUAGES.EN][page]
 
     return contents;
 }
 
 exports.get_home = (req, res) => {
-    const contents = getContents(req.user)
+    const contents = getContents(req.user, PAGES['/'])
     res.render('public/index', {
         user: req.user,
         ROLE: ROLE,
@@ -39,8 +42,72 @@ exports.get_home = (req, res) => {
     });
 }
 
+
+exports.get_phrases = async(req, res) => {
+    const contents = getContents(req.user, PAGES['/phrases'])
+    const phrases = (await phrasesDB.read(phrasesDB.FIELDS.ISFINISHED, 1)).rows
+
+    console.log(phrases)
+    res.render('public/phrases', {
+        user: req.user,
+        ROLE: ROLE,
+        language: contents,
+        phrases: phrases
+    })
+}
+
+exports.get_posts = async(req, res) => {
+    const contents = getContents(req.user, PAGES['/posts'])
+    const posts = (await postsDB.read(postsDB.FIELDS.ISFINISHED, 1)).rows
+
+    res.render('public/posts', {
+        user: req.user,
+        ROLE: ROLE,
+        language: contents,
+        posts: posts
+    })
+}
+
+
+exports.save_phrase = (req, res) => {
+    savesDB.create(savesDB.SAVES_TBLS.PHRASE, req.params.id, req.user.id)
+    res.status(200).redirect('/phrases')
+}
+
+exports.unsave_phrase = (req, res) => {
+
+}
+
+exports.save_post = (req, res) => {
+    savesDB.create(savesDB.SAVES_TBLS.POST, req.params.id, req.user.id)
+    res.status(200).redirect('/posts')
+}
+
+exports.unsave_post = (req, res) => {
+
+}
+
+exports.get_saved = async(req, res) => {
+    const contents = getContents(req.user, PAGES['/saved'])
+    const phrasesSaved = (await savesDB.read(savesDB.SAVES_TBLS.PHRASE, req.user.id)).rows
+    const postsSaved = (await savesDB.read(savesDB.SAVES_TBLS.POST, req.user.id)).rows
+
+    console.log(phrasesSaved)
+    console.log(postsSaved)
+
+    res.render('public/saved', {
+        user: req.user,
+        ROLE: ROLE,
+        language: contents,
+        phrases: phrasesSaved,
+        posts: postsSaved
+    })
+}
+
+
+
 exports.get_register = (req, res) => {
-    const contents = getContents(req.user)
+    const contents = getContents(req.user, PAGES['/register'])
     res.render('register', {
         user: req.user,
         language: contents
@@ -108,7 +175,7 @@ exports.register = async(req, res) => {
 }
 
 exports.get_login = (req, res) => {
-    const contents = getContents(req.user)
+    const contents = getContents(req.user, PAGES['/login'])
     res.render('login', {
         user: req.user,
         language: contents

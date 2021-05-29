@@ -18,6 +18,7 @@ const routerError = require('./routes/routerError')
 
 
 const { ROLE, checkRole, checkAuthenticated, checkNotAuthenticated } = require('./config/adminUtils')
+const { LANGUAGES } = require('./controllers/public/languages/langUtils')
 
 
 app.set('view engine', 'ejs');
@@ -44,9 +45,20 @@ app.use('/err', routerError)
 app.use('/admin', checkAuthenticated, checkRole(ROLE.ADMIN), routerAdmin);
 app.use('/', routerPublic);
 app.get('/*', (req, res) => {
+    const rawContents = require('./views/public/contents.json')
+    if (req.user) {
+        switch (req.user.countryCode) {
+            case LANGUAGES.IT:
+                contents = rawContents[LANGUAGES.IT]['404']
+                break;
+            default:
+                contents = rawContents[LANGUAGES.EN]['404']
+        }
+    } else contents = rawContents[LANGUAGES.EN]['404']
     res.status(404).render('errors/404', {
         user: req.user,
-        ROLE: ROLE
+        ROLE: ROLE,
+        language: contents
     })
 })
 

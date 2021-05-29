@@ -3,11 +3,37 @@ const passport = require('passport')
 const controllerPublic = require('../controllers/public/controllerPublic');
 const { ROLE, checkRole, checkAuthenticated, checkNotAuthenticated } = require('../config/adminUtils')
 const { updateLastSeen } = require('../db/usersDB')
+const { LANGUAGES } = require('../controllers/public/languages/langUtils')
 
 const router = express.Router();
 
 router.route('/')
-    .get( /* checkAuthenticated, */ controllerPublic.get_home);
+    .get(controllerPublic.get_home);
+
+router.route('/phrases')
+    .get(controllerPublic.get_phrases)
+
+router.route('/posts')
+    .get(controllerPublic.get_posts)
+
+
+
+router.route('/save/post/:id')
+    .post(checkAuthenticated, controllerPublic.save_post)
+
+router.route('/unsave/post/:id')
+    .delete(checkAuthenticated, controllerPublic.unsave_post)
+
+
+router.route('/save/phrase/:id')
+    .post(checkAuthenticated, controllerPublic.save_phrase)
+
+router.route('/unsave/phrase/id')
+    .delete(checkAuthenticated, controllerPublic.unsave_phrase)
+
+
+router.route('/saved')
+    .get(checkAuthenticated, controllerPublic.get_saved)
 
 
 // maybe li metto in un controller a parte
@@ -41,5 +67,25 @@ router.route('/landing')
             res.redirect('/')
         }
     })
+
+
+/* router.get('/*', (req, res) => {
+    const rawContents = require('../views/public/contents.json')
+    if (req.user) {
+        switch (req.user.countryCode) {
+            case LANGUAGES.IT:
+                contents = rawContents[LANGUAGES.IT]['/*']
+                break;
+            default:
+                contents = rawContents[LANGUAGES.EN]['/*']
+        }
+    } else contents = rawContents[LANGUAGES.EN]['/*']
+    res.status(404).render('errors/404', {
+        user: req.user,
+        ROLE: ROLE,
+        language: contents
+    })
+}) */
+
 
 module.exports = router;

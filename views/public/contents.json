@@ -9,10 +9,78 @@
                 "login": "Accedi",
                 "register": "Registrati"
             },
-            "parallax": {
+            "main": {
                 "intro": "Benvenuto in <span class='h2 font-weight-bold'>I'm with you!</span><br><span class='font-italic'>Where empathy comes first</span>",
                 "what": "Cos'è?",
                 "why": "Perché?"
+            }
+        },
+        "register": {
+            "nav": {
+                "phrases": "Frasi",
+                "posts": "Post",
+                "videos": "Video",
+                "musics": "Musica",
+                "login": "Accedi",
+                "register": "Registrati"
+            }
+        },
+        "login": {
+            "nav": {
+                "phrases": "Frasi",
+                "posts": "Post",
+                "videos": "Video",
+                "musics": "Musica",
+                "login": "Accedi",
+                "register": "Registrati"
+            }
+        },
+        "posts": {
+            "nav": {
+                "phrases": "Frasi",
+                "posts": "Post",
+                "videos": "Video",
+                "musics": "Musica",
+                "login": "Accedi",
+                "register": "Registrati"
+            },
+            "intro": "Ecco a te la sezione dei <span class='font-weight-bold'>post</span>",
+            "desc": "Qui puoi trovare degli mini articoli che trattano alcune delle difficoltà sociali più comuni al giorno d'oggi",
+            "noEntities": "<span class='h3 font-weight-bold'>Mi spiace</span>, ma al momento non è presente alcun elemento in questa sezione"
+        },
+        "phrases": {
+            "nav": {
+                "phrases": "Frasi",
+                "posts": "Post",
+                "videos": "Video",
+                "musics": "Musica",
+                "login": "Accedi",
+                "register": "Registrati"
+            },
+            "intro": "Ecco a te la sezione delle <span class='font-weight-bold'>frasi</span>",
+            "desc": "Qui puoi trovare una serie di frasi motivazionali e stimolanti citate da personaggi di interesse oppure pensate direttamente dagli amministratori della piattaforma",
+            "noEntities": "<span class='h3 font-weight-bold'>Mi spiace</span>, ma al momento non è presente alcun elemento in questa sezione"
+        },
+        "saved": {
+            "nav": {
+                "phrases": "Frasi",
+                "posts": "Post",
+                "videos": "Video",
+                "musics": "Musica",
+                "login": "Accedi",
+                "register": "Registrati"
+            },
+            "intro": "Ecco la tua <span class='font-weight-bold'>raccolta</span>! <i class='far fa-bookmark text-primary'></i>",
+            "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica"
+        },
+        "404": {
+            "nav": {
+                "phrases": "Frasi",
+                "posts": "Post",
+                "videos": "Video",
+                "musics": "Musica",
+                "login": "Accedi",
+                "register": "Registrati"
             }
         }
     },
@@ -26,10 +94,78 @@
                 "login": "Log In",
                 "register": "Register"
             },
-            "parallax": {
+            "main": {
                 "intro": "Welcome to <span class='h2 font-weight-bold'>I'm with you!</span><br><span class='font-italic'>Where empathy comes first</span>",
                 "what": "What is it?",
                 "why": "Why?"
+            }
+        },
+        "register": {
+            "nav": {
+                "phrases": "Phrases",
+                "posts": "Posts",
+                "videos": "Videos",
+                "musics": "Musics",
+                "login": "Log In",
+                "register": "Register"
+            }
+        },
+        "login": {
+            "nav": {
+                "phrases": "Phrases",
+                "posts": "Posts",
+                "videos": "Videos",
+                "musics": "Musics",
+                "login": "Log In",
+                "register": "Register"
+            }
+        },
+        "posts": {
+            "nav": {
+                "phrases": "Phrases",
+                "posts": "Posts",
+                "videos": "Videos",
+                "musics": "Musics",
+                "login": "Log In",
+                "register": "Register"
+            },
+            "intro": "Here is the section of the <span class='font-weight-bold'>posts</span>",
+            "desc": "Here you can find mini-articles that address some of the most common social difficulties today",
+            "noEntities": "<span class='h3 font-weight-bold'>Sorry</span>, there is currently no item in this section"
+        },
+        "phrases": {
+            "nav": {
+                "phrases": "Phrases",
+                "posts": "Posts",
+                "videos": "Videos",
+                "musics": "Musics",
+                "login": "Log In",
+                "register": "Register"
+            },
+            "intro": "Here is the section of the <span class='font-weight-bold'>phrases</span>",
+            "desc": "Here you can find a series of motivational and inspirational phrases quoted by people of interest or thought directly by the administrators of the platform",
+            "noEntities": "<span class='h3 font-weight-bold'>Sorry</span>, there is currently no item in this section"
+        },
+        "saved": {
+            "nav": {
+                "phrases": "Phrases",
+                "posts": "Posts",
+                "videos": "Videos",
+                "musics": "Musics",
+                "login": "Log In",
+                "register": "Register"
+            },
+            "intro": "Ecco la tua <span class='font-weight-bold'>raccolta</span>! <i class='far fa-bookmark'></i>",
+            "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica"
+        },
+        "404": {
+            "nav": {
+                "phrases": "Phrases",
+                "posts": "Posts",
+                "videos": "Videos",
+                "musics": "Musics",
+                "login": "Log In",
+                "register": "Register"
             }
         }
     }

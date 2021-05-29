@@ -35,13 +35,24 @@ body {
     height: 100%;
 }
 
-.cardHome {
-    background-color: #D4D3D3;
+#heart:hover {
+    color: #212020 !important;
+}
+
+.cardHome>.card-body {
+    /* background-color: #D4D3D3; */
+    background-color: rgba(212, 211, 211, .4);
     text-align: center;
 }
 
-.cardHome>.card-header {
-    background-color: #E6E6E6;
+.cardHome>.card-header,
+.cardHome>.card-footer {
+    background-color: rgba(226, 226, 226, .2);
+    /* background-color: rgba(255, 0, 0, .2) */
+}
+
+.cardHome .card-footer {
+    text-align: right;
 }
 
 .myNavItem {
@@ -74,3 +85,27 @@ body {
 .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
     width: 60% !important;
 }
+
+.heartForSaving {
+    position: absolute;
+    right: 16px;
+    top: 8px;
+}
+
+.heartForSaving:hover {
+    color: #D66060;
+}
+
+
+/* .heartForSavingHover {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    visibility: hidden;
+    color: #D66060;
+} */
+
+
+/* .heartForSavingHover:hover {
+    visibility: visible !important;
+} */

@@ -1,5 +1,11 @@
 const PAGES = {
-    "/": "home"
+    "/": "home",
+    "/register": "register",
+    "/login": "login",
+    "/phrases": "phrases",
+    "/posts": "posts",
+    "/saved": "saved",
+    "/*": "404"
 }
 
 const LANGUAGES = {

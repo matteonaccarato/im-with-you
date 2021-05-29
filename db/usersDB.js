@@ -1,5 +1,7 @@
 const { connect_dev, connect_prod, close } = require('./utilsDB')
 
+const TABLE = "Users"
+
 const FIELDS = {
     'ID': 'id',
     'EMAIL': 'email'
@@ -254,6 +256,7 @@ const readByEmail = async(email, callback) => [
 
 
 module.exports = {
+    TABLE,
     create,
     readById,
     readByEmail,
