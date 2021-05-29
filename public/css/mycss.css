@@ -25,6 +25,23 @@
     border: 1px solid black;
 } */
 
+#userWrapper {
+    background-color: #333333
+}
+
+.myNavItem {
+    margin-top: 2px;
+    width: 80px;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+}
+
+.myNavItem:hover {
+    text-decoration: underline;
+}
+
 .square {
     height: 50px;
     width: 50px;
@@ -43,4 +60,44 @@
 
 .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
     width: 60% !important;
+}
+
+.navbar-toggler {
+    border: none;
+    background: transparent !important;
+}
+
+.navbar-toggler:hover {
+    background: transparent !important;
+}
+
+.navbar-toggler .icon-bar {
+    width: 22px;
+    transition: all 0.2s;
+}
+
+.navbar-toggler .top-bar {
+    transform: rotate(45deg);
+    transform-origin: 10% 10%;
+}
+
+.navbar-toggler .middle-bar {
+    opacity: 0;
+}
+
+.navbar-toggler .bottom-bar {
+    transform: rotate(-45deg);
+    transform-origin: 10% 90%;
+}
+
+.navbar-toggler.collapsed .top-bar {
+    transform: rotate(0);
+}
+
+.navbar-toggler.collapsed .middle-bar {
+    opacity: 1;
+}
+
+.navbar-toggler.collapsed .bottom-bar {
+    transform: rotate(0);
 }

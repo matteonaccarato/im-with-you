@@ -22,17 +22,14 @@
         <%- include('../partials/flashMessages') %>
 
 
-            Benvenuto in I'm with you! Where empathy comes first
+            <div class="main" style="background-color: red;">
+                <div class="col-12 text-center">
+                    Benvenuto in <span class="h2 font-weight-bold">I'm with you!</span>
+                    <br> Where empathy comes first
+                </div>
 
 
-            <!-- cercare di fare require-->
-            <% if (user && user.role === 'admin') { %>
-                <div>Passa alla schermata admin: <a href="/admin/dashboard">ADMIN</a></div>
-                <% } %>
-
-
-
+            </div>
     </div>
-
 
     <%- include('./partials/footer') %>

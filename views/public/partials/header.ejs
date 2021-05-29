@@ -48,53 +48,72 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
 </head>
 
-<body>
+<body style="background-color: #333333;">
 
     <!-- page wrapper -->
-    <div id="wrapper">
+    <div id="userWrapper">
 
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper">
 
             <!-- Main Content -->
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand topbar mb-4 static-top shadow">
+                <!-- <nav class="navbar navbar-expand topbar mb-4 static-top shadow"> -->
+                <nav class="navbar navbar-expand-md mb-4 shadow-lg rounded">
 
                     <a href="/" class="d-flex justify-content-center align-items-center">
-                        <i class="far fa-heart text-primary"></i>&nbsp;<span class="d-none d-sm-block text-dark"> | Home</span>
+                        <i class="far fa-heart text-primary fa-2x"></i>&nbsp;<span class="d-block text-dark"> | <span class="h4">I'm with you</span></span>
                     </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                        <i class="fa fa-bars text-dark"></i>
+                    </button>
 
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav ml-auto">
 
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                            <li class="nav-item myNavItem">
 
-                        <% if (user) { %>
-                            <!-- Nav Item - User Information -->
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-block text-gray-600 large"><%= user.name %> <%= user.surname %></span>
-                                    <div class="topbar-divider d-block d-sm-block"></div>
-
-                                    <% if (user.img && user.img != '') { %>
-                                        <img style="width:60px; height:60px; object-fit: cover;" class="rounded-circle" src="<%= user.img %>">
-                                        <% } else { %>
-                                            <%- include('./tempPhoto') %>
-                                                <% } %>
-                                </a>
-
-                                <!-- Dropdown - User Information -->
-                                <%- include('./profileDropdown') %>
+                                <a class="nav-link" href="/phrases">Frasi</a>
 
                             </li>
+                            <li class="nav-item myNavItem">
 
-                            <% } else { %>
-                                <a href="/register">Registrati</a>
-                                <a href="/login">Accedi</a>
-                                <% } %>
-                    </ul>
+                                <a class="nav-link" href="/posts">Post</a>
 
+                            </li>
+                            <li class="nav-item myNavItem">
+                                <a class="nav-link" href="/vidoes">Video</a>
+                            </li>
+                            <li class="nav-item myNavItem">
+                                <a class="nav-link" href="/musics">Musica</a>
+                            </li>
+
+                            <% if (user) { %>
+                                <!-- Nav Item - User Information -->
+                                <li class="nav-item dropdown no-arrow" style="position: relative; right: 0; margin-left: 15px;">
+                                    <a class="nav-link dropdown-toggle w-100 d-flex align-items-center justify-content-end" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="mr-2 d-block text-gray-600 large"><%= user.name %> <%= user.surname %> |</span>
+
+                                        <% if (user.img && user.img != '') { %>
+                                            <img style="width:60px; height:60px; object-fit: cover;" class="rounded-circle" src="<%= user.img %>">
+                                            <% } else { %>
+                                                <%- include('./tempPhoto') %>
+                                                    <% } %>
+                                    </a>
+
+                                    <!-- Dropdown - User Information -->
+                                    <%- include('./profileDropdown') %>
+
+                                </li>
+
+                                <% } else { %>
+                                    <a href="/login" class="btn btn-outline-primary mx-2 mb-2">Accedi</a>
+                                    <a href="/register" class="btn btn-primary mx-2 mb-2">Registrati</a>
+                                    <% } %>
+                        </ul>
+                    </div>
                 </nav>
                 <!-- End of Topbar -->
