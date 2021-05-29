@@ -13,56 +13,71 @@
                     <% if (phrases.length) { %>
                         <% phrases.forEach(phrase => { %>
 
-                            <p>PISTOLA MANCANO LE VIRGOLETTE COLORATE!!</p>
                             <div class="col-md-6 mb-4">
 
                                 <div class="card border-primary bg-transparent cardHome">
                                     <div class="row no-gutters">
 
-                                        <div class="col-md-5">
-                                            <img src="<%= phrase.img %>" class="card-img img-hover-zoom" style="padding: 15px;" title="<%= phrase.name %>" alt="<%= phrase.name %>">
-                                        </div>
+                                        <% if (phrase.img || phrase.quoterImg) { %>
+                                            <div class="col-md-5">
+                                                <% if (phrase.img) { %>
+                                                    <img src="<%= phrase.img %>" class="card-img img-hover-zoom" style="padding: 15px;" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" alt="<%= phrase.quoterName %> <%= phrase.quoterSurname %>">
+                                                    <% } else { %>
+                                                        <img src="<%= phrase.quoterImg %>" class="card-img img-hover-zoom" style="padding: 15px;" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" alt="<%= phrase.quoterName %> <%= phrase.quoterSurname %>">
+                                                        <% } %>
+                                            </div>
+                                            <% } %>
 
-                                        <div class="col-md-7">
-                                            <div class="card-body border-primary">
-                                                <div class="card-title">
-                                                    <form action="/save/phrase/<%= phrase.id %>" method="POST">
-                                                        <button type="submit" class="btn bg-transparent heartForSaving">
-                                                            <i class="far fa-heart"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                                <p class="card-text pt-4">
-                                                    <%= phrase.text %>
-                                                </p>
-                                            </div>
-                                            <div class="card-footer bg-transparent" style="border: none;">
-                                                <hr> Creato da
-                                                <a href="/users/<%= phrase.authorId %>" class="text-info">
-                                                    <%= phrase.username %>
-                                                </a>,
-                                                <%= phrase.dayOfPublication %>/
-                                                    <%= phrase.monthOfPublication %>/
-                                                        <%= phrase.yearOfPublication %>
-                                                            </small>
-                                                            </p>
-                                            </div>
-                                        </div>
+
+                                                <% if (phrase.img || phrase.quoterImg) { %>
+                                                    <div class="col-md-7">
+                                                        <% } else { %>
+                                                            <div class="col-md-12">
+                                                                <% } %>
+
+                                                                    <div class="card-body border-primary">
+                                                                        <div class="card-title">
+                                                                            <form action="/save/phrase/<%= phrase.id %>" method="POST">
+                                                                                <button type="submit" class="btn bg-transparent heartForSaving">
+                                                                                    <i class="far fa-heart"></i>
+                                                                                </button>
+                                                                            </form>
+                                                                        </div>
+                                                                        <p class="card-text pt-4 font-italic" style="color: <%= phrase.quotationMarksColor %>;">
+                                                                            <i class="fas fa-quote-left"></i>
+                                                                            <span class="h4">
+                                                                                <%= phrase.text %>
+                                                                            </span>
+                                                                            <i class="fas fa-quote-right"></i>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="card-footer bg-transparent" style="border: none;">
+                                                                        <hr> Creato da
+                                                                        <a href="/users/<%= phrase.authorId %>" class="text-info">
+                                                                            <%= phrase.username %>
+                                                                        </a>,
+                                                                        <%= phrase.dayOfPublication %>/
+                                                                            <%= phrase.monthOfPublication %>/
+                                                                                <%= phrase.yearOfPublication %>
+                                                                                    </small>
+                                                                                    </p>
+                                                                    </div>
+                                                            </div>
+
+                                                    </div>
 
                                     </div>
-
                                 </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <%- include('./partials/noEntities') %>
+                                            <% } %>
+
+
                             </div>
-                            <% }) %>
-                                <% } else { %>
-                                    <%- include('./partials/noEntities') %>
-                                        <% } %>
 
-
+                            <br>
+                            <br>
                 </div>
 
-                <br>
-                <br>
-    </div>
-
-    <%- include('./partials/footer') %>
+                <%- include('./partials/footer') %>

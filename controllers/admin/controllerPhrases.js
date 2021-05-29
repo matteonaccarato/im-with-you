@@ -56,8 +56,10 @@ exports.create = (req, res) => {
 
 
 exports.get_update = (req, res) => {
-    phrasesDB.read(req.params.id)
+    phrasesDB.read(phrasesDB.FIELDS.ID, req.params.id)
         .then(phrase => {
+            console.log('ciaoooooo')
+            console.log(phrase)
 
             peopleDB.read()
                 .then(people => {
