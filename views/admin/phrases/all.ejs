@@ -48,6 +48,7 @@
                             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Autore</th>
                                         <th>Testo</th>
                                         <th>Immagine</th>
@@ -62,6 +63,11 @@
                                     <!-- LIMITE MASSIMO DI RIGHE VISUALIZZABILI -->
                                     <% phrases.forEach(phrase => { %>
                                         <tr>
+                                            <td>
+                                                <a href="/admin/phrases/<%= phrase.id %>">
+                                                    <%= phrase.id %>
+                                                </a>
+                                            </td>
                                             <td style="width: 25%;">
                                                 <a class="text-info">
                                                     <%= phrase.username %>

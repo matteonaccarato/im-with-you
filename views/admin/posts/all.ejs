@@ -55,6 +55,7 @@
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Autore</th>
                                             <th>Titolo</th>
                                             <th>Testo (max. 128 caratteri)</th>
@@ -69,6 +70,11 @@
 
                                         <% posts.forEach(post => { %>
                                             <tr>
+                                                <td>
+                                                    <a href="/admin/posts/<%= post.id %>">
+                                                        <%= post.id %>
+                                                    </a>
+                                                </td>
                                                 <td>
                                                     <a class="text-info">
                                                         <%= post.username %>

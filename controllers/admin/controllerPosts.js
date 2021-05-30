@@ -1,4 +1,5 @@
 const postsDB = require('../../db/postsDB')
+const savesDB = require('../../db/savesDB')
 
 exports.get_page = (req, res) => {
     postsDB.read()
@@ -78,6 +79,7 @@ exports.update = (req, res) => {
 }
 
 exports.delete = (req, res) => {
+    savesDB.delete(savesDB.SAVES_TBLS.POST, req.params.id, req.user.id)
     postsDB.delete(req.params.id)
     console.log('Post successfully deleted!')
     res.status(200).redirect('/admin/posts')
