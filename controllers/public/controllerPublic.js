@@ -9,7 +9,7 @@ const savesDB = require('../../db/savesDB')
 const { updateLastSeen } = require('../../db/usersDB')
 const { ROLE } = require('../../config/adminUtils')
 const { SALT_ROUNDS } = require('../../db/utilsDB')
-const { PAGES, LANGUAGES } = require('./languages/langUtils')
+const { PAGES, LANGUAGES, getContents } = require('./languages/langUtils')
 
 const { create, readById, readByEmail, checkUniqueFields } = require('../../db/usersDB')
 initalizePassport(
@@ -17,22 +17,6 @@ initalizePassport(
     readByEmail,
     readById,
 )
-
-
-const getContents = (user, page) => {
-    const rawContents = require('../../views/public/contents.json')
-    if (user) {
-        switch (user.countryCode) {
-            case LANGUAGES.IT:
-                contents = rawContents[LANGUAGES.IT][page]
-                break;
-            default:
-                contents = rawContents[LANGUAGES.EN][page]
-        }
-    } else contents = rawContents[LANGUAGES.EN][page]
-
-    return contents;
-}
 
 exports.get_home = (req, res) => {
     const contents = getContents(req.user, PAGES['/'])

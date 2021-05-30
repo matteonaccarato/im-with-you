@@ -1,9 +1,9 @@
 const express = require('express');
 const passport = require('passport')
 const controllerPublic = require('../controllers/public/controllerPublic');
+const controllerProfile = require('../controllers/admin/controllerProfile')
 const { ROLE, checkRole, checkAuthenticated, checkNotAuthenticated } = require('../config/adminUtils')
 const { updateLastSeen } = require('../db/usersDB')
-const { LANGUAGES } = require('../controllers/public/languages/langUtils')
 
 const router = express.Router();
 
@@ -15,6 +15,13 @@ router.route('/phrases')
 
 router.route('/posts')
     .get(controllerPublic.get_posts)
+
+
+router.route('/profile')
+    .get(checkAuthenticated, controllerProfile.get_user_page)
+
+router.route('/profile/:id')
+    .post(checkAuthenticated, controllerProfile.update)
 
 
 
@@ -69,23 +76,7 @@ router.route('/landing')
     })
 
 
-/* router.get('/*', (req, res) => {
-    const rawContents = require('../views/public/contents.json')
-    if (req.user) {
-        switch (req.user.countryCode) {
-            case LANGUAGES.IT:
-                contents = rawContents[LANGUAGES.IT]['/*']
-                break;
-            default:
-                contents = rawContents[LANGUAGES.EN]['/*']
-        }
-    } else contents = rawContents[LANGUAGES.EN]['/*']
-    res.status(404).render('errors/404', {
-        user: req.user,
-        ROLE: ROLE,
-        language: contents
-    })
-}) */
+
 
 
 module.exports = router;

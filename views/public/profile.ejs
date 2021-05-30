@@ -21,19 +21,19 @@
 
 
 
-                    <form action="/admin/profile/<%= user.id %>" method="POST" enctype="multipart/form-data" id="form">
+                    <form action="/profile/<%= user.id %>" method="POST" enctype="multipart/form-data" id="form">
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="email">Email <%- include('./partials/form/requiredSymbol') %></label>
+                                    <label for="email">Email <%- include('../admin/partials/form/requiredSymbol') %></label>
                                     <input type="email" name="email" id="email" class="form-control" required value="<%= user.email %>">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="username">Username <%- include('./partials/form/requiredSymbol') %></label>
+                                    <label for="username">Username <%- include('../admin/partials/form/requiredSymbol') %></label>
                                     <input type="text" name="username" class="form-control" value="<%= user.username %>" required>
                                 </div>
                             </div>
@@ -80,7 +80,8 @@
                                 <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confermare la nuova password" class="form-control">
                             </div>
 
-                            <%- include('./partials/form/passwordRequirements') %>
+                            <%- include('../admin/partials/form/passwordRequirements') %>
+
                         </div>
 
                         <hr>
@@ -104,6 +105,8 @@
                                 <div class="form-group">
                                     <label for="dateOfBirth">Data di nascita</label>
                                     <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" value="<%= user.yearOfBirth %>-<%= user.monthOfBirth %>-<%= user.dayOfBirth %>">
+
+
                                 </div>
                             </div>
                         </div>
@@ -148,7 +151,7 @@
 
 
 
-                        <%- include('./partials/form/imageUpload') %>
+                        <%- include('./../admin/partials/form/imageUpload') %>
 
 
 
@@ -172,11 +175,11 @@
                                     <input type="text" name="deleteImage" id="deleteImage" value="0" hidden>
                                     <input type="text" name="oldImgUrl" value="<%= user.img %>" hidden>
 
-                                    <input type="text" name="role" id="role" value="<%= role %>" hidden>
+                                    <input type="text" name="role" id="role" value="<%= user.role %>" hidden>
 
 
 
-                                    <%- include('./partials/form/required') %>
+                                    <%- include('./../admin/partials/form/required') %>
 
                 </div>
 
@@ -184,7 +187,7 @@
                     <div class="col-12 d-flex justify-content-between align-items-center">
                         <div id="input-group">
                             <button type="submit" id="btn-submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> | Conferma modifica</button>
-                            <a href="/admin">
+                            <a href="/">
                                 <button type="button" class="btn btn-dark mb-2"><i class="fas fa-history"></i> | Annulla</button>
                             </a>
                         </div>

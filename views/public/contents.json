@@ -77,6 +77,16 @@
             "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica",
             "noEntities": "Nessun elemento presente in questa sezione"
         },
+        "profile": {
+            "nav": {
+                "phrases": "Phrases",
+                "posts": "Posts",
+                "videos": "Videos",
+                "musics": "Musics",
+                "login": "Log In",
+                "register": "Register"
+            }
+        },
         "404": {
             "nav": {
                 "phrases": "Frasi",
@@ -165,6 +175,16 @@
             "intro": "Ecco la tua <span class='font-weight-bold'>raccolta</span>! <i class='far fa-bookmark'></i>",
             "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica",
             "noEntities": "No elements present in this section"
+        },
+        "profile": {
+            "nav": {
+                "phrases": "Phrases",
+                "posts": "Posts",
+                "videos": "Videos",
+                "musics": "Musics",
+                "login": "Log In",
+                "register": "Register"
+            }
         },
         "404": {
             "nav": {

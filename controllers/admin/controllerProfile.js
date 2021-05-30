@@ -6,13 +6,12 @@ const { ROLE } = require('../../config/adminUtils')
 const { SALT_ROUNDS, internalError } = require('../../db/utilsDB')
 const { checkUniqueFields, checkEmailValid, checkUsernameValid } = require('../../db/usersDB')
 
+const { PAGES, LANGUAGES, getContents } = require('../public/languages/langUtils')
+
 const s3 = require('./s3')
 const singleUpload = s3.upload.single('image')
 
 exports.get_page = (req, res) => {
-
-    // const countries = await countriesDB.read()
-
     countriesDB.read()
         .then(result => {
             res.render('admin/profile', {
@@ -24,11 +23,23 @@ exports.get_page = (req, res) => {
         .catch(result => console.log(result))
 }
 
+exports.get_user_page = (req, res) => {
+    const contents = getContents(req.user, PAGES['/profile'])
+    countriesDB.read()
+        .then(result => {
+            res.render('public/profile', {
+                user: req.user,
+                countries: result.rows,
+                ROLE: ROLE,
+                language: contents
+            })
+        })
+        .catch(result => console.log(result))
+}
+
 exports.update = async(req, res) => {
 
     try {
-
-
 
         singleUpload(req, res, async function(err) {
             if (err) {
@@ -79,16 +90,29 @@ exports.update = async(req, res) => {
                             console.log(user)
                             usersDB.update(user)
                             req.flash('info', 'Modifica del profilo completata con successo')
-                            res.status(200).redirect('/admin/dashboard')
+                            if (req.user.role == ROLE.ADMIN) {
+                                res.status(200).redirect('/admin/dashboard')
+                            } else {
+                                res.status(200).redirect('/')
+                            }
                         } else {
                             req.flash('error', 'Password non corretta')
-                            res.redirect('/admin/profile')
+
+                            if (req.user.role == ROLE.ADMIN) {
+                                res.redirect('/admin/profile')
+                            } else {
+                                res.status(200).redirect('/')
+                            }
                         }
                     })
                     .catch(result => console.log(result))
             } else {
                 req.flash('error', 'Qualcuno ha già utilizzato questa email o questo username')
-                res.redirect('/admin/profile')
+                if (req.user.role == ROLE.ADMIN) {
+                    res.redirect('/admin/profile')
+                } else {
+                    res.redirect('/')
+                }
             }
 
         })
