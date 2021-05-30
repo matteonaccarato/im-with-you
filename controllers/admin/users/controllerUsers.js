@@ -238,15 +238,20 @@ exports.update = async(req, res) => {
 
 exports.delete = (req, res) => {
     usersDB.getImageUrl(req.params.id)
-        .then(obj => {
+        .then(async obj => {
             if (obj.url && obj.url !== '') {
                 const tmp = obj.url.split('/')
                 s3.deleteImage(tmp[tmp.length - 1])
                 console.log('Image successfully deleted!')
             }
-            /* savesDB.delete */
-            usersDB.deleteUser(req.params.id)
-            console.log('User successfully deleted!')
-            res.status(200).redirect('/admin/admins')
+            try {
+                await savesDB.deleteByField(savesDB.SAVES_TBLS.PHRASE, savesDB.FIELDS.USER_ID, req.params.id)
+                await savesDB.deleteByField(savesDB.SAVES_TBLS.POST, savesDB.FIELDS.USER_ID, req.params.id)
+                await usersDB.deleteUser(req.params.id)
+                console.log('User successfully deleted!')
+                res.status(200).redirect('/admin/admins')
+            } catch (err) {
+                internalError(res, 500, err)
+            }
         })
 }

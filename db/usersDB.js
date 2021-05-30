@@ -124,7 +124,7 @@ const updateLastSeen = id => {
     close(db)
 }
 
-const deleteUser = id => {
+const deleteUser = async id => {
     const db = connect_dev();
     const sql = `DELETE FROM Users WHERE id = ${id};`;
     db.run(sql);
