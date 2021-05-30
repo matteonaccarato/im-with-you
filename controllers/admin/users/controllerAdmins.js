@@ -3,8 +3,6 @@ const { ROLE } = require('../../../config/adminUtils')
 
 exports.get_page = (req, res) => {
 
-    /* try { */
-
     usersDB.readByRole(ROLE.ADMIN)
         .then(result => {
             console.log(result)
@@ -15,19 +13,4 @@ exports.get_page = (req, res) => {
             })
         })
         .catch(result => console.log(result))
-
-
-    /*  usersDB.readTest(ROLE.ADMIN, (row => {
-         console.log('ZZZ')
-         res.render('admin/users/admins/all', {
-             user: req.user
-         })
-     })) */
-
-    /* } catch (e) {
-        console.log(e)
-    }
- */
-
-
 }

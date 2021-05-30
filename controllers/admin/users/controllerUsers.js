@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt')
-const { SALT_ROUNDS, internalError } = require('../../../db/utilsDB')
 
 const usersDB = require('../../../db/usersDB')
 const savesDB = require('../../../db/savesDB')
-const { checkUniqueFields, checkEmailValid, checkUsernameValid } = require('../../../db/usersDB')
 const countriesDB = require('../../../db/countriesDB')
+const { checkUniqueFields, checkEmailValid, checkUsernameValid } = require('../../../db/usersDB')
+const { SALT_ROUNDS, internalError } = require('../../../db/utilsDB')
 const { ROLE } = require('../../../config/adminUtils')
 
 const s3 = require('../s3')
@@ -58,9 +58,10 @@ exports.create = (req, res) => {
                     dayOfLastSeen: lastSeen.split('-')[2],
                     role: req.body.role
                 }
-                usersDB.create(user);
-                req.flash('info', 'Utente creato/aggiornato con successo')
-                res.status(200).redirect(`/admin/${user.role}s`)
+                usersDB.create(user, () => {
+                    req.flash('info', 'Utente creato/aggiornato con successo')
+                    res.status(200).redirect(`/admin/${user.role}s`)
+                });
             } else {
                 req.flash('error', 'È già stato registrato un utente con questa email o password')
                 res.redirect('/admin/users/create')
@@ -105,7 +106,7 @@ exports.create = (req, res) => {
 exports.get_update = async(req, res) => {
     try {
         const countries = await countriesDB.read()
-        await usersDB.readById(req.params.id, userToUpdate => {
+        usersDB.readById(req.params.id, userToUpdate => {
             res.render('admin/users/createModify', {
                 user: req.user,
                 roles: ROLES,
@@ -123,7 +124,7 @@ exports.update = async(req, res) => {
 
     try {
         const userToModify = (await usersDB.readGeneric(usersDB.FIELDS.ID, req.params.id)).rows[0]
-        console.log(userToModify)
+            /* console.log(userToModify) */
 
         singleUpload(req, res, async function(err) {
             if (err) {
@@ -168,24 +169,21 @@ exports.update = async(req, res) => {
                             dayOfLastSeen: lastSeen.split('-')[2],
                             role: req.body.role
                         }
-                        usersDB.update(user)
-                        req.flash('info', 'Utente creato/aggiornato con successo')
-                        res.status(200).redirect(`/admin/${user.role}s`)
+                        usersDB.update(user, () => {
+                            req.flash('info', 'Utente creato/aggiornato con successo')
+                            res.status(200).redirect(`/admin/${user.role}s`)
+                        })
                     })
                     .catch(result => console.log(result))
             } else {
                 req.flash('error', 'È già stato registrato un utente con questa email o password')
                 res.redirect(`/admin/users/${req.params.id}`)
             }
-
         })
-
 
     } catch (err) {
         internalError(res, 500, err)
     }
-
-
 
 
 

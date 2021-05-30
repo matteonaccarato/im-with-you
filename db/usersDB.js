@@ -57,7 +57,7 @@ const readByRole = (role, id = -1 /* , callback */ ) => {
     })
 }
 
-const create = user => {
+const create = (user, cb) => {
     const db = connect_dev();
     const sql = "INSERT INTO Users VALUES (null, $email, $username, $password, $name, $surname, $yearOfBirth, $monthOfBirth, $dayOfBirth, $img, $countryCode, $yearOfLastSeen, $monthOfLastSeen, $dayOfLastSeen, $role);"
 
@@ -78,12 +78,17 @@ const create = user => {
         $dayOfLastSeen: user.dayOfLastSeen,
         $countryCode: user.countryCode,
         $role: user.role,
+    }, err => {
+        if (err) {
+            console.log(err)
+        }
+        cb()
     })
 
     close(db);
 }
 
-const update = user => {
+const update = (user, cb) => {
     const db = connect_dev();
 
     const sql = "UPDATE Users SET email = $email," + ((user.password != '') ? ` password = '${user.password}', ` : "") + "username = $username, name = $name, surname = $surname, yearOfBirth = $yearOfBirth, monthOfBirth = $monthOfBirth, dayOfBirth = $dayOfBirth, img = $img, yearOfLastSeen = $yearOfLastSeen, monthOfLastSeen = $monthOfLastSeen, dayOfLastSeen = $dayOfLastSeen, countryCode = $countryCode, role = $role WHERE id = $id;"
@@ -103,6 +108,11 @@ const update = user => {
         $countryCode: user.countryCode,
         $role: user.role,
         $id: user.id
+    }, err => {
+        if (err) {
+            console.log(err)
+        }
+        cb()
     })
 
     close(db);
