@@ -1,7 +1,8 @@
 const bcrypt = require('bcrypt')
-const { SALT_ROUNDS } = require('../../../db/utilsDB')
+const { SALT_ROUNDS, internalError } = require('../../../db/utilsDB')
 
 const usersDB = require('../../../db/usersDB')
+const { checkUniqueFields, checkEmailValid, checkUsernameValid } = require('../../../db/usersDB')
 const countriesDB = require('../../../db/countriesDB')
 const { ROLE } = require('../../../config/adminUtils')
 
@@ -27,7 +28,50 @@ exports.get_create = async(req, res) => {
 
 exports.create = (req, res) => {
 
-    singleUpload(req, res, async function(err) {
+    try {
+        singleUpload(req, res, async function(err) {
+            if (err) {
+                console.log(err)
+                return res.end("Error uploading file.");
+            } else console.log('Image uploaded')
+
+            const lastSeen = new Date().toISOString().split('T')[0] // 2021-05-26T21:53:36.244Z
+            const dateOfBirth = req.body.dateOfBirth
+            const hashedPassword = await bcrypt.hash(req.body.password, SALT_ROUNDS)
+            const usernameEmailValid = (await checkUniqueFields(req.body.email, req.body.username)).isValid
+
+            if (usernameEmailValid) {
+                const user = {
+                    email: req.body.email,
+                    password: hashedPassword,
+                    username: req.body.username,
+                    name: req.body.name,
+                    surname: req.body.surname,
+                    yearOfBirth: dateOfBirth.split('-')[0],
+                    monthOfBirth: dateOfBirth.split('-')[1],
+                    dayOfBirth: dateOfBirth.split('-')[2],
+                    img: (req.file) ? req.file.location : '',
+                    countryCode: req.body.countryCode,
+                    yearOfLastSeen: lastSeen.split('-')[0],
+                    monthOfLastSeen: lastSeen.split('-')[1],
+                    dayOfLastSeen: lastSeen.split('-')[2],
+                    role: req.body.role
+                }
+                usersDB.create(user);
+                req.flash('info', 'Utente creato/aggiornato con successo')
+                res.status(200).redirect(`/admin/${user.role}s`)
+            } else {
+                req.flash('error', 'È già stato registrato un utente con questa email o password')
+                res.redirect('/admin/users/create')
+            }
+        })
+
+    } catch (err) {
+        internalError(res, 500, err)
+    }
+
+
+    /* singleUpload(req, res, async function(err) {
         if (err) {
             console.log(err)
             return res.end("Error uploading file.");
@@ -54,7 +98,7 @@ exports.create = (req, res) => {
         }
         usersDB.create(user);
         res.status(200).redirect(`/admin/${user.role}s`)
-    })
+    }) */
 }
 
 exports.get_update = async(req, res) => {
@@ -74,9 +118,84 @@ exports.get_update = async(req, res) => {
     }
 }
 
-exports.update = (req, res) => {
+exports.update = async(req, res) => {
 
-    singleUpload(req, res, function(err) {
+    try {
+        const userToModify = (await usersDB.readGeneric(usersDB.FIELDS.ID, req.params.id)).rows[0]
+        console.log(userToModify)
+
+        singleUpload(req, res, async function(err) {
+            if (err) {
+                console.log(err)
+                return res.send('Error uploading file')
+            } else console.log('Image uploaded')
+
+
+            const emailNotChanged = userToModify.email == req.body.email;
+            const usernameNotChanged = userToModify.username == req.body.username
+            const emailValid = (await checkEmailValid(req.body.email))
+            const usernameValid = (await checkUsernameValid(req.body.username))
+
+            console.log(emailNotChanged)
+            console.log(usernameNotChanged)
+            console.log(emailValid)
+            console.log(usernameValid)
+
+            if ((emailNotChanged || emailValid) && (usernameNotChanged || usernameValid)) {
+
+                usersDB.getImageUrl(req.params.id)
+                    .then(async obj => {
+                        if (obj && obj.url && obj.url !== '' && req.body.deleteImage == 1) {
+                            console.log(obj)
+                            const tmp = obj.url.split('/')
+                            s3.deleteImage(tmp[tmp.length - 1])
+                            console.log('Image updated!')
+                        }
+
+                        const dateOfBirth = req.body.dateOfBirth
+                        const lastSeen = new Date().toISOString().split('T')[0] // 2021-05-26T21:53:36.244Z
+                        const hashedPassword = (req.body.password != '') ? await bcrypt.hash(req.body.password, SALT_ROUNDS) : ''
+                        const user = {
+                            id: req.params.id,
+                            email: req.body.email,
+                            password: hashedPassword,
+                            username: req.body.username,
+                            name: req.body.name,
+                            surname: req.body.surname,
+                            yearOfBirth: dateOfBirth.split('-')[0],
+                            monthOfBirth: dateOfBirth.split('-')[1],
+                            dayOfBirth: dateOfBirth.split('-')[2],
+                            img: (req.body.deleteImage == 0) ? req.body.oldImgUrl : (req.file) ? req.file.location : '',
+                            countryCode: req.body.countryCode,
+                            yearOfLastSeen: lastSeen.split('-')[0],
+                            monthOfLastSeen: lastSeen.split('-')[1],
+                            dayOfLastSeen: lastSeen.split('-')[2],
+                            role: req.body.role
+                        }
+                        usersDB.update(user)
+                        req.flash('info', 'Utente creato/aggiornato con successo')
+                        res.status(200).redirect(`/admin/${user.role}s`)
+                    })
+                    .catch(result => console.log(result))
+            } else {
+                req.flash('error', 'È già stato registrato un utente con questa email o password')
+                res.redirect(`/admin/users/${req.params.id}`)
+            }
+
+        })
+
+
+    } catch (err) {
+        internalError(res, 500, err)
+    }
+
+
+
+
+
+
+
+    /* singleUpload(req, res, function(err) {
         if (err) {
             console.log(err)
             return res.send('Error uploading file')
@@ -99,7 +218,7 @@ exports.update = (req, res) => {
                 const user = {
                     id: req.params.id,
                     email: req.body.email,
-                    /* password: hashedPassword, */
+                    password: hashedPassword,
                     username: req.body.username,
                     name: req.body.name,
                     surname: req.body.surname,
@@ -117,7 +236,7 @@ exports.update = (req, res) => {
                 res.status(200).redirect(`/admin/${user.role}s`)
             })
             .catch(result => console.log(result))
-    })
+    }) */
 
 }
 

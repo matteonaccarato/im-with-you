@@ -40,7 +40,7 @@ $(() => {
     })
 
 
-    $('#form').on('submit', e => {
+    $('#uploadForm').on('submit', e => {
         console.log(lenValid + ' ' + equalsValid)
         if (!lenValid || !equalsValid) {
             e.preventDefault();

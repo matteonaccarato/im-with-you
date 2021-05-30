@@ -294,6 +294,7 @@ const readByEmail = async(email, callback) => [
 
 module.exports = {
     TABLE,
+    FIELDS,
     create,
     readById,
     readByEmail,

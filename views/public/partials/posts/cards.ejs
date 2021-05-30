@@ -2,9 +2,9 @@
 
     <div class="col-md-4 mb-4">
 
-        <div class="card cardHome">
-            <div class="card-header">
-                <strong><%= post.title %></strong>
+        <div class="card cardHome bg-transparent border-primary">
+            <div class="card-header border-primary">
+                <strong class="text-primary"><%= post.title %></strong>
 
                 <% if (post.liked == true) { %>
                     <form action="/unsave/post/<%= post.id %>?_method=DELETE" method="POST">
@@ -23,11 +23,11 @@
                                 <% } %>
             </div>
 
-            <div class="card-body">
+            <div class="card-body bg-transparent" style="color: #E0E0E0;">
                 <%= post.text %>
             </div>
 
-            <div class="card-footer">
+            <div class="card-footer bg-transparent">
                 <hr> Creato da
                 <a href="/users/<%= post.authorId %>" class="text-info">
                     <%= post.username %>
