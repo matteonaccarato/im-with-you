@@ -8,13 +8,13 @@
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold">Modifica FRASE</h6>
+                    <span id="status"></span>
                 </div>
 
                 <div class="card-body">
-                    <form action="/admin/phrases/<%= phrase.id %>" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/phrases/<%= phrase.id %>" method="POST" enctype="multipart/form-data" id="uploadForm">
                         <div class="form-group">
-                            <label for="text">Frase <span class="text-danger">*</span></label>
-                            <!-- <input type="text" class="form-control" > -->
+                            <label for="text">Frase <%- include('../partials/form/requiredSymbol') %></label>
                             <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." style="min-height: 60px;" required><%= phrase.text %></textarea>
                         </div>
 
@@ -104,10 +104,11 @@
                                     <input type="text" name="deleteImage" id="deleteImage" value="0" hidden>
                                     <input type="text" name="oldImgUrl" value="<%= phrase.img %>" hidden>
 
+
                                     <div class="input-group">
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished" data-status="<%= phrase.isFinished %>">
-                                            <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
+                                            <label class="custom-control-label" for="statusSwitch">Da pubblicare? <%- include('../partials/form/requiredSymbol') %></label>
                                         </div>
                                     </div>
 
@@ -126,6 +127,9 @@
                         </a>
                     </div>
                     </form>
+                    <form action="/admin/phrases/delete/<%= phrase.id %>?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-trash text-primary"></i> | Cancella</button>
+                    </form>
                 </div>
 
             </div>
@@ -134,8 +138,10 @@
 
 
 
-        <script src="/js/admin/crudPeople.js"></script>
+        <!-- <script src="/js/admin/crudPeople.js"></script> -->
+
         <script src="/js/admin/switchPhrasePost.js"></script>
+        <script src="/js/admin/utilsS3.js"></script>
         <!-- <script src="/js/admin/crudPhrases.js"></script> -->
 
         <%- include('./../partials/footer') %>

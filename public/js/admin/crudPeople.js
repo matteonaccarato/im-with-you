@@ -1,4 +1,4 @@
-const checkFile = fileToLoad => {
+/* const checkFile = fileToLoad => {
     const file = fileToLoad.files[0]
     console.log(file)
 
@@ -41,4 +41,4 @@ const deleteImage = () => {
     $("#image").val('');
     $('#imagePreview').attr('hidden', true)
     $('#btnDeleteImage').attr('hidden', true)
-}
+} */

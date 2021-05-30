@@ -8,12 +8,13 @@
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold">Crea FRASE</h6>
+                    <span id="status"></span>
                 </div>
 
                 <div class="card-body">
-                    <form action="/admin/phrases/create" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/phrases/create" method="POST" enctype="multipart/form-data" id="uploadForm">
                         <div class="form-group">
-                            <label for="text">Frase <span class="text-danger">*</span></label>
+                            <label for="text">Frase <%- include('../partials/form/requiredSymbol') %></label>
                             <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." style="min-height: 60px;" required></textarea>
                         </div>
 
@@ -59,7 +60,7 @@
                             <div class="input-group">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished">
-                                    <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
+                                    <label class="custom-control-label" for="statusSwitch">Da pubblicare? <%- include('../partials/form/requiredSymbol') %></label>
                                 </div>
                             </div>
 
@@ -81,6 +82,8 @@
 
         </div>
 
-        <script src="/js/admin/crudPhrases.js"></script>
+        <!-- <script src="/js/admin/crudPhrases.js"></script> -->
+        <script src="/js/admin/switchPhrasePost.js"></script>
+        <script src="/js/admin/utilsS3.js"></script>
 
         <%- include('./../partials/footer') %>

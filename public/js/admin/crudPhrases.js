@@ -1,26 +1,10 @@
-/* $(() => {
-    $('#uploadForm').submit(function() {
-        $("#status").empty().text("Carico i file...");
-        $(this).ajaxSubmit({
-            error: function(xhr) {
-                status('Error: ' + xhr.status);
-            },
-            success: function(response) {
-                $("#status").empty().text(response);
-            }
-        });
-        return false;
-    });
-}); */
-// PER UN POSSIBILE CARIMENTO 'STATUS' DELL'IMMAGINE
-
-let statusSwitch = document.getElementById('statusSwitch')
+/* let statusSwitch = document.getElementById('statusSwitch')
 if (statusSwitch.dataset.status == 1) {
     const attr = document.createAttribute("checked")
     statusSwitch.setAttributeNode(attr)
-}
+} */
 
-const checkFile = fileToLoad => {
+/* const checkFile = fileToLoad => {
     const file = fileToLoad.files[0]
     console.log(file)
 
@@ -54,4 +38,4 @@ const deleteImage = () => {
     $("#image").val('');
     $('#imagePreview').attr('hidden', true)
     $('#btnDeleteImage').attr('hidden', true)
-}
+} */
