@@ -3,20 +3,61 @@ require('dotenv').config();
 const phrasesDB = require('../../db/phrasesDB');
 const peopleDB = require('../../db/peopleDB')
 const savesDB = require('../../db/savesDB')
+const { internalError } = require('../../db/utilsDB')
 
 const s3 = require('./s3')
 const singleUpload = s3.upload.single('image')
 
-exports.get_page = (req, res) => {
+exports.get_page = async(req, res) => {
 
-    phrasesDB.read()
-        .then(result => {
-            res.render('admin/phrases/all', {
-                phrases: result.rows,
-                user: req.user
+    try {
+        const phrases = (await phrasesDB.read()).rows
+        const likes = (await savesDB.getLikes(savesDB.SAVES_TBLS.PHRASE)).rows
+
+        phrases.map(phrase => {
+            likes.forEach(like => {
+                if (phrase.id == like.contentId) {
+                    console.log(like.likes)
+                    phrase.likes = like.likes;
+                    return phrase
+                }
             })
         })
-        .catch(result => console.log(result));
+
+        console.log(phrases)
+
+        res.render('admin/phrases/all', {
+            phrases: phrases,
+            user: req.user
+        })
+
+
+    } catch (err) {
+        console.log(err)
+        internalError(res, 500, err)
+    }
+
+    /* phrasesDB.read()
+        .then(async result => {
+
+            try {
+                const phrases = result.rows
+                await phrases.map(async phrase => {
+                    const likes = (await savesDB.getLikes(savesDB.SAVES_TBLS.PHRASE, phrase.id)).likes
+                    console.log(likes)
+                    return phrase.likes = likes
+                })
+                console.log(phrases)
+
+                res.render('admin/phrases/all', {
+                    phrases: phrases,
+                    user: req.user
+                })
+            } catch (err) {
+                console.log(err)
+            }
+        })
+        .catch(result => console.log(result)); */
 }
 
 exports.get_create = (req, res) => {

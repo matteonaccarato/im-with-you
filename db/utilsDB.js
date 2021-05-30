@@ -31,9 +31,17 @@ const close = db => {
     })
 }
 
+const internalError = (res, code, message) => {
+    res.render('errors/error', {
+        code: code,
+        message: message
+    })
+}
+
 module.exports = {
     connect_dev,
     connect_prod,
     close,
-    SALT_ROUNDS
+    SALT_ROUNDS,
+    internalError
 }

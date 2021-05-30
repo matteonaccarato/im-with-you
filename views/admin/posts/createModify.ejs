@@ -31,7 +31,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="text">Frase <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." style="min-height: 60px;" required><%= post.text %></textarea>
+                                    <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' required><%= post.text %></textarea>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
 
                         <div class="input-group">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished">
+                                <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished" data-status="<%= post.isFinished %>">
                                 <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
                             </div>
                         </div>
@@ -68,4 +68,5 @@
         </div>
 
 
+        <script src="/js/admin/switchPhrasePost.js"></script>
         <%- include('./../partials/footer') %>

@@ -26,7 +26,11 @@ exports.create = post => {
 
 exports.read = (field = '', value = -1) => {
     const db = connect_dev();
-    const sql = "SELECT Posts.*, Users.username FROM Posts JOIN Users ON (Posts.authorId = Users.id)" + ((field != '' && value > -1) ? ` WHERE Posts.${field} = ${value}` : "") + " ORDER BY Posts.yearOfPublication DESC, Posts.monthOfPublication DESC, Posts.dayOfPublication DESC, Posts.id DESC;";
+    const sql = `SELECT Posts.*, Users.username
+                    FROM Posts 
+                        JOIN Users ON (Posts.authorId = Users.id)` +
+        ((field != '' && value > -1) ? ` WHERE Posts.${field} = ${value}` : "") +
+        ` ORDER BY Posts.yearOfPublication DESC, Posts.monthOfPublication DESC, Posts.dayOfPublication DESC, Posts.id DESC;`;
 
     return new Promise((resolve, reject) => {
         var responseObj;

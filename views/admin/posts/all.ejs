@@ -93,7 +93,11 @@
                                                             <% } %>
                                                 </td>
                                                 <td style="width: 5%;">
-                                                    100 :3
+                                                    <% if (post.likes) { %>
+                                                        <%= post.likes %> <i class="far fa-heart text-primary"></i>
+                                                            <% } else { %>
+                                                                <%- include('./../partials/table/notAvailable') %>
+                                                                    <% } %>
                                                 </td>
                                                 <td>
                                                     <% if (post.yearOfPublication) { %>

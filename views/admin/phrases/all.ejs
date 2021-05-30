@@ -108,7 +108,11 @@
                                                                         <% } %>
                                             </td>
                                             <td style="width: 5%;">
-                                                105 V
+                                                <% if (phrase.likes) { %>
+                                                    <%= phrase.likes %> <i class="far fa-heart text-primary"></i>
+                                                        <% } else { %>
+                                                            <%- include('./../partials/table/notAvailable') %>
+                                                                <% } %>
                                             </td>
                                             <td style="width: 3%;">
                                                 <% if (phrase.isFinished == 1) { %>

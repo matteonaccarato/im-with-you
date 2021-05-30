@@ -1,8 +1,40 @@
 const postsDB = require('../../db/postsDB')
 const savesDB = require('../../db/savesDB')
+const { internalError } = require('../../db/utilsDB')
 
-exports.get_page = (req, res) => {
-    postsDB.read()
+exports.get_page = async(req, res) => {
+
+    try {
+
+        const posts = (await postsDB.read()).rows;
+        const likes = (await savesDB.getLikes(savesDB.SAVES_TBLS.POST)).rows
+
+        posts.map(post => {
+            likes.forEach(like => {
+                if (post.id == like.contentId) {
+                    post.likes = like.likes;
+                    return post
+                }
+            })
+        })
+
+        console.log(posts)
+        res.render('admin/posts/all', {
+            posts: posts,
+            user: req.user
+        });
+
+
+
+
+    } catch (err) {
+        console.log(err)
+        internalError(res, 500, err)
+    }
+
+
+
+    /* postsDB.read()
         .then(result => {
             res.render('admin/posts/all', {
                 posts: result.rows,
@@ -11,11 +43,12 @@ exports.get_page = (req, res) => {
         })
         .catch(result => {
             console.log(result)
-            res.render('errors/error', {
-                code: 500,
-                message: result.error
-            })
-        })
+            internalError(res, 500, result.error) */
+    /* res.render('errors/error', {
+        code: 500,
+        message: result.error
+    }) 
+    })*/
 }
 
 exports.get_create = (req, res) => {

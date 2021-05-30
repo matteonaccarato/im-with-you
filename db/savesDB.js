@@ -57,6 +57,31 @@ exports.read = (tbl, userId) => {
     })
 }
 
+exports.getLikes = tbl => {
+    const db = connect_dev()
+    const sql = `SELECT ${tbl}.${this.FIELDS.CONTENT_ID}, COUNT(${this.FIELDS.USER_ID}) AS likes FROM ${tbl}
+                    GROUP BY ${this.FIELDS.CONTENT_ID};`
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.all(sql, (err, rows) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                }
+                reject(responseObj)
+            } else {
+                responseObj = {
+                        statement: this,
+                        rows: rows
+                    }
+                    /* console.log(responseObj) */
+                resolve(responseObj)
+            }
+            close(db)
+        })
+    })
+}
+
 exports.likedByUser = (tbl, userId) => {
     const db = connect_dev()
     const sql = `SELECT ${this.FIELDS.CONTENT_ID} FROM ${tbl} WHERE ${this.FIELDS.USER_ID} = ${userId};`
