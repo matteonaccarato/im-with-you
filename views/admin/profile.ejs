@@ -1,26 +1,6 @@
 <%- include('./partials/header') %>
 
-    <!-- <style>
-        .alert {
-            display: none;
-        }
-        
-        .requirements {
-            list-style-type: none;
-        }
-        
-        .wrong .fa-check {
-            display: none;
-        }
-        
-        .good .fa-times {
-            display: none;
-        }
-    </style> -->
-
     <div class="container-fluid">
-
-
 
         <div class="col-12 mb-4">
 
@@ -33,6 +13,14 @@
 
                 <div class="card-body">
 
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <%- include('../partials/flashMessages') %>
+                        </div>
+                    </div>
+
+
+
                     <form action="/admin/profile/<%= user.id %>" method="POST" enctype="multipart/form-data" id="form">
 
                         <div class="row">
@@ -42,10 +30,11 @@
                                     <input type="email" name="email" id="email" class="form-control" required value="<%= user.email %>">
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="username">Username</label>
-                                    <input type="text" name="username" class="form-control" value="<%= user.username %>" required hidden>
+                                    <input type="text" name="username" class="form-control" value="<%= user.username %>" required>
                                 </div>
                             </div>
 

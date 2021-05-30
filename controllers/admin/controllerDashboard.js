@@ -11,6 +11,8 @@ exports.get_page = async(req, res) => {
     const nPosts = (await postsDB.getCount()).nPosts
     const usersActive = (await usersDB.getUsersActiveToday())
 
+    /* req.flash('info', 'Azione nella dashboard') */
+
     res.render('admin/dashboard', {
         number_phrases: nPhrases,
         number_admins: nAdminUsers,

@@ -4,7 +4,8 @@ const TABLE = "Users"
 
 const FIELDS = {
     'ID': 'id',
-    'EMAIL': 'email'
+    'EMAIL': 'email',
+    'USERNAME': 'username'
 }
 
 
@@ -211,9 +212,43 @@ const getImageUrl = id => {
 }
 
 
+const checkUniquedField = async(field, value) => {
+    const db = connect_dev();
+    const sql = `SELECT COUNT(id) as nUsers FROM Users WHERE ${field} = '${value}';`
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.get(sql, (err, value) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                }
+                reject(responseObj)
+            } else {
+                responseObj = {
+                    statement: this,
+                    isValid: (value.nUsers != 0) ? false : true
+                }
+                resolve(responseObj)
+            }
+            close(db)
+        })
+    })
+}
+
+
+const checkEmailValid = async email => {
+    return (await checkUniquedField(FIELDS.EMAIL, email)).isValid
+}
+
+const checkUsernameValid = async username => {
+    return (await checkUniquedField(FIELDS.USERNAME, username)).isValid
+}
+
+
+
 const checkUniqueFields = async(email, username) => {
     const db = connect_dev();
-    const sql = `SELECT COUNT(id) as nUsers FROM Users WHERE email = '${email}' OR username = '${username}'`
+    const sql = `SELECT COUNT(id) as nUsers FROM Users WHERE email = '${email}' OR username = '${username}';`
     return new Promise((resolve, reject) => {
         var responseObj
         db.get(sql, (err, value) => {
@@ -223,6 +258,8 @@ const checkUniqueFields = async(email, username) => {
                 }
                 reject(responseObj)
             } else {
+                console.log(sql)
+                console.log(value)
                 responseObj = {
                     statement: this,
                     isValid: (value.nUsers != 0) ? false : true
@@ -268,5 +305,7 @@ module.exports = {
     update,
     updateLastSeen,
     deleteUser,
-    checkUniqueFields
+    checkUniqueFields,
+    checkEmailValid,
+    checkUsernameValid
 }

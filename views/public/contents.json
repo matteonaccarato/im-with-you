@@ -1,5 +1,8 @@
 {
     "it": {
+        "flash": {
+
+        },
         "home": {
             "nav": {
                 "phrases": "Frasi",
@@ -86,6 +89,9 @@
         }
     },
     "en": {
+        "flash": {
+
+        },
         "home": {
             "nav": {
                 "phrases": "Phrases",

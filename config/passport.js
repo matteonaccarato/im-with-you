@@ -15,7 +15,7 @@ function initalize(passport, getUserByEmail, getUserById) {
                     // usersDB.update(user.id, )
                     return done(null, user, { message: 'User logged in' }) // return user authenticated
                 } else {
-                    return done(null, false) // Password incorrect
+                    return done(null, false, { message: 'Password inserita non corretta' }) // Password incorrect
                 }
             } catch (e) {
                 return done(e)
