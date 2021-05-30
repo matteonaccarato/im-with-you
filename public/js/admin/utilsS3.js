@@ -13,8 +13,8 @@ const checkFile = fileToLoad => {
         valido = false;
     }
 
-    if (file.size > 1024 * 1024 * 5) {
-        alert('Il file non deve superare i 5 MB');
+    if (file.size > 1024 * 1024 * 10) {
+        alert('Il file non deve superare i 10 MB');
         valido = false;
     }
 
