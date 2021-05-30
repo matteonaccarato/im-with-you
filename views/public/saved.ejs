@@ -12,7 +12,12 @@
                 <div class="row">
 
                     <% if (phrases.length) { %>
-                        <% phrases.forEach(phrase => { %>
+
+                        <%- include('./partials/phrases/cards') %>
+
+                            <!-- <% phrases.forEach(phrase => { %>
+
+
 
                             <div class="col-md-6 mb-4">
 
@@ -69,59 +74,59 @@
 
                                     </div>
                                 </div>
-                                <% }) %>
-                                    <% } else { %>
-                                        <%- include('./partials/noEntities') %>
-                                            <% } %>
+                                <% }) %> -->
+                            <% } else { %>
+                                <%- include('./partials/noEntities') %>
+                                    <% } %>
 
 
-                            </div>
+                </div>
 
-                            <hr>
+                <hr>
 
-                            <h3>Post</h3>
-                            <div class="row">
+                <h3>Post</h3>
+                <div class="row">
 
-                                <% if (posts.length) { %>
-                                    <% posts.forEach(post => { %>
+                    <% if (posts.length) { %>
+                        <% posts.forEach(post => { %>
 
-                                        <div class="col-md-4 mb-4">
+                            <div class="col-md-4 mb-4">
 
-                                            <div class="card cardHome">
-                                                <div class="card-header">
-                                                    <strong><%= post.title %></strong>
-                                                    <form action="/unsave/post/<%= post.id %>?_method=DELETE" method="POST">
-                                                        <button type="submit" name="_method" class="btn bg-transparent heartForSaving">
+                                <div class="card cardHome">
+                                    <div class="card-header">
+                                        <strong><%= post.title %></strong>
+                                        <form action="/unsave/post/<%= post.id %>?_method=DELETE" method="POST">
+                                            <button type="submit" name="_method" class="btn bg-transparent heartForSaving">
                                                 <i class="fas fa-heart text-primary" id="heart"></i>
                                             </button>
-                                                    </form>
-                                                </div>
+                                        </form>
+                                    </div>
 
-                                                <div class="card-body">
-                                                    <%= post.text %>
-                                                </div>
+                                    <div class="card-body">
+                                        <%= post.text %>
+                                    </div>
 
-                                                <div class="card-footer">
-                                                    <hr> Creato da
-                                                    <a href="/users/<%= post.authorId %>" class="text-info">
-                                                        <%= post.username %>
-                                                    </a>,
-                                                    <%= post.dayOfPublication %>/
-                                                        <%= post.monthOfPublication %>/
-                                                            <%= post.yearOfPublication %>
-                                                </div>
+                                    <div class="card-footer">
+                                        <hr> Creato da
+                                        <a href="/users/<%= post.authorId %>" class="text-info">
+                                            <%= post.username %>
+                                        </a>,
+                                        <%= post.dayOfPublication %>/
+                                            <%= post.monthOfPublication %>/
+                                                <%= post.yearOfPublication %>
+                                    </div>
 
-                                            </div>
-
-                                        </div>
-                                        <% }) %>
-                                            <% } else { %>
-                                                <%- include('./partials/noEntities') %>
-                                                    <% } %>
-
+                                </div>
 
                             </div>
-                            <br>
-                            <br>
+                            <% }) %>
+                                <% } else { %>
+                                    <%- include('./partials/noEntities') %>
+                                        <% } %>
 
-                            <%- include('./partials/footer') %>
+
+                </div>
+                <br>
+                <br>
+
+                <%- include('./partials/footer') %>

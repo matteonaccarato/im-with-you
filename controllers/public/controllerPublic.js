@@ -18,6 +18,7 @@ initalizePassport(
     readById,
 )
 
+
 const getContents = (user, page) => {
     const rawContents = require('../../views/public/contents.json')
     if (user) {
@@ -96,14 +97,40 @@ exports.get_phrases = async(req, res) => {
 
 exports.get_posts = async(req, res) => {
     const contents = getContents(req.user, PAGES['/posts'])
-    const posts = (await postsDB.read(postsDB.FIELDS.ISFINISHED, 1)).rows
 
-    res.render('public/posts', {
-        user: req.user,
-        ROLE: ROLE,
-        language: contents,
-        posts: posts
-    })
+    try {
+        const posts = (await postsDB.read(postsDB.FIELDS.ISFINISHED, 1)).rows
+
+        let likedByUser
+        if (req.user) {
+            const tmp = (await savesDB.likedByUser(savesDB.SAVES_TBLS.POST, req.user.id)).rows
+            likedByUser = tmp.map(obj => obj.contentId)
+            console.log(likedByUser)
+
+            posts.map(posts => {
+
+                return posts.liked = likedByUser.includes(posts.id)
+            })
+        }
+
+        console.log(posts)
+
+
+
+
+        res.render('public/posts', {
+            user: req.user,
+            ROLE: ROLE,
+            language: contents,
+            posts: posts
+        })
+    } catch (err) {
+        res.render('errors/error', {
+            code: 500,
+            message: 'Internal error',
+            user: req.user
+        })
+    }
 }
 
 
@@ -134,6 +161,9 @@ exports.get_saved = async(req, res) => {
     try {
         const phrasesSaved = (await savesDB.read(savesDB.SAVES_TBLS.PHRASE, req.user.id)).rows
         const postsSaved = (await savesDB.read(savesDB.SAVES_TBLS.POST, req.user.id)).rows
+
+        phrasesSaved.map(phrase => phrase.liked = true)
+        postsSaved.map(post => post.liked = true)
 
         console.log(phrasesSaved)
         console.log(postsSaved)

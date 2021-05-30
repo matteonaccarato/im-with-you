@@ -18,8 +18,9 @@ exports.create = (tbl, entityId, userId) => {
     const db = connect_dev();
 
     const sql = `INSERT INTO ${tbl} VALUES (${entityId * 1}, ${userId * 1});`
-    console.log(sql)
-    db.run(sql)
+    db.run(sql, async err => {
+        console.log(err)
+    })
 
     close(db);
 }
