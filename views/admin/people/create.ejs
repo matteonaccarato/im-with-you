@@ -1,6 +1,5 @@
 <%- include('../partials/header') %>
 
-
     <div class="container-fluid">
 
         <div class="col-12 mb-4">
@@ -10,24 +9,25 @@
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold">Crea PERSONA</h6>
+                    <span id="status"></span>
                 </div>
 
                 <div class="card-body">
 
-                    <form action="/admin/people/create" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/people/create" method="POST" enctype="multipart/form-data" id="uploadForm">
 
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="name">Nome <span class="text-danger">*</span></label>
-                                    <input type="text" name="name" id="name" class="form-control">
+                                    <label for="name">Nome <span class="text-danger"><%- include('../partials/form/requiredSymbol') %></span></label>
+                                    <input type="text" name="name" id="name" class="form-control" required>
                                 </div>
 
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="surname">Cognome <span class="text-danger">*</span></label>
-                                    <input type="text" name="surname" id="surname" class="form-control">
+                                    <label for="surname">Cognome <span class="text-danger"><%- include('../partials/form/requiredSymbol') %></span></label>
+                                    <input type="text" name="surname" id="surname" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -121,7 +121,7 @@
     </div>
 
     <script src="/js/dateOfBirth.js"></script>
-    <script src="/js/admin/crudPeople.js"></script>
+    <script src="/js/admin/utilsS3.js"></script>
 
 
     <%- include('../partials/footer') %>
