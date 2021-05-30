@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const phrasesDB = require('../../db/phrasesDB');
 const peopleDB = require('../../db/peopleDB')
+const savesDB = require('../../db/savesDB')
 
 const s3 = require('./s3')
 const singleUpload = s3.upload.single('image')
@@ -121,6 +122,7 @@ exports.delete = (req, res) => {
                 s3.deleteImage(tmp[tmp.length - 1])
                 console.log('Image successfully deleted!')
             }
+            savesDB.delete(savesDB.SAVES_TBLS.PHRASE, req.params.id, req.user.id)
             phrasesDB.delete(req.params.id)
             console.log('Phrase successfully deleted!')
             res.status(200).redirect('/admin/phrases')
