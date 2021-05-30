@@ -95,7 +95,7 @@ exports.update = post => {
     close(db);
 }
 
-exports.delete = id => {
+exports.delete = async id => {
     const db = connect_dev();
     const sql = `DELETE FROM Posts WHERE id = ${id};`;
     db.run(sql);

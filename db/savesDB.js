@@ -2,7 +2,7 @@ const phrasesDB = require('./phrasesDB')
 const peopleDB = require('./peopleDB')
 const postsDB = require('./postsDB')
 const usersDB = require('./usersDB')
-const { connect_dev, connect_prod, close } = require('./utilsDB')
+const { connect_dev, connect_prod, close, internalError } = require('./utilsDB')
 
 exports.SAVES_TBLS = {
     "PHRASE": "LikesPhrases",
@@ -111,5 +111,14 @@ exports.delete = (tbl, contentId, userId) => {
     const db = connect_dev();
     const sql = `DELETE FROM ${tbl} WHERE ${this.FIELDS.CONTENT_ID} = ${contentId} AND ${this.FIELDS.USER_ID} = ${userId};`;
     db.run(sql);
+    close(db)
+}
+
+exports.deleteByField = async(tbl, field, value) => {
+    const db = connect_dev();
+    const sql = `DELETE FROM ${tbl} WHERE ${field} = ${value};`;
+    db.run(sql, function(err) {
+        console.log(err);
+    });
     close(db)
 }

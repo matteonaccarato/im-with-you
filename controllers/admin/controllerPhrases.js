@@ -156,16 +156,20 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     phrasesDB.getImageUrl(req.params.id)
-        .then(obj => {
+        .then(async obj => {
             if (obj.url && obj.url !== '') {
                 // metto getImageFameFromUrl
                 const tmp = obj.url.split('/')
                 s3.deleteImage(tmp[tmp.length - 1])
                 console.log('Image successfully deleted!')
             }
-            savesDB.delete(savesDB.SAVES_TBLS.PHRASE, req.params.id, req.user.id)
-            phrasesDB.delete(req.params.id)
-            console.log('Phrase successfully deleted!')
-            res.status(200).redirect('/admin/phrases')
+            try {
+                await savesDB.deleteByField(savesDB.SAVES_TBLS.PHRASE, savesDB.FIELDS.CONTENT_ID, req.params.id)
+                await phrasesDB.delete(req.params.id)
+                console.log('Phrase successfully deleted!')
+                res.status(200).redirect('/admin/phrases')
+            } catch (err) {
+                internalError(res, 500, err)
+            }
         })
 }

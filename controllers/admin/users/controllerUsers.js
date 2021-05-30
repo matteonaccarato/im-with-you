@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const { SALT_ROUNDS, internalError } = require('../../../db/utilsDB')
 
 const usersDB = require('../../../db/usersDB')
+const savesDB = require('../../../db/savesDB')
 const { checkUniqueFields, checkEmailValid, checkUsernameValid } = require('../../../db/usersDB')
 const countriesDB = require('../../../db/countriesDB')
 const { ROLE } = require('../../../config/adminUtils')
@@ -136,11 +137,6 @@ exports.update = async(req, res) => {
             const emailValid = (await checkEmailValid(req.body.email))
             const usernameValid = (await checkUsernameValid(req.body.username))
 
-            console.log(emailNotChanged)
-            console.log(usernameNotChanged)
-            console.log(emailValid)
-            console.log(usernameValid)
-
             if ((emailNotChanged || emailValid) && (usernameNotChanged || usernameValid)) {
 
                 usersDB.getImageUrl(req.params.id)
@@ -244,11 +240,11 @@ exports.delete = (req, res) => {
     usersDB.getImageUrl(req.params.id)
         .then(obj => {
             if (obj.url && obj.url !== '') {
-                // metto getImageFameFromUrl
                 const tmp = obj.url.split('/')
                 s3.deleteImage(tmp[tmp.length - 1])
                 console.log('Image successfully deleted!')
             }
+            /* savesDB.delete */
             usersDB.deleteUser(req.params.id)
             console.log('User successfully deleted!')
             res.status(200).redirect('/admin/admins')

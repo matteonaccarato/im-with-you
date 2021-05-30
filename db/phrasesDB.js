@@ -79,7 +79,7 @@ exports.update = phrase => {
     close(db);
 }
 
-exports.delete = id => {
+exports.delete = async id => {
     const db = connect_dev();
     const sql = `DELETE FROM Phrases WHERE id = ${id};`;
     db.run(sql);

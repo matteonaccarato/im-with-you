@@ -111,9 +111,13 @@ exports.update = (req, res) => {
     res.status(200).redirect('/admin/posts')
 }
 
-exports.delete = (req, res) => {
-    savesDB.delete(savesDB.SAVES_TBLS.POST, req.params.id, req.user.id)
-    postsDB.delete(req.params.id)
-    console.log('Post successfully deleted!')
-    res.status(200).redirect('/admin/posts')
+exports.delete = async(req, res) => {
+    try {
+        await savesDB.deleteByField(savesDB.SAVES_TBLS.POST, savesDB.FIELDS.CONTENT_ID, req.params.id)
+        await postsDB.delete(req.params.id)
+        console.log('Post successfully deleted!')
+        res.status(200).redirect('/admin/posts')
+    } catch (err) {
+        internalError(res, 500, err)
+    }
 }
