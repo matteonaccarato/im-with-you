@@ -6,7 +6,7 @@ exports.TABLE = "People"
 exports.read = (id = -1) => {
     const db = connect_dev();
     const sql = 'SELECT People.*, Countries.name AS cName FROM People ' +
-        'LEFT JOIN Countries ON (People.countryCode = Countries.alpha_2)' + ((id > -1) ? ` WHERE People.id = ${id}` : '') + ';';
+        'LEFT JOIN Countries ON (People.countryCode = Countries.alpha_2)' + ((id > -1) ? ` WHERE People.id = ${id}` : '') + ' ORDER BY id DESC;';
 
     return new Promise((resolve, reject) => {
         var responseObj;

@@ -2,14 +2,14 @@
 
     <% if (userToUpdate.role) { %>
         <% if (userToUpdate.role === roles.admin) { %>
-            <option value="<%= roles.admin %>" selected><%= roles.admin %></option>
-            <option value="<%= roles.basic %>"><%= roles.basic %></option>
+            <option value="<%= roles.admin %>" selected>Admin</option>
+            <option value="<%= roles.basic %>">Basic</option>
         <% } else { %>
-            <option value="<%= roles.admin %>"><%= roles.admin %></option>
-            <option value="<%= roles.basic %>" selected><%= roles.basic %></option>
+            <option value="<%= roles.admin %>">Admin</option>
+            <option value="<%= roles.basic %>" selected>Basic</option>
              <% } %>
     <% } else { %>
-        <option value="<%= roles.admin %>" ><%= roles.admin %></option>
-        <option value="<%= roles.basic %>"><%= roles.basic %></option>
+        <option value="<%= roles.admin %>">Admin</option>
+        <option value="<%= roles.basic %>">Basic</option>
         <% } %>
 </select>

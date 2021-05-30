@@ -125,7 +125,7 @@
                                             <td class="d-flex justify-content-around align-items-center" style="height: 180px">
                                                 <a href="/admin/users/<%= user.id %>"><i
                                                         class="fas fa-edit text-info"></i></a>
-                                                <form method="post" action="/admin/users/delete/<%= user.id %>?_method=DELETE">
+                                                <form method="post" action="/admin/users/delete/<%= user.id %>/<%= user.role %>?_method=DELETE">
                                                     <input type="hidden" name="_method" value="DELETE" />
                                                     <button type="submit" style="background-color: transparent; border: none" id="myEditButton">
                                                         <i class="fas fa-trash text-primary"></i>

@@ -114,11 +114,14 @@ exports.delete = (tbl, contentId, userId) => {
     close(db)
 }
 
-exports.deleteByField = async(tbl, field, value) => {
+exports.deleteByField = (tbl, field, value, cb) => {
     const db = connect_dev();
     const sql = `DELETE FROM ${tbl} WHERE ${field} = ${value};`;
-    db.run(sql, function(err) {
-        console.log(err);
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        }
+        cb()
     });
     close(db)
 }

@@ -95,7 +95,7 @@ router.route('/users/:id')
     .get(controllerUsers.get_update)
     .post(controllerUsers.update)
 
-router.route('/users/delete/:id')
+router.route('/users/delete/:id/:role')
     .delete(controllerUsers.delete)
 
 

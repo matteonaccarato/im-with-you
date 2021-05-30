@@ -35,7 +35,7 @@ const readGeneric = (field = '', value = -1) => {
 
 const readByRole = (role, id = -1 /* , callback */ ) => {
     const db = connect_dev();
-    const sql = `SELECT * FROM Users WHERE role = '${role}'` + ((id > -1) ? ` AND Users.id = ${id}` : "") + ";";
+    const sql = `SELECT * FROM Users WHERE role = '${role}'` + ((id > -1) ? ` AND Users.id = ${id}` : "") + " ORDER BY id DESC;";
 
     return new Promise((resolve, reject) => {
         var responseObj;
@@ -124,10 +124,15 @@ const updateLastSeen = id => {
     close(db)
 }
 
-const deleteUser = async id => {
+const deleteUser = (id, cb) => {
     const db = connect_dev();
     const sql = `DELETE FROM Users WHERE id = ${id};`;
-    db.run(sql);
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        }
+        cb()
+    });
     close(db)
 }
 
@@ -276,7 +281,7 @@ const checkUniqueFields = async(email, username) => {
 // for passport
 const read = async(field, value, callback) => {
     const db = connect_dev();
-    const sql = `SELECT * FROM Users WHERE ${field} = ${value}`;
+    const sql = `SELECT * FROM Users WHERE ${field} = ${value};`;
     db.get(sql, (err, row) => {
         callback(row)
         close(db)
