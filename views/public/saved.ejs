@@ -85,8 +85,6 @@
                                 <% if (posts.length) { %>
                                     <% posts.forEach(post => { %>
 
-
-
                                         <div class="col-md-4 mb-4">
 
                                             <div class="card cardHome">
@@ -115,14 +113,15 @@
 
                                             </div>
 
-                                            <% }) %>
-                                                <% } else { %>
-                                                    <%- include('./partials/noEntities') %>
-                                                        <% } %>
                                         </div>
+                                        <% }) %>
+                                            <% } else { %>
+                                                <%- include('./partials/noEntities') %>
+                                                    <% } %>
 
-                                        <br>
-                                        <br>
+
                             </div>
+                            <br>
+                            <br>
 
                             <%- include('./partials/footer') %>

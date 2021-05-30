@@ -9,6 +9,11 @@ exports.SAVES_TBLS = {
     "POST": "LikesPosts"
 }
 
+exports.FIELDS = {
+    "CONTENT_ID": "contentId",
+    "USER_ID": "userId"
+}
+
 exports.create = (tbl, entityId, userId) => {
     const db = connect_dev();
 
@@ -51,32 +56,14 @@ exports.read = (tbl, userId) => {
     })
 }
 
+exports.likedByUser = (tbl, userId) => {
+    const db = connect_dev()
+    const sql = `SELECT ${this.FIELDS.CONTENT_ID} FROM ${tbl} WHERE ${this.FIELDS.USER_ID} = ${userId};`
 
-/* exports.update = post => {
-    const db = connect_dev();
-
-    const sql = "UPDATE   WHERE id = $id;"
-    db.run(sql, {
-
-        $id: post.id
-    })
-
-    close(db);
-} */
-
-exports.delete = (tbl, contentId, userId) => {
-    const db = connect_dev();
-    const sql = `DELETE FROM Posts WHERE id = ${id};`;
-    db.run(sql);
-    close(db)
-}
-
-/* exports.getCount = () => {
-    const db = connect_dev();
-    const sql = "SELECT COUNT(id) AS nPosts FROM Posts;"
+    console.log(sql)
     return new Promise((resolve, reject) => {
         var responseObj;
-        db.get(sql, (err, value) => {
+        db.all(sql, function(err, rows) {
             if (err) {
                 responseObj = {
                     'error': err
@@ -85,11 +72,18 @@ exports.delete = (tbl, contentId, userId) => {
             } else {
                 responseObj = {
                     statement: this,
-                    nPosts: value.nPosts
+                    rows: rows
                 }
                 resolve(responseObj)
             }
             close(db)
         })
     })
-} */
+}
+
+exports.delete = (tbl, contentId, userId) => {
+    const db = connect_dev();
+    const sql = `DELETE FROM ${tbl} WHERE ${this.FIELDS.CONTENT_ID} = ${contentId} AND ${this.FIELDS.USER_ID} = ${userId};`;
+    db.run(sql);
+    close(db)
+}

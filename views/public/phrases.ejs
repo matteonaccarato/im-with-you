@@ -37,11 +37,22 @@
 
                                                                     <div class="card-body border-primary">
                                                                         <div class="card-title">
-                                                                            <form action="/save/phrase/<%= phrase.id %>" method="POST">
-                                                                                <button type="submit" class="btn bg-transparent heartForSaving">
-                                                                                    <i class="far fa-heart"></i>
-                                                                                </button>
-                                                                            </form>
+
+                                                                            <% if (phrase.liked == true) { %>
+                                                                                <form action="/unsave/phrase/<%= phrase.id %>?_method=DELETE" method="POST">
+                                                                                    <button type="submit" name="_method" class="btn bg-transparent heartForSaving">
+                                                                                        <i class="fas fa-heart text-primary" id="heart"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                                <% } else { %>
+                                                                                    <% if (user) { %>
+                                                                                        <form action="/save/phrase/<%= phrase.id %>" method="POST">
+                                                                                            <button type="submit" class="btn bg-transparent heartForSaving">
+                                                                                            <i class="far fa-heart "></i>
+                                                                                        </button>
+                                                                                        </form>
+                                                                                        <% } %>
+                                                                                            <% } %>
                                                                         </div>
                                                                         <p class="card-text pt-4 font-italic" style="color: <%= phrase.quotationMarksColor %>;">
                                                                             <i class="fas fa-quote-left"></i>
@@ -49,6 +60,13 @@
                                                                                 <%= phrase.text %>
                                                                             </span>
                                                                             <i class="fas fa-quote-right"></i>
+                                                                            <% if (phrase.quoterName || phrase.quoterSurname) { %>
+                                                                                <hr>
+                                                                                <p class="font-italic">
+                                                                                    <%= phrase.quoterName %>
+                                                                                        <%= phrase.quoterSurname %>
+                                                                                            <% } %>
+                                                                                </p>
                                                                         </p>
                                                                     </div>
                                                                     <div class="card-footer bg-transparent" style="border: none;">

@@ -59,7 +59,7 @@
             },
             "intro": "Ecco a te la sezione delle <span class='font-weight-bold'>frasi</span>",
             "desc": "Qui puoi trovare una serie di frasi motivazionali e stimolanti citate da personaggi di interesse oppure pensate direttamente dagli amministratori della piattaforma",
-            "noEntities": "<span class='h3 font-weight-bold'>Mi spiace</span>, ma al momento non è presente alcun elemento in questa sezione"
+            "noEntities": "Nessun elemento presente in questa sezione"
         },
         "saved": {
             "nav": {
@@ -72,7 +72,7 @@
             },
             "intro": "Ecco la tua <span class='font-weight-bold'>raccolta</span>! <i class='far fa-bookmark text-primary'></i>",
             "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica",
-            "noEntities": "<span class='h3 font-weight-bold'>Mi spiace</span>, ma al momento non è presente alcun elemento in questa sezione"
+            "noEntities": "Nessun elemento presente in questa sezione"
         },
         "404": {
             "nav": {
@@ -145,7 +145,7 @@
             },
             "intro": "Here is the section of the <span class='font-weight-bold'>phrases</span>",
             "desc": "Here you can find a series of motivational and inspirational phrases quoted by people of interest or thought directly by the administrators of the platform",
-            "noEntities": "<span class='h3 font-weight-bold'>Sorry</span>, there is currently no item in this section"
+            "noEntities": "No elements present in this section"
         },
         "saved": {
             "nav": {
@@ -158,7 +158,7 @@
             },
             "intro": "Ecco la tua <span class='font-weight-bold'>raccolta</span>! <i class='far fa-bookmark'></i>",
             "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica",
-            "noEntities": "<span class='h3 font-weight-bold'>Sorry</span>, there is currently no item in this section"
+            "noEntities": "No elements present in this section"
         },
         "404": {
             "nav": {

@@ -28,7 +28,7 @@ router.route('/unsave/post/:id')
 router.route('/save/phrase/:id')
     .post(checkAuthenticated, controllerPublic.save_phrase)
 
-router.route('/unsave/phrase/id')
+router.route('/unsave/phrase/:id')
     .delete(checkAuthenticated, controllerPublic.unsave_phrase)
 
 

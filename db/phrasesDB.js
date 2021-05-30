@@ -29,8 +29,10 @@ exports.create = phrase => {
 
 exports.read = (field = '', value = -1) => {
     const db = connect_dev();
-    const sql = "SELECT Phrases.*, Users.username, People.name, People.surname, People.quotationMarksColor, Phrases.yearOfPublication, Phrases.monthOfPublication, Phrases.dayOfPublication" +
+    const sql = "SELECT Phrases.*, Users.username, People.name as quoterName, People.surname as quoterSurname, People.quotationMarksColor, People.img as quoterImg, Phrases.yearOfPublication, Phrases.monthOfPublication, Phrases.dayOfPublication" +
         " FROM Phrases LEFT JOIN People ON (Phrases.quotedById = People.id) LEFT JOIN Users ON (Phrases.authorId = Users.id)" + ((field != '' && value > -1) ? ` WHERE Phrases.${field} = ${value}` : "") + ";";
+
+    console.log(sql)
 
     return new Promise((resolve, reject) => {
         var responseObj;
@@ -45,6 +47,7 @@ exports.read = (field = '', value = -1) => {
                     statement: this,
                     rows: rows
                 };
+                console.log(responseObj)
                 resolve(responseObj);
             }
             close(db)

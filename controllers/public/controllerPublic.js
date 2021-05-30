@@ -45,15 +45,53 @@ exports.get_home = (req, res) => {
 
 exports.get_phrases = async(req, res) => {
     const contents = getContents(req.user, PAGES['/phrases'])
-    const phrases = (await phrasesDB.read(phrasesDB.FIELDS.ISFINISHED, 1)).rows
 
-    console.log(phrases)
-    res.render('public/phrases', {
-        user: req.user,
-        ROLE: ROLE,
-        language: contents,
-        phrases: phrases
-    })
+    try {
+        const phrases = (await phrasesDB.read(phrasesDB.FIELDS.ISFINISHED, 1)).rows
+
+        let likedByUser
+        if (req.user) {
+            const tmp = (await savesDB.likedByUser(savesDB.SAVES_TBLS.PHRASE, req.user.id)).rows
+            likedByUser = tmp.map(obj => obj.contentId)
+            console.log(likedByUser)
+
+            phrases.map(phrase => {
+
+                /* if (likedByUser.includes(phrase.id)) {
+                    return phrase.liked = true
+                } else return phrase.liked = false */
+
+                return phrase.liked = likedByUser.includes(phrase.id)
+
+                /* likedByUser.forEach(liked => {
+                    if (phrase.id === liked.contentId) {
+                        phrase.liked = phrase.id === liked.contentId;
+                        return phrase
+                    }
+                })
+                return phrase */
+            })
+        }
+
+        console.log(phrases)
+
+
+
+
+        res.render('public/phrases', {
+            user: req.user,
+            ROLE: ROLE,
+            language: contents,
+            phrases: phrases
+        })
+    } catch (err) {
+        res.render('errors/error', {
+            code: 500,
+            message: 'Internal error',
+            user: req.user
+        })
+    }
+
 }
 
 exports.get_posts = async(req, res) => {
@@ -75,7 +113,9 @@ exports.save_phrase = (req, res) => {
 }
 
 exports.unsave_phrase = (req, res) => {
-
+    savesDB.delete(savesDB.SAVES_TBLS.PHRASE, req.params.id, req.user.id)
+    res.status(200).redirect('/phrases')
+        /* res.status(200).redirect('/saved') */
 }
 
 exports.save_post = (req, res) => {
@@ -84,7 +124,9 @@ exports.save_post = (req, res) => {
 }
 
 exports.unsave_post = (req, res) => {
-
+    savesDB.delete(savesDB.SAVES_TBLS.POST, req.params.id, req.user.id)
+    res.status(200).redirect('/posts')
+        /* res.status(200).redirect('/saved') */
 }
 
 exports.get_saved = async(req, res) => {
@@ -191,7 +233,9 @@ exports.get_login = (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    updateLastSeen(req.user.id)
+    if (req.user) {
+        updateLastSeen(req.user.id)
+    }
     req.flash('info', 'Logout completato con successo')
     req.logOut()
     res.redirect('/login')
