@@ -1,6 +1,13 @@
 const sqlite3 = require('sqlite3').verbose(); /* https://github.com/mapbox/node-sqlite3/wiki/API#databaseallsql-param--callback */
 const { connect_dev, connect_prod, close } = require('./utilsDB')
 
+exports.TABLE = "Phrases"
+
+exports.FIELDS = {
+    "ID": "id",
+    "ISFINISHED": "isFinished"
+}
+
 
 exports.create = phrase => {
     const db = connect_dev();
@@ -20,10 +27,12 @@ exports.create = phrase => {
     close(db);
 }
 
-exports.read = (id = -1) => {
+exports.read = (field = '', value = -1) => {
     const db = connect_dev();
-    const sql = "SELECT Phrases.*, Users.username, People.name, People.surname, People.quotationMarksColor, Phrases.yearOfPublication, Phrases.monthOfPublication, Phrases.dayOfPublication" +
-        " FROM Phrases LEFT JOIN People ON (Phrases.quotedById = People.id) LEFT JOIN Users ON (Phrases.authorId = Users.id)" + ((id > -1) ? ` WHERE Phrases.id = ${id}` : "") + ";";
+    const sql = "SELECT Phrases.*, Users.username, People.name as quoterName, People.surname as quoterSurname, People.quotationMarksColor, People.img as quoterImg, Phrases.yearOfPublication, Phrases.monthOfPublication, Phrases.dayOfPublication" +
+        " FROM Phrases LEFT JOIN People ON (Phrases.quotedById = People.id) LEFT JOIN Users ON (Phrases.authorId = Users.id)" + ((field != '' && value > -1) ? ` WHERE Phrases.${field} = ${value}` : "") + ";";
+
+    console.log(sql)
 
     return new Promise((resolve, reject) => {
         var responseObj;
@@ -38,6 +47,7 @@ exports.read = (id = -1) => {
                     statement: this,
                     rows: rows
                 };
+                console.log(responseObj)
                 resolve(responseObj);
             }
             close(db)

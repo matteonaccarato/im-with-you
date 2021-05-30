@@ -1,5 +1,7 @@
 const { connect_dev, connect_prod, close } = require('./utilsDB')
 
+const TABLE = "Users"
+
 const FIELDS = {
     'ID': 'id',
     'EMAIL': 'email'
@@ -57,6 +59,8 @@ const readByRole = (role, id = -1 /* , callback */ ) => {
 const create = user => {
     const db = connect_dev();
     const sql = "INSERT INTO Users VALUES (null, $email, $username, $password, $name, $surname, $yearOfBirth, $monthOfBirth, $dayOfBirth, $img, $countryCode, $yearOfLastSeen, $monthOfLastSeen, $dayOfLastSeen, $role);"
+
+    console.log(user)
 
     db.run(sql, {
         $email: user.email,
@@ -204,7 +208,30 @@ const getImageUrl = id => {
             close(db)
         })
     })
+}
 
+
+const checkUniqueFields = async(email, username) => {
+    const db = connect_dev();
+    const sql = `SELECT COUNT(id) as nUsers FROM Users WHERE email = '${email}' OR username = '${username}'`
+    return new Promise((resolve, reject) => {
+        var responseObj
+        db.get(sql, (err, value) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                }
+                reject(responseObj)
+            } else {
+                responseObj = {
+                    statement: this,
+                    isValid: (value.nUsers != 0) ? false : true
+                }
+                resolve(responseObj)
+            }
+            close(db)
+        })
+    })
 }
 
 
@@ -229,6 +256,7 @@ const readByEmail = async(email, callback) => [
 
 
 module.exports = {
+    TABLE,
     create,
     readById,
     readByEmail,
@@ -239,5 +267,6 @@ module.exports = {
     getImageUrl,
     update,
     updateLastSeen,
-    deleteUser
+    deleteUser,
+    checkUniqueFields
 }

@@ -1,0 +1,56 @@
+<%- include('./partials/header') %>
+
+    <div class="container-fluid" style="height: 100%;">
+
+        <%- include('../partials/flashMessages') %>
+
+            <%- include('./partials/headerEntities') %>
+
+                <p>AGGIUNGERE RICERCA E FILTRO</p>
+
+                <div class="row">
+
+                    <% if (posts.length) { %>
+                        <% posts.forEach(post => { %>
+
+                            <div class="col-md-4 mb-4">
+
+                                <div class="card cardHome">
+                                    <div class="card-header">
+                                        <strong><%= post.title %></strong>
+                                        <form action="/save/post/<%= post.id %>" method="POST">
+                                            <button type="submit" class="btn bg-transparent heartForSaving">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        </form>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <%= post.text %>
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <hr> Creato da
+                                        <a href="/users/<%= post.authorId %>" class="text-info">
+                                            <%= post.username %>
+                                        </a>,
+                                        <%= post.dayOfPublication %>/
+                                            <%= post.monthOfPublication %>/
+                                                <%= post.yearOfPublication %>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <% }) %>
+                                <% } else { %>
+                                    <%- include('./partials/noEntities') %>
+                                        <% } %>
+
+
+                </div>
+
+                <br>
+                <br>
+    </div>
+
+    <%- include('./partials/footer') %>

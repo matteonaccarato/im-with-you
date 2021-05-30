@@ -3,11 +3,14 @@
     <a class="dropdown-item" href="/profile">
         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 "></i> Profile
     </a>
+    <a class="dropdown-item" href="/saved">
+        <i class="fas fa-bookmark fa-sm fa-fw mr-2 text-gray-400"></i> Salvati
+    </a>
 
     <% if (user.role === ROLE.ADMIN) { %>
         <div class="dropdown-divider "></div>
 
-        <a class="dropdown-item" href="/">
+        <a class="dropdown-item" href="/admin/dashboard">
             <button type="button" class="btn btn-light">
                 <i class="far fa-eye"></i> Schermata admin
             </button>

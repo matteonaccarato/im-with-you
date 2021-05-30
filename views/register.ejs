@@ -6,6 +6,8 @@
             <div class="col-md-12">
                 <h1>Crea un account</h1>
                 <p class="font-italic">Creare un account è vantaggioso in quanto permette di salvarti i post che ti piacciono in una tua personale raccolta!</p>
+
+                <%- include('./partials/flashMessages') %>
             </div>
         </div>
 
@@ -76,45 +78,49 @@
                     </div>
                 </div>
 
-                <div class="row" id="passwordErrors" class="alert alert-warning password-alert" role="alert" hidden>
+                <%- include('./admin/partials/form/passwordRequirements') %>
+                    <!-- <div class="row" id="passwordErrors" class="alert alert-warning password-alert" role="alert" hidden>
                     <ul>
                         <li class="requirements len"><i class="fas fa-check text-success" id="validLen" hidden></i><i class="fas fa-times text-danger" id="wrongLen"></i> La password deve essere almeno di 8 caratteri</li>
-                        <li class="requirements len"><i class="fas fa-check text-success" id="validEquals" hidden></i><i class="fas fa-times text-danger" id="wrongEquals"></i> Le due password NON combaciano</li>
+                        <li class="requirements len"><i class="fas fa-check text-success" id="validEquals" hidden></i><i class="fas fa-times text-danger" id="wrongEquals"></i> Le due password devono combaciare</li>
                     </ul>
-                </div>
+                </div> -->
 
 
-                <div class="row">
-                    <div class="form-group col-lg-12 mx-auto mb-0">
-                        <button type="submit" class="btn btn-block py-2 btn-outline-primary">Register</button>
+                    <div class="row">
+                        <div class="form-group col-lg-12 mx-auto mb-0">
+                            <button type="submit" class="btn btn-block py-2 btn-outline-primary">Register</button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
-                        <div class="border-bottom w-100 ml-5"></div>
-                        <span class="px-2 small font-weight-bold">OR</span>
-                        <div class="border-bottom w-100 mr-5"></div>
+                    <div class="row">
+                        <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                            <div class="border-bottom w-100 ml-5"></div>
+                            <span class="px-2 small font-weight-bold">OR</span>
+                            <div class="border-bottom w-100 mr-5"></div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="form-group col-lg-12 mx-auto">
-                        <a href="#google" class="btn btn-primary btn-block py-2 btn-google">
-                            <i class="fab fa-google mr-2"></i>
-                            <span class="font-weight-bold">Accedi con Google</span>
-                        </a>
+                    <div class="row">
+                        <div class="form-group col-lg-12 mx-auto">
+                            <a href="#google" class="btn btn-primary btn-block py-2 btn-google">
+                                <i class="fab fa-google mr-2"></i>
+                                <span class="font-weight-bold">Accedi con Google</span>
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="text-center w-100">
-                    <p class="font-weight-bold">Hai già un account? <a href="/login" class="ml-1 text-info">Login</a></p>
-                </div>
+                    <div class="text-center w-100" style="z-index: 99;">
+                        <p class="font-weight-bold mb-10">Hai già un account? <a href="/login" class="ml-1 text-info">Login</a></p>
+                    </div>
+                    <br>
+                    <br>
 
             </form>
         </div>
 
 
+        <script src="/js/utilsFlashMessages.js"></script>
         <script src="/js/password.js"></script>
 
         <%- include('./public/partials/footer') %>

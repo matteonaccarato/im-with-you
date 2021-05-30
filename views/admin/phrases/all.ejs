@@ -73,7 +73,7 @@
                                             <td style="width: 25%;">
                                                 <% if (phrase.img) { %>
                                                     <div class="img-hover-zoom">
-                                                        <img style="height: 150px;" title="<%= phrase.name %> <%= phrase.surname %>" src="<%= phrase.img %>">
+                                                        <img style="height: 150px;" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" src="<%= phrase.img %>">
                                                     </div>
                                                     <% } else { %>
                                                         <%- include('./../partials/table/notAvailable') %>
@@ -83,8 +83,8 @@
 
                                                 <% if (phrase.quotedById) { %>
                                                     <a href="/admin/people/<%= phrase.quotedById %>" class='linkQuoted' data-color="<%= phrase.quotationMarksColor %>">
-                                                        <%= phrase.name %>
-                                                            <%= phrase.surname %>
+                                                        <%= phrase.quoterName %>
+                                                            <%= phrase.quoterSurname %>
                                                     </a>
 
                                                     <% } else { %>

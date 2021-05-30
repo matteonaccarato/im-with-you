@@ -20,10 +20,53 @@
     transform: scale(1.5);
 }
 
+#userWrapper {
+    height: 100%;
+    background-color: #333333;
+}
 
-/* #myEditButton:hover {
-    border: 1px solid black;
-} */
+#content-wrapper,
+#content {
+    height: 80%;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+#heart:hover {
+    color: #212020 !important;
+}
+
+.cardHome>.card-body {
+    /* background-color: #D4D3D3; */
+    background-color: rgba(212, 211, 211, .4);
+    text-align: center;
+}
+
+.cardHome>.card-header,
+.cardHome>.card-footer {
+    background-color: rgba(226, 226, 226, .2);
+    /* background-color: rgba(255, 0, 0, .2) */
+}
+
+.cardHome .card-footer {
+    text-align: right;
+}
+
+.myNavItem {
+    margin-top: 2px;
+    width: 80px;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+}
+
+.myNavItem:hover {
+    text-decoration: underline;
+}
 
 .square {
     height: 50px;
@@ -35,8 +78,6 @@
 .bootstrap-select>.dropdown-toggle.bs-placeholder:focus,
 .bootstrap-select>.dropdown-toggle.bs-placeholder:hover,
 .btn:not(:disabled):not(.disabled) {
-    /* border-top-left-radius: 0;
-    border-bottom-left-radius: 0; */
     margin-left: 1px !important;
     border: 1px solid #D1D3E2 !important;
 }
@@ -44,3 +85,27 @@
 .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
     width: 60% !important;
 }
+
+.heartForSaving {
+    position: absolute;
+    right: 16px;
+    top: 8px;
+}
+
+.heartForSaving:hover {
+    color: #D66060;
+}
+
+
+/* .heartForSavingHover {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    visibility: hidden;
+    color: #D66060;
+} */
+
+
+/* .heartForSavingHover:hover {
+    visibility: visible !important;
+} */

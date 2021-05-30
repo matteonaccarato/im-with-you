@@ -1,6 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const { connect_dev, connect_prod, close } = require('./utilsDB')
 
+exports.TABLE = "People"
 
 exports.read = (id = -1) => {
     const db = connect_dev();

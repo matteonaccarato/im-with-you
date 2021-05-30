@@ -86,7 +86,8 @@ exports.update = (req, res) => {
 
         usersDB.getImageUrl(req.params.id)
             .then(obj => {
-                if (obj && obj.url !== '' && req.body.deleteImage == 1) {
+                if (obj && obj.url && obj.url !== '' && req.body.deleteImage == 1) {
+                    console.log(obj)
                     const tmp = obj.url.split('/')
                     s3.deleteImage(tmp[tmp.length - 1])
                     console.log('Image updated!')
