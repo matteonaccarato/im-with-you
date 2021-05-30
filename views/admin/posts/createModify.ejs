@@ -8,9 +8,9 @@
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <% if (!post.title) { %>
-                        <h6 class="m-0 font-weight-bold">Crea FRASE</h6>
+                        <h6 class="m-0 font-weight-bold">Crea POST</h6>
                         <% } else { %>
-                            <h6 class="m-0 font-weight-bold">Modifica FRASE</h6>
+                            <h6 class="m-0 font-weight-bold">Modifica POST</h6>
                             <% } %>
                 </div>
 
@@ -30,8 +30,8 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="text">Frase <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' required><%= post.text %></textarea>
+                                    <label for="text">Testo <%- include('../partials/form/requiredSymbol') %></label>
+                                    <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui il testo ..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' required><%= post.text %></textarea>
                                 </div>
                             </div>
                         </div>
@@ -69,4 +69,5 @@
 
 
         <script src="/js/admin/switchPhrasePost.js"></script>
+
         <%- include('./../partials/footer') %>
