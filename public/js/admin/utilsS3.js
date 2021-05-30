@@ -2,7 +2,6 @@ $('#uploadForm').on('submit', () => {
     $("#status").empty().text("Loading ...");
 });
 
-
 const checkFile = fileToLoad => {
     const file = fileToLoad.files[0]
     console.log(file)

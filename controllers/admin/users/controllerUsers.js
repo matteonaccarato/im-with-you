@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt')
 
 const usersDB = require('../../../db/usersDB')
+const phrasesDB = require('../../../db/phrasesDB')
+const postsDB = require('../../../db/postsDB')
 const savesDB = require('../../../db/savesDB')
 const countriesDB = require('../../../db/countriesDB')
 const { checkUniqueFields, checkEmailValid, checkUsernameValid } = require('../../../db/usersDB')
@@ -244,15 +246,20 @@ exports.delete = (req, res) => {
                 console.log('Image successfully deleted!')
             }
 
-            savesDB.deleteByField(savesDB.SAVES_TBLS.PHRASE, savesDB.FIELDS.USER_ID, req.params.id, () => {
-                savesDB.deleteByField(savesDB.SAVES_TBLS.POST, savesDB.FIELDS.USER_ID, req.params.id, () => {
-                    usersDB.deleteUser(req.params.id, () => {
-                        console.log('User successfully deleted!')
-                        req.flash('info', 'Utente eliminato con successo!!')
-                        res.status(200).redirect(`/admin/${req.params.role}s`)
+            phrasesDB.deleteByField(phrasesDB.FIELDS.AUTHORID, req.params.id, () => {
+                postsDB.deleteByField(postsDB.FIELDS.AUTHORID, req.params.id, () => {
+                    savesDB.deleteByField(savesDB.SAVES_TBLS.PHRASE, savesDB.FIELDS.USER_ID, req.params.id, () => {
+                        savesDB.deleteByField(savesDB.SAVES_TBLS.POST, savesDB.FIELDS.USER_ID, req.params.id, () => {
+                            usersDB.deleteUser(req.params.id, () => {
+                                console.log('User successfully deleted!')
+                                req.flash('info', 'Utente eliminato con successo!!')
+                                res.status(200).redirect(`/admin/${req.params.role}s`)
+                            })
+                        })
                     })
                 })
             })
+
         })
 
 

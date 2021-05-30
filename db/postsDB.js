@@ -4,6 +4,7 @@ exports.TABLE = "Posts"
 
 exports.FIELDS = {
     "ID": "id",
+    "AUTHORID": "authorId",
     "ISFINISHED": "isFinished"
 }
 
@@ -118,6 +119,18 @@ exports.delete = (id, cb) => {
         }
     });
     close(db)
+}
+
+exports.deleteByField = (field, value, cb) => {
+    const db = connect_dev();
+    const sql = `DELETE FROM ${this.TABLE} WHERE ${field} = ${value};`
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
+    })
 }
 
 exports.getCount = () => {

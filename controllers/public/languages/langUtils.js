@@ -25,7 +25,7 @@ const getContents = (user, page) => {
             default:
                 contents = rawContents[LANGUAGES.EN][page]
         }
-    } else contents = rawContents[LANGUAGES.EN][page]
+    } else contents = rawContents[LANGUAGES.IT][page]
 
     return contents;
 }
