@@ -93,37 +93,132 @@
 
                         <div class="row">
 
-                            <div class="col-sm-12 col-md-6 mb-4">
-                                <div class="card cardHome border-primary bg-transparent">
-                                    <div class="card-header border-primary">
-                                        Titolo
-                                    </div>
-                                    <div class="card-body">
-                                        Contenuto
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="col-md-6 mb-4">
 
-                            <div class="col-sm-12 col-md-6 mb-4">
-                                <div class="card cardHome border-primary bg-transparent">
-                                    <div class="card-header border-primary">
-                                        Titolo
-                                    </div>
-                                    <div class="card-body">
-                                        Contenuto
+                                <div class="card border-primary bg-transparent cardHome">
+                                    <div class="row no-gutters">
+
+                                        <% if (lastPhrase.img || lastPhrase.quoterImg) { %>
+                                            <div class="col-lg-7 col-md-12">
+                                                <% if (lastPhrase.img) { %>
+                                                    <img src="<%= lastPhrase.img %>" class="card-img myImg" title="<%= lastPhrase.quoterName %> <%= lastPhrase.quoterSurname %>" alt="<%= lastPhrase.quoterName %> <%= lastPhrase.quoterSurname %>">
+                                                    <% } else { %>
+                                                        <img src="<%= lastPhrase.quoterImg %>" class="card-img myImg" style="padding: 15px;" title="<%= lastPhrase.quoterName %> <%= lastPhrase.quoterSurname %>" alt="<%= lastPhrase.quoterName %> <%= lastPhrase.quoterSurname %>">
+                                                        <% } %>
+                                            </div>
+                                            <% } %>
+
+
+                                                <% if (lastPhrase.img || lastPhrase.quoterImg) { %>
+                                                    <div class="col-lg-5 col-md-12">
+                                                        <% } else { %>
+                                                            <div class="col-md-12">
+                                                                <% } %>
+
+                                                                    <div class="card-body border-primary">
+                                                                        <div class="card-title">
+
+                                                                            <% if (lastPhrase.liked == true) { %>
+                                                                                <form action="/unsave/phrase/<%= lastPhrase.id %>?_method=DELETE" method="POST">
+                                                                                    <button type="submit" name="_method" class="btn bg-transparent heartForSaving">
+                                                                                    <i class="fas fa-heart text-primary" id="heart"></i>
+                                                                                </button>
+                                                                                </form>
+                                                                                <% } else { %>
+                                                                                    <% if (user) { %>
+                                                                                        <form action="/save/phrase/<%= lastPhrase.id %>" method="POST">
+                                                                                            <button type="submit" class="btn bg-transparent heartForSaving">
+                                                                                        <i class="far fa-heart "></i>
+                                                                                    </button>
+                                                                                        </form>
+                                                                                        <% } %>
+                                                                                            <% } %>
+                                                                        </div>
+                                                                        <p class="card-text pt-4 font-italic" style="color: <%= lastPhrase.quotationMarksColor %>;">
+                                                                            <i class="fas fa-quote-left"></i>
+                                                                            <span class="h4">
+                                                                            <%= lastPhrase.text %>
+                                                                        </span>
+                                                                            <i class="fas fa-quote-right"></i>
+                                                                            <% if (lastPhrase.quoterName || lastPhrase.quoterSurname) { %>
+                                                                                <hr>
+                                                                                <p class="font-italic" style="color: <%= lastPhrase.quotationMarksColor %>;">
+                                                                                    <%= lastPhrase.quoterName %>
+                                                                                        <%= lastPhrase.quoterSurname %>
+                                                                                            <% } %>
+                                                                                </p>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="card-footer bg-transparent" style="border: none;">
+                                                                        <hr> Creato da
+                                                                        <!-- <a href="/users/<%= lastPhrase.authorId %>" class="text-info"> -->
+                                                                        <a class="text-info">
+                                                                            <%= lastPhrase.username %>
+                                                                        </a>,
+                                                                        <%= lastPhrase.dayOfPublication %>/
+                                                                            <%= lastPhrase.monthOfPublication %>/
+                                                                                <%= lastPhrase.yearOfPublication %>
+                                                                                    </small>
+                                                                                    </p>
+                                                                    </div>
+                                                            </div>
+
+                                                    </div>
+
                                     </div>
                                 </div>
+
+                                <div class="col-sm-12 col-md-6 mb-4">
+
+                                    <div class="card cardHome bg-transparent border-primary">
+                                        <div class="card-header border-primary">
+                                            <strong class="text-primary"><%= lastPost.title %></strong>
+
+                                            <% if (lastPost.liked == true) { %>
+                                                <form action="/unsave/post/<%= lastPost.id %>?_method=DELETE" method="POST">
+                                                    <button type="submit" name="_method" class="btn bg-transparent heartForSaving">
+                                                            <i class="fas fa-heart text-primary" id="heart"></i>
+                                                        </button>
+                                                </form>
+                                                <% } else { %>
+                                                    <% if (user) { %>
+                                                        <form action="/save/post/<%= lastPost.id %>" method="POST">
+                                                            <button type="submit" class="btn bg-transparent heartForSaving">
+                                                                    <i class="far fa-heart"></i>
+                                                                </button>
+                                                        </form>
+                                                        <% } %>
+                                                            <% } %>
+                                        </div>
+
+                                        <div class="card-body bg-transparent" style="color: #E0E0E0;">
+                                            <%= lastPost.text %>
+                                        </div>
+
+                                        <div class="card-footer bg-transparent">
+                                            <hr> Creato da
+                                            <!-- <a href="/users/<%= lastPost.authorId %>" class="text-info"> -->
+                                            <a class="text-info">
+                                                <%= lastPost.username %>
+                                            </a>,
+                                            <%= lastPost.dayOfPublication %>/
+                                                <%= lastPost.monthOfPublication %>/
+                                                    <%= lastPost.yearOfPublication %>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
-
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
+
         </div>
-        <br>
-        <br>
 
-    </div>
-
-    <%- include('./partials/footer') %>
+        <%- include('./partials/footer') %>

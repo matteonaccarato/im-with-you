@@ -59,6 +59,33 @@ exports.read = (field = '', value = -1) => {
     })
 }
 
+exports.readLasts = lastN => {
+    const db = connect_dev()
+    const sql = `SELECT Posts.*, Users.username
+                    FROM Posts 
+                        JOIN Users ON (Posts.authorId = Users.id)
+                    ORDER BY Posts.yearOfPublication DESC, Posts.monthOfPublication DESC, Posts.dayOfPublication DESC, Posts.id DESC;
+                LIMIT ${lastN};`
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.all(sql, (err, rows) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                };
+                reject(responseObj);
+            } else {
+                responseObj = {
+                    statement: this,
+                    rows: rows
+                };
+                resolve(responseObj);
+            }
+            close(db)
+        })
+    })
+}
+
 /* exports.read = (id = -1) => {
     const db = connect_dev();
     const sql = "SELECT Posts.*, Users.username FROM Posts JOIN Users ON (Posts.authorId = Users.id)" + ((id > -1) ? ` WHERE Posts.id = ${id}` : "") + ";";

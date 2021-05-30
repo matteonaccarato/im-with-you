@@ -66,6 +66,34 @@ exports.read = (field = '', value = -1) => {
     })
 }
 
+exports.readLasts = lastN => {
+    const db = connect_dev()
+    const sql = `SELECT Phrases.*, Users.username, People.name as quoterName, People.surname as quoterSurname, People.quotationMarksColor, People.img as quoterImg, Phrases.yearOfPublication, Phrases.monthOfPublication, Phrases.dayOfPublication
+                    FROM Phrases 
+                        LEFT JOIN People ON (Phrases.quotedById = People.id) 
+                        LEFT JOIN Users ON (Phrases.authorId = Users.id)
+                    ORDER BY Phrases.yearOfPublication DESC, Phrases.monthOfPublication DESC, Phrases.dayOfPublication DESC, Phrases.id DESC
+                LIMIT ${lastN};`
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.all(sql, (err, rows) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                };
+                reject(responseObj);
+            } else {
+                responseObj = {
+                    statement: this,
+                    rows: rows
+                };
+                resolve(responseObj);
+            }
+            close(db)
+        })
+    })
+}
+
 
 exports.update = (phrase, cb) => {
     const db = connect_dev();

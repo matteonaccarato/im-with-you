@@ -18,15 +18,19 @@ const ROLES = {
 }
 
 exports.get_create = async(req, res) => {
-    const response = await countriesDB.read()
+    try {
+        const response = await countriesDB.read()
 
-    res.render('admin/users/createModify', {
-        user: req.user,
-        roles: ROLES,
-        countries: response.rows,
-        formAction: 'create',
-        userToUpdate: {}
-    })
+        res.render('admin/users/createModify', {
+            user: req.user,
+            roles: ROLES,
+            countries: response.rows,
+            formAction: 'create',
+            userToUpdate: {}
+        })
+    } catch (err) {
+        internalError(res, 500, err)
+    }
 }
 
 exports.create = (req, res) => {

@@ -143,89 +143,141 @@
             <div class="col-xl-8 col-md-12 mb-4">
                 <div class="card border-left-dark shadow h-100 py-2">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-dark">TOP 3 or LAST 3</h6>
-                        <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Esporta</div>
-                                <div class="no-gutters align-items-center">
-                                    <a class="dropdown-item" href="#">
-                                        <div class="text-s font-weight-bold text-dark d-flex align-items-center">
-                                            <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <h6 class="m-0 font-weight-bold text-dark">Ultime tre frasi e post pubblicati</h6>
                     </div>
                     <div class="card-body">
-                        <!-- <div class="chart-area"> -->
+
                         <div class="row">
-                            <div class="col-sm-12 col-md-4 mb-4">
-                                <div class="card">
-                                    <div class="card-header">Header + link</div>
-                                    <div class="card-body">Body</div>
-                                    <div class="card-footer">Footer</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4 mb-4">
-                                <div class="card">
-                                    <div class="card-header">Header + link</div>
-                                    <div class="card-body">Body</div>
-                                    <div class="card-footer">Footer</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4 mb-4">
-                                <div class="card">
-                                    <div class="card-header">Header + link</div>
-                                    <div class="card-body">Body</div>
-                                    <div class="card-footer">Footer</div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- </div> -->
-                    </div>
-                </div>
-            </div>
 
+                            <% lastPhrases.forEach(phrase => { %>
+                                <div class="col-sm-12 col-md-4 mb-4">
 
-            <!-- numero di utenti attivi oggi (contando anche quelli senza account?) o num chat aperte-->
-            <div class="col-xl-4 col-md-12 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
+                                    <div class="card border-primary bg-transparent cardHome">
+                                        <div class="row no-gutters">
 
-                            <div class="col">
-                                <div class="card shadow mb-2">
-                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold text-info">Utenti attivi nelle ultime 24h</h6>
-                                    </div>
-                                    <!-- Card Body -->
-                                    <div class="card-body">
-                                        <div class="chart-pie pt-4 pb-2">
-                                            <canvas id="usersActivePieChart"></canvas>
+                                            <% if (phrase.img || phrase.quoterImg) { %>
+                                                <div class="col-md-12">
+                                                    <% if (phrase.img) { %>
+                                                        <img src="<%= phrase.img %>" class="card-img myImg" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" alt="<%= phrase.quoterName %> <%= phrase.quoterSurname %>">
+                                                        <% } else { %>
+                                                            <img src="<%= phrase.quoterImg %>" class="card-img myImg" style="padding: 15px;" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" alt="<%= phrase.quoterName %> <%= phrase.quoterSurname %>">
+                                                            <% } %>
+                                                </div>
+                                                <% } %>
+
+                                                    <% if (phrase.img || phrase.quoterImg) { %>
+                                                        <div class="col-md-12">
+                                                            <% } else { %>
+                                                                <div class="col-md-12">
+                                                                    <% } %>
+
+                                                                        <div class="card-body border-primary">
+
+                                                                            <p class="card-text pt-4 font-italic" style="color: <%= phrase.quotationMarksColor %>;">
+                                                                                <i class="fas fa-quote-left"></i>
+                                                                                <span class="h4">
+                                                                                <%= phrase.text %>
+                                                                            </span>
+                                                                                <i class="fas fa-quote-right"></i>
+                                                                                <% if (phrase.quoterName || phrase.quoterSurname) { %>
+                                                                                    <hr>
+                                                                                    <p class="font-italic" style="color: <%= phrase.quotationMarksColor %>;">
+                                                                                        <%= phrase.quoterName %>
+                                                                                            <%= phrase.quoterSurname %>
+                                                                                                <% } %>
+                                                                                    </p>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="card-footer bg-transparent" style="border: none;">
+                                                                            <hr> Creato da
+                                                                            <!-- <a href="/users/<%= phrase.authorId %>" class="text-info"> -->
+                                                                            <a class="text-info">
+                                                                                <%= phrase.username %>
+                                                                            </a>,
+                                                                            <%= phrase.dayOfPublication %>/
+                                                                                <%= phrase.monthOfPublication %>/
+                                                                                    <%= phrase.yearOfPublication %>
+                                                                                        </small>
+                                                                                        </p>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+
                                         </div>
-                                        <div style="display: none;" id="chart-dataUsersActiveToday" data-nusers="<%= number_users %>" data-nusersactive="<%= number_usersActiveToday %>"></div>
                                     </div>
-                                </div>
-                            </div>
 
+                                    <% }) %>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <% lastPosts.forEach(post => { %>
+                                        <div class="col-lg-4 col-md-6 mb-4">
+
+                                            <div class="card bg-transparent border-primary">
+                                                <div class="card-header border-primary">
+                                                    <strong><%= post.title %></strong>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <%= post.text %>
+                                                </div>
+
+                                                <div class="card-footer bg-transparent">
+                                                    <hr> Creato da
+                                                    <!-- <a href="/users/<%= post.authorId %>" class="text-info"> -->
+                                                    <a class="text-info">
+                                                        <%= post.username %>
+                                                    </a>
+                                                    <!-- </a> -->,
+                                                    <%= post.dayOfPublication %>/
+                                                        <%= post.monthOfPublication %>/
+                                                            <%= post.yearOfPublication %>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                </div>
                         </div>
                     </div>
                 </div>
+
+
+                <div class="col-xl-4 col-md-12 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+
+                                <div class="col">
+                                    <div class="card shadow mb-2">
+                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-info">Utenti attivi nelle ultime 24h</h6>
+                                        </div>
+                                        <!-- Card Body -->
+                                        <div class="card-body">
+                                            <div class="chart-pie pt-4 pb-2">
+                                                <canvas id="usersActivePieChart"></canvas>
+                                            </div>
+                                            <div style="display: none;" id="chart-dataUsersActiveToday" data-nusers="<%= number_users %>" data-nusersactive="<%= number_usersActiveToday %>"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
+            <!-- end of container-fluid -->
         </div>
 
-        <!-- end of container-fluid -->
-    </div>
-
-    <!-- script only for this page -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js " integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin=" anonymous "></script>
-    <script src="/js/admin/dashboard.js "></script>
+        <!-- script only for this page -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js " integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin=" anonymous "></script>
+        <script src="/js/admin/dashboard.js "></script>
 
 
-    <%- include('./partials/footer') %>
+        <%- include('./partials/footer') %>

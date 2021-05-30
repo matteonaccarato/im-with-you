@@ -7,7 +7,7 @@ const postsDB = require('../../db/postsDB')
 const savesDB = require('../../db/savesDB')
 const { updateLastSeen } = require('../../db/usersDB')
 const { ROLE } = require('../../config/adminUtils')
-const { SALT_ROUNDS } = require('../../db/utilsDB')
+const { SALT_ROUNDS, internalError } = require('../../db/utilsDB')
 const { PAGES, LANGUAGES, getContents } = require('./languages/langUtils')
 
 const { create, readById, readByEmail, checkUniqueFields } = require('../../db/usersDB')
@@ -17,13 +17,25 @@ initalizePassport(
     readById,
 )
 
-exports.get_home = (req, res) => {
+exports.get_home = async(req, res) => {
     const contents = getContents(req.user, PAGES['/'])
-    res.render('public/index', {
-        user: req.user,
-        ROLE: ROLE,
-        language: contents
-    });
+
+    try {
+        const lastPhrase = (await phrasesDB.readLasts(1)).rows[0]
+        const lastPost = (await postsDB.readLasts(1)).rows[0]
+            /* console.log(lastPhrase)
+            console.log(lastPost) */
+
+        res.render('public/index', {
+            user: req.user,
+            ROLE: ROLE,
+            language: contents,
+            lastPhrase: lastPhrase,
+            lastPost: lastPost
+        });
+    } catch (err) {
+        internalError(res, 500, err)
+    }
 }
 
 
@@ -69,11 +81,12 @@ exports.get_phrases = async(req, res) => {
             phrases: phrases
         })
     } catch (err) {
-        res.render('errors/error', {
-            code: 500,
-            message: 'Internal error',
-            user: req.user
-        })
+        internalError(res, 500, err)
+            /* res.render('errors/error', {
+                code: 500,
+                message: 'Internal error',
+                user: req.user
+            }) */
     }
 
 }
@@ -108,11 +121,12 @@ exports.get_posts = async(req, res) => {
             posts: posts
         })
     } catch (err) {
-        res.render('errors/error', {
-            code: 500,
-            message: 'Internal error',
-            user: req.user
-        })
+        internalError(res, 500, err)
+            /* res.render('errors/error', {
+                code: 500,
+                message: 'Internal error',
+                user: req.user
+            }) */
     }
 }
 
@@ -162,11 +176,12 @@ exports.get_saved = async(req, res) => {
             posts: postsSaved
         })
     } catch (err) {
-        res.render('errors/error', {
-            code: 500,
-            message: 'Internal error',
-            user: req.user
-        })
+        internalError(res, 500, err)
+            /* res.render('errors/error', {
+                code: 500,
+                message: 'Internal error',
+                user: req.user
+            }) */
     }
 }
 
