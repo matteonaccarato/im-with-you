@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt')
 const passport = require('passport')
 
 const initalizePassport = require('../../config/passport')
-    /* const usersDB = require('../../db/usersDB') */
 const phrasesDB = require('../../db/phrasesDB')
 const postsDB = require('../../db/postsDB')
 const savesDB = require('../../db/savesDB')
@@ -38,7 +37,7 @@ exports.get_phrases = async(req, res) => {
         if (req.user) {
             const tmp = (await savesDB.likedByUser(savesDB.SAVES_TBLS.PHRASE, req.user.id)).rows
             likedByUser = tmp.map(obj => obj.contentId)
-            console.log(likedByUser)
+                /* console.log(likedByUser) */
 
             phrases.map(phrase => {
 
@@ -58,7 +57,7 @@ exports.get_phrases = async(req, res) => {
             })
         }
 
-        console.log(phrases)
+        /* console.log(phrases) */
 
 
 
@@ -89,7 +88,7 @@ exports.get_posts = async(req, res) => {
         if (req.user) {
             const tmp = (await savesDB.likedByUser(savesDB.SAVES_TBLS.POST, req.user.id)).rows
             likedByUser = tmp.map(obj => obj.contentId)
-            console.log(likedByUser)
+                /* console.log(likedByUser) */
 
             posts.map(posts => {
 
@@ -97,7 +96,7 @@ exports.get_posts = async(req, res) => {
             })
         }
 
-        console.log(posts)
+        /* console.log(posts) */
 
 
 
@@ -119,25 +118,28 @@ exports.get_posts = async(req, res) => {
 
 
 exports.save_phrase = (req, res) => {
-    savesDB.create(savesDB.SAVES_TBLS.PHRASE, req.params.id, req.user.id)
-    res.status(200).redirect('/phrases')
+    savesDB.create(savesDB.SAVES_TBLS.PHRASE, req.params.id, req.user.id, () => {
+        res.status(200).redirect('/phrases')
+    })
 }
 
 exports.unsave_phrase = (req, res) => {
-    savesDB.delete(savesDB.SAVES_TBLS.PHRASE, req.params.id, req.user.id)
-    res.status(200).redirect('/phrases')
-        /* res.status(200).redirect('/saved') */
+    savesDB.delete(savesDB.SAVES_TBLS.PHRASE, req.params.id, req.user.id, () => {
+        res.status(200).redirect('/phrases')
+    })
 }
 
 exports.save_post = (req, res) => {
-    savesDB.create(savesDB.SAVES_TBLS.POST, req.params.id, req.user.id)
-    res.status(200).redirect('/posts')
+    savesDB.create(savesDB.SAVES_TBLS.POST, req.params.id, req.user.id, () => {
+        res.status(200).redirect('/posts')
+    })
 }
 
 exports.unsave_post = (req, res) => {
-    savesDB.delete(savesDB.SAVES_TBLS.POST, req.params.id, req.user.id)
-    res.status(200).redirect('/posts')
-        /* res.status(200).redirect('/saved') */
+    savesDB.delete(savesDB.SAVES_TBLS.POST, req.params.id, req.user.id, () => {
+        res.status(200).redirect('/posts')
+    })
+
 }
 
 exports.get_saved = async(req, res) => {
@@ -149,8 +151,8 @@ exports.get_saved = async(req, res) => {
         phrasesSaved.map(phrase => phrase.liked = true)
         postsSaved.map(post => post.liked = true)
 
-        console.log(phrasesSaved)
-        console.log(postsSaved)
+        /* console.log(phrasesSaved)
+        console.log(postsSaved) */
 
         res.render('public/saved', {
             user: req.user,
@@ -169,7 +171,6 @@ exports.get_saved = async(req, res) => {
 }
 
 
-
 exports.get_register = (req, res) => {
     const contents = getContents(req.user, PAGES['/register'])
     res.render('register', {
@@ -178,33 +179,6 @@ exports.get_register = (req, res) => {
     })
 }
 
-
-/*
-
-let date_ob = new Date();
-
-// adjust 0 before single digit date
-let date = ("0" + date_ob.getDate()).slice(-2);
-
-// current month
-let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-
-// current year
-let year = date_ob.getFullYear();
-
-// current hours
-let hours = date_ob.getHours();
-
-// current minutes
-let minutes = date_ob.getMinutes();
-
-// current seconds
-let seconds = date_ob.getSeconds();
-
-// prints date & time in YYYY-MM-DD HH:MM:SS format
-console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
-
-*/
 
 exports.register = async(req, res) => {
     try {

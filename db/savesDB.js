@@ -14,12 +14,16 @@ exports.FIELDS = {
     "USER_ID": "userId"
 }
 
-exports.create = (tbl, entityId, userId) => {
+exports.create = (tbl, entityId, userId, cb) => {
     const db = connect_dev();
 
     const sql = `INSERT INTO ${tbl} VALUES (${entityId * 1}, ${userId * 1});`
-    db.run(sql, async err => {
-        console.log(err)
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
     })
 
     close(db);
@@ -107,10 +111,16 @@ exports.likedByUser = (tbl, userId) => {
     })
 }
 
-exports.delete = (tbl, contentId, userId) => {
+exports.delete = (tbl, contentId, userId, cb) => {
     const db = connect_dev();
     const sql = `DELETE FROM ${tbl} WHERE ${this.FIELDS.CONTENT_ID} = ${contentId} AND ${this.FIELDS.USER_ID} = ${userId};`;
-    db.run(sql);
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
+    });
     close(db)
 }
 
@@ -120,8 +130,9 @@ exports.deleteByField = (tbl, field, value, cb) => {
     db.run(sql, err => {
         if (err) {
             console.log(err)
+        } else {
+            cb()
         }
-        cb()
     });
     close(db)
 }

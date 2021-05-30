@@ -55,7 +55,7 @@ exports.update = async(req, res) => {
 
 
             if ((emailNotChanged || emailValid) && (usernameNotChanged || usernameValid)) {
-                console.log(req.body.deleteImage)
+                /* console.log(req.body.deleteImage) */
 
                 usersDB.getImageUrl(req.params.id)
                     .then(async obj => {
@@ -71,33 +71,34 @@ exports.update = async(req, res) => {
                         if (changePassword || req.body.password == '') {
                             const hashedPassword = (req.body.password != '') ? await bcrypt.hash(req.body.password, SALT_ROUNDS) : ''
                             const user = {
-                                id: req.params.id,
-                                email: req.body.email,
-                                password: hashedPassword,
-                                username: req.body.username,
-                                name: req.body.name,
-                                surname: req.body.surname,
-                                yearOfBirth: dateOfBirth.split('-')[0],
-                                monthOfBirth: dateOfBirth.split('-')[1],
-                                dayOfBirth: dateOfBirth.split('-')[2],
-                                img: (req.body.deleteImage == 0) ? req.body.oldImgUrl : (req.file) ? req.file.location : '',
-                                countryCode: req.body.countryCode,
-                                yearOfLastSeen: lastSeen.split('-')[0],
-                                monthOfLastSeen: lastSeen.split('-')[1],
-                                dayOfLastSeen: lastSeen.split('-')[2],
-                                role: req.body.role
-                            }
-                            console.log(user)
-                            usersDB.update(user)
-                            req.flash('info', 'Modifica del profilo completata con successo')
-                            if (req.user.role == ROLE.ADMIN) {
-                                res.status(200).redirect('/admin/dashboard')
-                            } else {
-                                res.status(200).redirect('/')
-                            }
+                                    id: req.params.id,
+                                    email: req.body.email,
+                                    password: hashedPassword,
+                                    username: req.body.username,
+                                    name: req.body.name,
+                                    surname: req.body.surname,
+                                    yearOfBirth: dateOfBirth.split('-')[0],
+                                    monthOfBirth: dateOfBirth.split('-')[1],
+                                    dayOfBirth: dateOfBirth.split('-')[2],
+                                    img: (req.body.deleteImage == 0) ? req.body.oldImgUrl : (req.file) ? req.file.location : '',
+                                    countryCode: req.body.countryCode,
+                                    yearOfLastSeen: lastSeen.split('-')[0],
+                                    monthOfLastSeen: lastSeen.split('-')[1],
+                                    dayOfLastSeen: lastSeen.split('-')[2],
+                                    role: req.body.role
+                                }
+                                /* console.log(user) */
+
+                            usersDB.update(user, () => {
+                                req.flash('info', 'Modifica del profilo completata con successo')
+                                if (req.user.role == ROLE.ADMIN) {
+                                    res.status(200).redirect('/admin/dashboard')
+                                } else {
+                                    res.status(200).redirect('/')
+                                }
+                            })
                         } else {
                             req.flash('error', 'Password non corretta')
-
                             if (req.user.role == ROLE.ADMIN) {
                                 res.redirect('/admin/profile')
                             } else {
@@ -114,9 +115,7 @@ exports.update = async(req, res) => {
                     res.redirect('/')
                 }
             }
-
         })
-
     } catch (err) {
         internalError(res, 500, err)
     }

@@ -81,8 +81,9 @@ const create = (user, cb) => {
     }, err => {
         if (err) {
             console.log(err)
+        } else {
+            cb()
         }
-        cb()
     })
 
     close(db);
@@ -111,8 +112,9 @@ const update = (user, cb) => {
     }, err => {
         if (err) {
             console.log(err)
+        } else {
+            cb()
         }
-        cb()
     })
 
     close(db);
@@ -140,8 +142,9 @@ const deleteUser = (id, cb) => {
     db.run(sql, err => {
         if (err) {
             console.log(err)
+        } else {
+            cb()
         }
-        cb()
     });
     close(db)
 }

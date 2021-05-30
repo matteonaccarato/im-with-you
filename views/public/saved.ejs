@@ -15,70 +15,9 @@
 
                         <%- include('./partials/phrases/cards') %>
 
-                            <!-- <% phrases.forEach(phrase => { %>
-
-
-
-                            <div class="col-md-6 mb-4">
-
-                                <div class="card border-primary bg-transparent cardHome">
-                                    <div class="row no-gutters">
-                                        <% if (phrase.img || phrase.quoterImg) { %>
-                                            <div class="col-md-5">
-                                                <% if (phrase.img) { %>
-                                                    <img src="<%= phrase.img %>" class="card-img img-hover-zoom" style="padding: 15px;" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" alt="<%= phrase.quoterName %> <%= phrase.quoterSurname %>">
-                                                    <% } else { %>
-                                                        <img src="<%= phrase.quoterImg %>" class="card-img img-hover-zoom" style="padding: 15px;" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" alt="<%= phrase.quoterName %> <%= phrase.quoterSurname %>">
-                                                        <% } %>
-                                            </div>
-                                            <% } %>
-
-                                                <% if (phrase.img || phrase.quoterImg) { %>
-                                                    <div class="col-md-7">
-                                                        <% } else { %>
-                                                            <div class="col-md-12">
-                                                                <% } %>
-                                                                    <div class="card-body border-primary">
-                                                                        <div class="card-title">
-                                                                            <form action="/unsave/phrase/<%= phrase.id %>?_method=DELETE" method="POST">
-                                                                                <button type="submit" name="_method" class="btn bg-transparent heartForSaving">
-                                                                                    <i class="fas fa-heart text-primary" id="heart"></i>
-                                                                                </button>
-                                                                            </form>
-                                                                        </div>
-
-                                                                        <p class="card-text pt-4 font-italic" style="color: <%= phrase.quotationMarksColor %>;">
-                                                                            <i class="fas fa-quote-left"></i>
-                                                                            <span class="h4">
-                                                                                <%= phrase.text %>
-                                                                            </span>
-                                                                            <i class="fas fa-quote-right"></i>
-                                                                        </p>
-
-
-                                                                    </div>
-                                                                    <div class="card-footer bg-transparent" style="border: none;">
-                                                                        <hr> Creato da
-                                                                        <a href="/users/<%= phrase.authorId %>" class="text-info">
-                                                                            <%= phrase.username %>
-                                                                        </a>,
-                                                                        <%= phrase.dayOfPublication %>/
-                                                                            <%= phrase.monthOfPublication %>/
-                                                                                <%= phrase.yearOfPublication %>
-                                                                                    </small>
-                                                                                    </p>
-                                                                    </div>
-                                                            </div>
-
-                                                    </div>
-
-                                    </div>
-                                </div>
-                                <% }) %> -->
                             <% } else { %>
                                 <%- include('./partials/noEntities') %>
                                     <% } %>
-
 
                 </div>
 
@@ -90,41 +29,12 @@
                     <% if (posts.length) { %>
                         <% posts.forEach(post => { %>
 
-                            <div class="col-md-4 mb-4">
+                            <%- include('./partials/posts/cards') %>
 
-                                <div class="card cardHome">
-                                    <div class="card-header">
-                                        <strong><%= post.title %></strong>
-                                        <form action="/unsave/post/<%= post.id %>?_method=DELETE" method="POST">
-                                            <button type="submit" name="_method" class="btn bg-transparent heartForSaving">
-                                                <i class="fas fa-heart text-primary" id="heart"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-
-                                    <div class="card-body">
-                                        <%= post.text %>
-                                    </div>
-
-                                    <div class="card-footer">
-                                        <hr> Creato da
-                                        <a href="/users/<%= post.authorId %>" class="text-info">
-                                            <%= post.username %>
-                                        </a>,
-                                        <%= post.dayOfPublication %>/
-                                            <%= post.monthOfPublication %>/
-                                                <%= post.yearOfPublication %>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <% }) %>
-                                <% } else { %>
-                                    <%- include('./partials/noEntities') %>
-                                        <% } %>
-
-
+                                <% }) %>
+                                    <% } else { %>
+                                        <%- include('./partials/noEntities') %>
+                                            <% } %>
                 </div>
                 <br>
                 <br>

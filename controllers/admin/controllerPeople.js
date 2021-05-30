@@ -50,8 +50,10 @@ exports.create = (req, res) => {
             countryCode: req.body.countryCode
         }
 
-        peopleDB.create(person)
-        res.status(200).redirect('/admin/people')
+        peopleDB.create(person, () => {
+            req.flash('info', 'Persona creata con successo')
+            res.status(200).redirect('/admin/people')
+        })
     })
 }
 
@@ -106,8 +108,10 @@ exports.update = (req, res) => {
                     countryCode: req.body.countryCode
                 }
                 console.log(person)
-                peopleDB.update(person)
-                res.status(200).redirect('/admin/people')
+                peopleDB.update(person, () => {
+                    req.flash('info', 'Persona aggiornata con successo')
+                    res.status(200).redirect('/admin/people')
+                })
             })
             .catch(result => console.log(result))
     })
@@ -122,8 +126,10 @@ exports.delete = (req, res) => {
                 s3.deleteImage(tmp[tmp.length - 1])
                 console.log('Image successfully deleted')
             }
-            peopleDB.delete(req.params.id)
-            console.log('Person successfully deleted')
-            res.status(200).redirect('/admin/people')
+            peopleDB.delete(req.params.id, () => {
+                console.log('Person successfully deleted')
+                req.flash('info', 'Persona eliminata con successo')
+                res.status(200).redirect('/admin/people')
+            })
         })
 }

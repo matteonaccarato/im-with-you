@@ -7,7 +7,7 @@ exports.FIELDS = {
     "ISFINISHED": "isFinished"
 }
 
-exports.create = post => {
+exports.create = (post, cb) => {
     const db = connect_dev();
 
     const sql = "INSERT INTO Posts VALUES (null, $title, $text, $authorId, $isFinished, $yearOfPublication, $monthOfPublication, $dayOfPublication);"
@@ -19,6 +19,12 @@ exports.create = post => {
         $yearOfPublication: post.yearOfPublication,
         $monthOfPublication: post.monthOfPublication,
         $dayOfPublication: post.dayOfPublication,
+    }, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
     })
 
     close(db);
@@ -77,7 +83,7 @@ exports.read = (field = '', value = -1) => {
 } */
 
 
-exports.update = post => {
+exports.update = (post, cb) => {
     const db = connect_dev();
 
     const sql = "UPDATE Posts SET title = $title, text = $text, authorId = $authorId, isFinished = $isFinished, yearOfPublication = $yearOfPublication, monthOfPublication = $monthOfPublication, dayOfPublication = $dayOfPublication WHERE id = $id;"
@@ -90,15 +96,27 @@ exports.update = post => {
         $monthOfPublication: post.monthOfPublication,
         $dayOfPublication: post.dayOfPublication,
         $id: post.id
+    }, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
     })
 
     close(db);
 }
 
-exports.delete = async id => {
+exports.delete = (id, cb) => {
     const db = connect_dev();
     const sql = `DELETE FROM Posts WHERE id = ${id};`;
-    db.run(sql);
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
+    });
     close(db)
 }
 

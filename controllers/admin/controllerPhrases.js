@@ -24,7 +24,7 @@ exports.get_page = async(req, res) => {
             })
         })
 
-        console.log(phrases)
+        /* console.log(phrases) */
 
         res.render('admin/phrases/all', {
             phrases: phrases,
@@ -91,8 +91,10 @@ exports.create = (req, res) => {
             dayOfPublication: date.split('-')[2]
         }
 
-        phrasesDB.create(phrase);
-        res.status(200).redirect('/admin/phrases')
+        phrasesDB.create(phrase, () => {
+            req.flash('info', 'Frase creata con successo!')
+            res.status(200).redirect('/admin/phrases')
+        });
     })
 }
 
@@ -100,8 +102,8 @@ exports.create = (req, res) => {
 exports.get_update = (req, res) => {
     phrasesDB.read(phrasesDB.FIELDS.ID, req.params.id)
         .then(phrase => {
-            console.log('ciaoooooo')
-            console.log(phrase)
+
+            /* console.log(phrase) */
 
             peopleDB.read()
                 .then(people => {
@@ -146,8 +148,10 @@ exports.update = (req, res) => {
                         dayOfPublication: date.split('-')[2]
                     }
                     /* console.log(phrase) */
-                phrasesDB.update(phrase)
-                res.status(200).redirect('/admin/phrases')
+                phrasesDB.update(phrase, () => {
+                    req.flash('info', 'Frase aggiornata con successo!')
+                    res.status(200).redirect('/admin/phrases')
+                })
             })
             .catch(result => console.log(result))
 
@@ -156,20 +160,21 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     phrasesDB.getImageUrl(req.params.id)
-        .then(async obj => {
+        .then(obj => {
             if (obj.url && obj.url !== '') {
                 // metto getImageFameFromUrl
                 const tmp = obj.url.split('/')
                 s3.deleteImage(tmp[tmp.length - 1])
                 console.log('Image successfully deleted!')
             }
-            try {
-                await savesDB.deleteByField(savesDB.SAVES_TBLS.PHRASE, savesDB.FIELDS.CONTENT_ID, req.params.id)
-                await phrasesDB.delete(req.params.id)
-                console.log('Phrase successfully deleted!')
-                res.status(200).redirect('/admin/phrases')
-            } catch (err) {
-                internalError(res, 500, err)
-            }
+
+            savesDB.deleteByField(savesDB.SAVES_TBLS.PHRASE, savesDB.FIELDS.CONTENT_ID, req.params.id, () => {
+                phrasesDB.delete(req.params.id, () => {
+                    req.flash('info', 'Frase eliminata con successso!')
+                    console.log('Phrase successfully deleted!')
+                    res.status(200).redirect('/admin/phrases')
+                })
+            })
+
         })
 }

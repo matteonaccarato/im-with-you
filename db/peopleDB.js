@@ -29,7 +29,7 @@ exports.read = (id = -1) => {
     })
 }
 
-exports.create = person => {
+exports.create = (person, cb) => {
     const db = connect_dev();
 
     const sql = "INSERT INTO People VALUES (null, $name, $surname, $yearOfBirth, $monthOfBirth, $dayOfBirth, $quotationMarksColor, $img, $job, $countryCode);"
@@ -43,12 +43,18 @@ exports.create = person => {
         $img: person.img,
         $job: person.job,
         $countryCode: person.countryCode
+    }, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
     })
 
     close(db);
 }
 
-exports.update = person => {
+exports.update = (person, cb) => {
     const db = connect_dev();
 
     const sql = "UPDATE People SET name = $name, surname = $surname, yearOfBirth = $yearOfBirth, monthOfBirth = $monthOfBirth, dayOfBirth = $dayOfBirth, quotationMarksColor = $quotationMarksColor, job = $job, img = $img, countryCode = $countryCode WHERE id = $id;"
@@ -63,15 +69,27 @@ exports.update = person => {
         $job: person.job,
         $countryCode: person.countryCode,
         $id: person.id
+    }, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
     })
 
     close(db);
 }
 
-exports.delete = id => {
+exports.delete = (id, cb) => {
     const db = connect_dev();
     const sql = `DELETE FROM People WHERE id = ${id};`;
-    db.run(sql);
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
+    });
     close(db)
 }
 

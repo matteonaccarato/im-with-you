@@ -6,7 +6,7 @@
             <div class="row no-gutters">
 
                 <% if (phrase.img || phrase.quoterImg) { %>
-                    <div class="col-md-5">
+                    <div class="col-lg-7 col-md-6">
                         <% if (phrase.img) { %>
                             <img src="<%= phrase.img %>" class="card-img myImg" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" alt="<%= phrase.quoterName %> <%= phrase.quoterSurname %>">
                             <% } else { %>
@@ -17,7 +17,7 @@
 
 
                         <% if (phrase.img || phrase.quoterImg) { %>
-                            <div class="col-md-7">
+                            <div class="col-lg-5 col-md-6">
                                 <% } else { %>
                                     <div class="col-md-12">
                                         <% } %>

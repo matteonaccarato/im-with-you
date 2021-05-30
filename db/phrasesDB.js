@@ -9,7 +9,7 @@ exports.FIELDS = {
 }
 
 
-exports.create = phrase => {
+exports.create = (phrase, cb) => {
     const db = connect_dev();
 
     const sql = "INSERT INTO Phrases VALUES (null, $text, $img, $quotedById, $authorId, $isFinished, $yearOfPublication, $monthOfPublication, $dayOfPublication);"
@@ -22,6 +22,12 @@ exports.create = phrase => {
         $yearOfPublication: phrase.yearOfPublication,
         $monthOfPublication: phrase.monthOfPublication,
         $dayOfPublication: phrase.dayOfPublication,
+    }, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
     })
 
     close(db);
@@ -60,7 +66,7 @@ exports.read = (field = '', value = -1) => {
 }
 
 
-exports.update = phrase => {
+exports.update = (phrase, cb) => {
     const db = connect_dev();
 
     const sql = "UPDATE Phrases SET text = $text, img = $img, quotedById = $quotedById, authorId = $authorId, isFinished = $isFinished, yearOfPublication = $yearOfPublication, monthOfPublication = $monthOfPublication, dayOfPublication = $dayOfPublication WHERE id = $id;"
@@ -74,15 +80,27 @@ exports.update = phrase => {
         $monthOfPublication: phrase.monthOfPublication,
         $dayOfPublication: phrase.dayOfPublication,
         $id: phrase.id
+    }, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
     })
 
     close(db);
 }
 
-exports.delete = async id => {
+exports.delete = (id, cb) => {
     const db = connect_dev();
     const sql = `DELETE FROM Phrases WHERE id = ${id};`;
-    db.run(sql);
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
+    });
     close(db)
 }
 

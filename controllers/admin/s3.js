@@ -31,13 +31,9 @@ const storage = multerS3({
         cb(null, { fieldName: file.fieldname });
     },
     key: function(req, file, cb) {
-        /* let name = file.originalname.split('.').slice(0, -1).join('.');
-        let type = file.originalname.split('.').pop();
-        console.log(name + '.' + type); */
         const name = Date.now() + '.' + file.originalname.split('.').pop();
         console.log(name);
         cb(null, name)
-            /* cb(null, name + "-" + Date.now() + '.' + type); */
     }
 });
 
@@ -50,15 +46,10 @@ exports.upload = multer({
 })
 
 exports.deleteImage = key => {
-    console.log('>> ' + key)
     const params = { Bucket: bucketName, Key: key }
     s3.deleteObject(params, function(err, data) {
-        if (err)
+        if (err) {
             console.log(err, err.stack)
+        }
     })
 }
-
-/* exports.getImageNameFromLink = url => {
-    const tmp = obj.url.split('/')
-    return tmp[tmp.length - 1]
-} */
