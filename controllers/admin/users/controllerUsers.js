@@ -59,7 +59,7 @@ exports.create = (req, res) => {
                     role: req.body.role
                 }
                 usersDB.create(user, () => {
-                    req.flash('info', 'Utente creato/aggiornato con successo')
+                    req.flash('info', 'Utente creato/aggiornato con successo!')
                     res.status(200).redirect(`/admin/${user.role}s`)
                 });
             } else {
@@ -170,7 +170,7 @@ exports.update = async(req, res) => {
                             role: req.body.role
                         }
                         usersDB.update(user, () => {
-                            req.flash('info', 'Utente creato/aggiornato con successo')
+                            req.flash('info', 'Utente creato/aggiornato con successo!')
                             res.status(200).redirect(`/admin/${user.role}s`)
                         })
                     })
@@ -248,6 +248,7 @@ exports.delete = (req, res) => {
                 savesDB.deleteByField(savesDB.SAVES_TBLS.POST, savesDB.FIELDS.USER_ID, req.params.id, () => {
                     usersDB.deleteUser(req.params.id, () => {
                         console.log('User successfully deleted!')
+                        req.flash('info', 'Utente eliminato con successo!!')
                         res.status(200).redirect(`/admin/${req.params.role}s`)
                     })
                 })

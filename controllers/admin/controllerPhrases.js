@@ -92,7 +92,7 @@ exports.create = (req, res) => {
         }
 
         phrasesDB.create(phrase, () => {
-            req.flash('info', 'Frase creata con successo!')
+            req.flash('info', 'Frase creata con successo!!')
             res.status(200).redirect('/admin/phrases')
         });
     })
@@ -149,7 +149,7 @@ exports.update = (req, res) => {
                     }
                     /* console.log(phrase) */
                 phrasesDB.update(phrase, () => {
-                    req.flash('info', 'Frase aggiornata con successo!')
+                    req.flash('info', 'Frase aggiornata con successo!!')
                     res.status(200).redirect('/admin/phrases')
                 })
             })

@@ -90,7 +90,7 @@ exports.update = async(req, res) => {
                                 /* console.log(user) */
 
                             usersDB.update(user, () => {
-                                req.flash('info', 'Modifica del profilo completata con successo')
+                                req.flash('info', 'Modifica del profilo completata con successo!')
                                 if (req.user.role == ROLE.ADMIN) {
                                     res.status(200).redirect('/admin/dashboard')
                                 } else {

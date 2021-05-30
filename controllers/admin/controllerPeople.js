@@ -51,7 +51,7 @@ exports.create = (req, res) => {
         }
 
         peopleDB.create(person, () => {
-            req.flash('info', 'Persona creata con successo')
+            req.flash('info', 'Persona creata con successo!')
             res.status(200).redirect('/admin/people')
         })
     })
@@ -109,7 +109,7 @@ exports.update = (req, res) => {
                 }
                 console.log(person)
                 peopleDB.update(person, () => {
-                    req.flash('info', 'Persona aggiornata con successo')
+                    req.flash('info', 'Persona aggiornata con successo!')
                     res.status(200).redirect('/admin/people')
                 })
             })
@@ -128,7 +128,7 @@ exports.delete = (req, res) => {
             }
             peopleDB.delete(req.params.id, () => {
                 console.log('Person successfully deleted')
-                req.flash('info', 'Persona eliminata con successo')
+                req.flash('info', 'Persona eliminata con successo!')
                 res.status(200).redirect('/admin/people')
             })
         })

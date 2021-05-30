@@ -201,7 +201,7 @@ exports.register = async(req, res) => {
                 countryCode: '',
                 role: ROLE.BASIC
             })
-            req.flash('info', 'Registrazione completata con successo')
+            req.flash('info', 'Registrazione completata con successo!')
             res.redirect('/login')
         } else {
             req.flash('error', 'Qualcuno ha già utilizzato questa email o questo username')
@@ -224,7 +224,7 @@ exports.logout = (req, res) => {
     if (req.user) {
         updateLastSeen(req.user.id)
     }
-    req.flash('info', 'Logout completato con successo')
+    req.flash('info', 'Logout completato con successo!')
     req.logOut()
     res.redirect('/login')
 }

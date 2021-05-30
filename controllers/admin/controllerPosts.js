@@ -71,7 +71,7 @@ exports.create = (req, res) => {
         /* console.log(post) */
 
     postsDB.create(post, () => {
-        req.flash('info', 'Post creato con successo!')
+        req.flash('info', 'Post creato con successo!!')
         res.status(200).redirect('/admin/posts')
     })
 }
@@ -107,7 +107,7 @@ exports.update = (req, res) => {
         dayOfPublication: date.split('-')[2],
     }
     postsDB.update(post, () => {
-        req.flash('info', 'Post aggiornato con successo!')
+        req.flash('info', 'Post aggiornato con successo!!')
         res.status(200).redirect('/admin/posts')
     })
 }
@@ -117,7 +117,7 @@ exports.delete = (req, res) => {
     savesDB.deleteByField(savesDB.SAVES_TBLS.POST, savesDB.FIELDS.CONTENT_ID, req.params.id, () => {
         postsDB.delete(req.params.id, () => {
             console.log('Post successfully deleted!')
-            req.flash('info', 'Post eliminato con successo!')
+            req.flash('info', 'Post eliminato con successo!!')
             res.status(200).redirect('/admin/posts')
         })
     })
