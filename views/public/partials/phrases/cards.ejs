@@ -8,9 +8,9 @@
                 <% if (phrase.img || phrase.quoterImg) { %>
                     <div class="col-md-5">
                         <% if (phrase.img) { %>
-                            <img src="<%= phrase.img %>" class="card-img img-hover-zoom" style="padding: 15px;" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" alt="<%= phrase.quoterName %> <%= phrase.quoterSurname %>">
+                            <img src="<%= phrase.img %>" class="card-img myImg" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" alt="<%= phrase.quoterName %> <%= phrase.quoterSurname %>">
                             <% } else { %>
-                                <img src="<%= phrase.quoterImg %>" class="card-img img-hover-zoom" style="padding: 15px;" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" alt="<%= phrase.quoterName %> <%= phrase.quoterSurname %>">
+                                <img src="<%= phrase.quoterImg %>" class="card-img myImg" style="padding: 15px;" title="<%= phrase.quoterName %> <%= phrase.quoterSurname %>" alt="<%= phrase.quoterName %> <%= phrase.quoterSurname %>">
                                 <% } %>
                     </div>
                     <% } %>

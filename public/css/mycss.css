@@ -55,6 +55,13 @@ body {
     text-align: right;
 }
 
+.myImg {
+    padding: 15px;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
 .myNavItem {
     margin-top: 2px;
     width: 80px;
