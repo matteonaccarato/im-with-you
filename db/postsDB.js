@@ -64,8 +64,10 @@ exports.readLasts = lastN => {
     const sql = `SELECT Posts.*, Users.username
                     FROM Posts 
                         JOIN Users ON (Posts.authorId = Users.id)
-                    ORDER BY Posts.yearOfPublication DESC, Posts.monthOfPublication DESC, Posts.dayOfPublication DESC, Posts.id DESC;
+                    WHERE Posts.isFinished = 1
+                    ORDER BY Posts.yearOfPublication DESC, Posts.monthOfPublication DESC, Posts.dayOfPublication DESC, Posts.id DESC
                 LIMIT ${lastN};`
+
     return new Promise((resolve, reject) => {
         var responseObj;
         db.all(sql, (err, rows) => {

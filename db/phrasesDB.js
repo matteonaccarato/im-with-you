@@ -69,6 +69,7 @@ exports.readLasts = lastN => {
                     FROM Phrases 
                         LEFT JOIN People ON (Phrases.quotedById = People.id) 
                         LEFT JOIN Users ON (Phrases.authorId = Users.id)
+                    WHERE Phrases.isFinished = 1
                     ORDER BY Phrases.yearOfPublication DESC, Phrases.monthOfPublication DESC, Phrases.dayOfPublication DESC, Phrases.id DESC
                 LIMIT ${lastN};`
     return new Promise((resolve, reject) => {

@@ -17,7 +17,6 @@ exports.get_page = async(req, res) => {
         phrases.map(phrase => {
             likes.forEach(like => {
                 if (phrase.id == like.contentId) {
-                    console.log(like.likes)
                     phrase.likes = like.likes;
                     return phrase
                 }
@@ -38,7 +37,6 @@ exports.get_page = async(req, res) => {
 exports.get_create = (req, res) => {
     peopleDB.read()
         .then(result => {
-            console.log(result)
             res.render('admin/phrases/create', {
                 quotedById: result.rows,
                 user: req.user

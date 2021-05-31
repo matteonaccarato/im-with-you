@@ -63,15 +63,15 @@
         <hr>
 
 
-        <% if (lastPhrase) { %>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card cardHome border-primary bg-transparent">
-                        <div class="card-header border-primary">
-                            <%- language.main.recentPublications %>
-                        </div>
-                        <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card cardHome border-primary bg-transparent">
+                    <div class="card-header border-primary">
+                        <%- language.main.recentPublications %>
+                    </div>
+                    <div class="card-body">
 
+                        <% if (lastPhrase) { %>
                             <div class="row">
 
                                 <div class="col-md-6 mb-4">
@@ -150,60 +150,63 @@
 
                                         </div>
                                     </div>
+                                    <% } %>
 
-                                    <div class="col-sm-12 col-md-6 mb-4">
+                                        <% if (lastPost) { %>
+                                            <div class="col-sm-12 col-md-6 mb-4">
 
-                                        <div class="card cardHome bg-transparent border-primary">
-                                            <div class="card-header border-primary">
-                                                <strong class="text-primary"><%= lastPost.title %></strong>
+                                                <div class="card cardHome bg-transparent border-primary">
+                                                    <div class="card-header border-primary">
+                                                        <strong class="text-primary"><%= lastPost.title %></strong>
 
-                                                <% if (lastPost.liked == true) { %>
-                                                    <form action="/unsave/post/<%= lastPost.id %>?_method=DELETE" method="POST">
-                                                        <button type="submit" name="_method" class="btn bg-transparent heartForSaving">
-                                                                <i class="fas fa-heart text-primary" id="heart"></i>
-                                                            </button>
-                                                    </form>
-                                                    <% } else { %>
-                                                        <% if (user) { %>
-                                                            <form action="/save/post/<%= lastPost.id %>" method="POST">
-                                                                <button type="submit" class="btn bg-transparent heartForSaving">
-                                                                        <i class="far fa-heart"></i>
-                                                                    </button>
+                                                        <% if (lastPost.liked == true) { %>
+                                                            <form action="/unsave/post/<%= lastPost.id %>?_method=DELETE" method="POST">
+                                                                <button type="submit" name="_method" class="btn bg-transparent heartForSaving">
+                                                                    <i class="fas fa-heart text-primary" id="heart"></i>
+                                                                </button>
                                                             </form>
-                                                            <% } %>
-                                                                <% } %>
+                                                            <% } else { %>
+                                                                <% if (user) { %>
+                                                                    <form action="/save/post/<%= lastPost.id %>" method="POST">
+                                                                        <button type="submit" class="btn bg-transparent heartForSaving">
+                                                                            <i class="far fa-heart"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                    <% } %>
+                                                                        <% } %>
+                                                    </div>
+
+                                                    <div class="card-body bg-transparent" style="color: #E0E0E0;">
+                                                        <%= lastPost.text %>
+                                                    </div>
+
+                                                    <div class="card-footer bg-transparent">
+                                                        <hr>
+                                                        <%- language.main.createdBy %>
+                                                            <a class="text-info">
+                                                                <%= lastPost.username %>
+                                                            </a>,
+                                                            <%= lastPost.dayOfPublication %>/
+                                                                <%= lastPost.monthOfPublication %>/
+                                                                    <%= lastPost.yearOfPublication %>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
-
-                                            <div class="card-body bg-transparent" style="color: #E0E0E0;">
-                                                <%= lastPost.text %>
-                                            </div>
-
-                                            <div class="card-footer bg-transparent">
-                                                <hr>
-                                                <%- language.main.createdBy %>
-                                                    <a class="text-info">
-                                                        <%= lastPost.username %>
-                                                    </a>,
-                                                    <%= lastPost.dayOfPublication %>/
-                                                        <%= lastPost.monthOfPublication %>/
-                                                            <%= lastPost.yearOfPublication %>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
+                                            <% } %>
 
                                 </div>
 
                             </div>
-                        </div>
                     </div>
                 </div>
-                <br>
-                <br>
-
             </div>
-            <% } %>
+            <br>
+            <br>
+
+        </div>
 
 
-                <%- include('./partials/footer') %>
+
+        <%- include('./partials/footer') %>

@@ -30,14 +30,14 @@
                 <div class="row">
 
                     <% if (posts.length) { %>
-                        <% posts.forEach(post => { %>
 
-                            <%- include('./partials/posts/cards') %>
 
-                                <% }) %>
-                                    <% } else { %>
-                                        <%- include('./partials/noEntities') %>
-                                            <% } %>
+                        <%- include('./partials/posts/cards') %>
+
+
+                            <% } else { %>
+                                <%- include('./partials/noEntities') %>
+                                    <% } %>
                 </div>
                 <br>
                 <br>

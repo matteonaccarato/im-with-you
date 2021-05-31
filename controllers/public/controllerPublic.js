@@ -24,6 +24,20 @@ exports.get_home = async(req, res) => {
         const lastPhrase = (await phrasesDB.readLasts(1)).rows[0]
         const lastPost = (await postsDB.readLasts(1)).rows[0]
 
+        let likedByUser
+        if (req.user) {
+            let tmp = (await savesDB.likedByUser(savesDB.SAVES_TBLS.PHRASE, req.user.id)).rows
+            likedByUser = tmp.map(obj => obj.contentId)
+
+            lastPhrase.liked = likedByUser.includes(lastPhrase.id)
+
+
+            tmp = (await savesDB.likedByUser(savesDB.SAVES_TBLS.POST, req.user.id)).rows
+            likedByUser = tmp.map(obj => obj.contentId)
+
+            lastPost.liked = likedByUser.includes(lastPost.id)
+        }
+
         res.render('public/index', {
             user: req.user,
             ROLE: ROLE,
@@ -77,7 +91,6 @@ exports.get_posts = async(req, res) => {
             likedByUser = tmp.map(obj => obj.contentId)
 
             posts.map(posts => {
-
                 return posts.liked = likedByUser.includes(posts.id)
             })
         }
@@ -127,6 +140,8 @@ exports.get_saved = async(req, res) => {
 
         phrasesSaved.map(phrase => phrase.liked = true)
         postsSaved.map(post => post.liked = true)
+
+        console.log(postsSaved)
 
         res.render('public/saved', {
             user: req.user,
