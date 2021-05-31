@@ -1,0 +1,14 @@
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
+    </div>
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" name="image" id="image" onchange="checkFile(this)" aria-describedby="inputFile">
+        <label class="custom-file-label" for="image"><%- language.form.chooseImage %></label>
+    </div>
+</div>
+
+<div class="col-12 d-flex justify-content-center align-items-end">
+    <img id="imagePreview" src="#" style="width: 60%; max-width: 550px;" hidden>
+    <i class="fas fa-trash text-primary fa-2x ml-2" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
+</div>

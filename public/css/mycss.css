@@ -102,17 +102,3 @@ body {
 .heartForSaving:hover {
     color: #D66060;
 }
-
-
-/* .heartForSavingHover {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    visibility: hidden;
-    color: #D66060;
-} */
-
-
-/* .heartForSavingHover:hover {
-    visibility: visible !important;
-} */

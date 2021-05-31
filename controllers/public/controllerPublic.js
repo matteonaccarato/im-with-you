@@ -23,8 +23,6 @@ exports.get_home = async(req, res) => {
     try {
         const lastPhrase = (await phrasesDB.readLasts(1)).rows[0]
         const lastPost = (await postsDB.readLasts(1)).rows[0]
-            /* console.log(lastPhrase)
-            console.log(lastPost) */
 
         res.render('public/index', {
             user: req.user,
@@ -215,9 +213,10 @@ exports.register = async(req, res) => {
                 dayOfLastSeen: lastSeen.split('-')[2],
                 countryCode: '',
                 role: ROLE.BASIC
+            }, () => {
+                req.flash('info', 'Registrazione completata con successo!')
+                res.redirect('/login')
             })
-            req.flash('info', 'Registrazione completata con successo!')
-            res.redirect('/login')
         } else {
             req.flash('error', 'Qualcuno ha già utilizzato questa email o questo username')
             res.redirect('/register')

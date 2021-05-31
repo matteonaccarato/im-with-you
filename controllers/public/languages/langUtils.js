@@ -14,11 +14,13 @@ const LANGUAGES = {
     "EN": "en"
 }
 
-
 const getContents = (user, page) => {
     const rawContents = require('../../../views/public/contents.json')
     if (user) {
         switch (user.countryCode) {
+            case '':
+                contents = rawContents[LANGUAGES.IT][page]
+                break;
             case LANGUAGES.IT:
                 contents = rawContents[LANGUAGES.IT][page]
                 break;
@@ -30,8 +32,15 @@ const getContents = (user, page) => {
     return contents;
 }
 
+const getSpecificContents = (lang, page) => {
+    console.log(lang + ' ' + page)
+    const rawContents = require('../../../views/public/contents.json')
+    return rawContents[lang][page]
+}
+
 module.exports = {
     PAGES,
     LANGUAGES,
-    getContents
+    getContents,
+    getSpecificContents
 };

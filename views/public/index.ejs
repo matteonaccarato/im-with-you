@@ -1,27 +1,6 @@
-<!-- <!DOCTYPE html>
-<html lang="it">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</head>
-
-<body> -->
 <%- include('./partials/header') %>
 
     <div class="container-fluid" style="height: 100%;">
-
-
-
-
 
         <div class="row mb-4">
             <div class="col-md-12 text-center">
@@ -38,20 +17,20 @@
             <div class="col-md-6 mb-4">
                 <div class="card border-primary bg-transparent cardHome">
                     <div class="card-header border-primary">
-                        <strong>What?</strong>
+                        <strong><%- language.main.what.title %></strong>
                     </div>
                     <div class="card-body text-center">
-                        Piattaforma finalizzata al relax, alla motivazione e al conforto.<br>Ognuno può salvare quello che gli piace nella raccolta dedicata <a class="font-italic" href="/saved">preferiti</a>
+                        <%- language.main.what.text %>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
                 <div class="card cardHome border-primary bg-transparent">
                     <div class="card-header border-primary">
-                        <strong>Why?</strong>
+                        <strong><%- language.main.why.title %></strong>
                     </div>
                     <div class="card-body text-center bg-transparent">
-                        Nata a seguito di un processo di introspezione maturato negli ultimi mesi
+                        <%- language.main.why.text %>
                     </div>
                 </div>
             </div>
@@ -63,17 +42,17 @@
 
                     <% if (user) { %>
                         <div class="card-header border-primary">
-                            <i class="fas fa-space-shuttle text-info"></i>&nbsp;<strong>Hai già effettuato l'accesso</strong>
+                            <i class="fas fa-space-shuttle text-info"></i>&nbsp;<strong><%- language.main.alreadySignIn.yes.title %></strong>
                         </div>
                         <div class="card-body">
-                            Buon divertimento! <i class="far fa-heart text-primary"></i>
+                            <%- language.main.alreadySignIn.yes.text %><i class="far fa-heart text-primary"></i>
                         </div>
                         <% } else { %>
                             <div class="card-header border-primary">
-                                <i class="fas fa-space-shuttle text-info"></i>&nbsp;<strong>Inizia da qui</strong>
+                                <i class="fas fa-space-shuttle text-info"></i>&nbsp;<strong><%- language.main.alreadySignIn.no.title %></strong>
                             </div>
                             <div class="card-body">
-                                Da <a href="/register">qui</a> puoi procedere creando il tuo personale account
+                                <%- language.main.alreadySignIn.no.text %>
                             </div>
                             <% } %>
 
@@ -87,7 +66,7 @@
             <div class="col-12">
                 <div class="card cardHome border-primary bg-transparent">
                     <div class="card-header border-primary">
-                        Pubblicazioni recenti
+                        <%- language.main.recentPublications %>
                     </div>
                     <div class="card-body">
 
@@ -150,16 +129,17 @@
                                                                         </p>
                                                                     </div>
                                                                     <div class="card-footer bg-transparent" style="border: none;">
-                                                                        <hr> Creato da
-                                                                        <!-- <a href="/users/<%= lastPhrase.authorId %>" class="text-info"> -->
-                                                                        <a class="text-info">
-                                                                            <%= lastPhrase.username %>
-                                                                        </a>,
-                                                                        <%= lastPhrase.dayOfPublication %>/
-                                                                            <%= lastPhrase.monthOfPublication %>/
-                                                                                <%= lastPhrase.yearOfPublication %>
-                                                                                    </small>
-                                                                                    </p>
+                                                                        <hr>
+                                                                        <%- language.main.createdBy %>
+                                                                            <!-- <a href="/users/<%= lastPhrase.authorId %>" class="text-info"> -->
+                                                                            <a class="text-info">
+                                                                                <%= lastPhrase.username %>
+                                                                            </a>,
+                                                                            <%= lastPhrase.dayOfPublication %>/
+                                                                                <%= lastPhrase.monthOfPublication %>/
+                                                                                    <%= lastPhrase.yearOfPublication %>
+                                                                                        </small>
+                                                                                        </p>
                                                                     </div>
                                                             </div>
 
@@ -196,14 +176,15 @@
                                         </div>
 
                                         <div class="card-footer bg-transparent">
-                                            <hr> Creato da
-                                            <!-- <a href="/users/<%= lastPost.authorId %>" class="text-info"> -->
-                                            <a class="text-info">
-                                                <%= lastPost.username %>
-                                            </a>,
-                                            <%= lastPost.dayOfPublication %>/
-                                                <%= lastPost.monthOfPublication %>/
-                                                    <%= lastPost.yearOfPublication %>
+                                            <hr>
+                                            <%- language.main.createdBy %>
+                                                <!-- <a href="/users/<%= lastPost.authorId %>" class="text-info"> -->
+                                                <a class="text-info">
+                                                    <%= lastPost.username %>
+                                                </a>,
+                                                <%= lastPost.dayOfPublication %>/
+                                                    <%= lastPost.monthOfPublication %>/
+                                                        <%= lastPost.yearOfPublication %>
                                         </div>
 
                                     </div>

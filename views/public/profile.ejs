@@ -8,7 +8,9 @@
 
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold">Aggiorna profilo</h6>
+                    <h6 class="m-0 font-weight-bold">
+                        <%- language.form.title %>
+                    </h6>
                     <span id="status"></span>
                 </div>
 
@@ -27,14 +29,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="email">Email <%- include('../admin/partials/form/requiredSymbol') %></label>
+                                    <label for="email"><%- language.form.email %> <%- include('../admin/partials/form/requiredSymbol') %></label>
                                     <input type="email" name="email" id="email" class="form-control" required value="<%= user.email %>">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="username">Username <%- include('../admin/partials/form/requiredSymbol') %></label>
+                                    <label for="username"><%- language.form.username %> <%- include('../admin/partials/form/requiredSymbol') %></label>
                                     <input type="text" name="username" class="form-control" value="<%= user.username %>" required>
                                 </div>
                             </div>
@@ -46,7 +48,7 @@
 
                         <div class="row">
                             <div class="col-12 mb-2">
-                                Vuoi cambiare la <span class="font-italic text-primary">password</span>?
+                                <%- language.form.changePassword %>
                             </div>
                         </div>
 
@@ -59,7 +61,7 @@
                                         <i class="fas fa-key"></i>
                                     </span>
                                 </div>
-                                <input type="password" id="oldPassword" name="oldPassword" placeholder="Password" class="form-control">
+                                <input type="password" id="oldPassword" name="oldPassword" placeholder="<%- language.form.password %>" class="form-control">
                             </div>
 
                             <div class="input-group col-md-4 mb-4">
@@ -68,7 +70,7 @@
                                         <i class="fas fa-key"></i>
                                     </span>
                                 </div>
-                                <input type="password" id="password" name="password" placeholder="Inserire la nuova password" class="form-control">
+                                <input type="password" id="password" name="password" placeholder="<%- language.form.newPassword %>" class="form-control">
                             </div>
 
 
@@ -78,7 +80,7 @@
                                         <i class="fas fa-key"></i>
                                     </span>
                                 </div>
-                                <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confermare la nuova password" class="form-control">
+                                <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="<%- language.form.confirmNewPassword %>" class="form-control">
                             </div>
 
                             <%- include('../admin/partials/form/passwordRequirements') %>
@@ -91,20 +93,20 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="name">Nome</label>
+                                    <label for="name"><%- language.form.name %></label>
                                     <input type="text" name="name" id="name" class="form-control" value="<%= user.name %>">
                                 </div>
 
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="surname">Cognome</label>
+                                    <label for="surname"><%- language.form.surname %></label>
                                     <input type="text" name="surname" id="surname" class="form-control" value="<%= user.surname %>">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="dateOfBirth">Data di nascita</label>
+                                    <label for="dateOfBirth"><%- language.form.dateOfBirth %></label>
                                     <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" value="<%= user.yearOfBirth %>-<%= user.monthOfBirth %>-<%= user.dayOfBirth %>">
 
 
@@ -119,11 +121,11 @@
                                 <div class="input-group mb-3">
 
                                     <div class="input-group-prepend">
-                                        <label class="input-group-text" for="country">Paese</label>
+                                        <label class="input-group-text" for="country"><%- language.form.country %></label>
                                     </div>
                                     <!-- data-live-search-normalize : accent-insensitive searching -->
                                     <select class="selectpicker show-tick" name="countryCode" id="countryCode" data-live-search="true" data-live-search-normalize="true" data-size="6">  
-                                        <option value="" selected>Nessuno ...</option>
+                                        <option value="" selected><%- language.form.nothing %></option>
                                         <% countries.forEach(country => { %>
                                             <% if (user.countryCode == country.alpha_2) { %>
                                                 <option value="<%= country.alpha_2 %>" selected><%= country.name %></option>
@@ -137,25 +139,8 @@
 
                         </div>
 
-                        <!-- <script>
-                            $(function() {
-                                $('#countryCode').selectpicker({
-                                    container: 'body'
-                                });
 
-                                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-                                    $('#countryCode').selectpicker('mobile');
-                                }
-                            });
-                        </script> -->
-
-
-
-
-                        <%- include('./../admin/partials/form/imageUpload') %>
-
-
-
+                        <%- include('./partials/form/imageUpload') %>
 
 
                             <% if (user.img && user.img !== '') { %>
@@ -179,17 +164,16 @@
                                     <input type="text" name="role" id="role" value="<%= user.role %>" hidden>
 
 
-
-                                    <%- include('./../admin/partials/form/required') %>
+                                    <%- include('./partials/form/required') %>
 
                 </div>
 
                 <div class="card-footer">
                     <div class="col-12 d-flex justify-content-between align-items-center">
                         <div id="input-group">
-                            <button type="submit" id="btn-submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> | Conferma modifica</button>
+                            <button type="submit" id="btn-submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> | <%- language.form.confirm %></button>
                             <a href="/">
-                                <button type="button" class="btn btn-dark mb-2"><i class="fas fa-history"></i> | Annulla</button>
+                                <button type="button" class="btn btn-dark mb-2"><i class="fas fa-history"></i> | <%- language.form.cancel %></button>
                             </a>
                         </div>
                         </form>
@@ -207,8 +191,6 @@
     <script src="/js/password.js"></script>
     <script src="/js/dateOfBirth.js"></script>
     <script src="/js/admin/utilsS3.js"></script>
-    <!-- <script src="/js/admin/crudPeople.js"></script> -->
-
 
 
     <%- include('./partials/footer') %>
