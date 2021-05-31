@@ -27,24 +27,46 @@
 
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownIE">
                                     <!-- IMPORT -->
-                                    <div class="dropdown-header">(icon) Importa</div>
+                                    <!-- <div class="dropdown-header">(icon) Importa</div>
                                     <div class="no-gutters align-items-center">
                                         <a class="dropdown-item" href="#">
                                             <div class="text-s font-weight-bold text-dark d-flex align-items-center">
                                                 <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
                                             </div>
                                         </a>
-                                    </div>
+                                    </div> -->
 
                                     <!-- EXPORT -->
                                     <div class="dropdown-header">(icon) Esporta</div>
                                     <div class="no-gutters align-items-center">
                                         <a class="dropdown-item" href="#">
                                             <div class="text-s font-weight-bold text-dark d-flex align-items-center">
-                                                <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
+                                                <button class="btn bg-transparent" id="exportBtn">
+                                                    <i class="fas fa-file-csv fa-2x mr-3"></i>JSON
+                                                </button>
                                             </div>
                                         </a>
                                     </div>
+
+                                    <!-- <script>
+                                        var btn = document.getElementById('exportBtn')
+                                        btn.addEventListener('click', function(e) {
+
+                                            let phrases = [];
+                                            $('#dataTable tbody tr').each(function(index, row) {
+                                                    let cols = $(this).children("th, td")
+
+                                                    console.log(this.childNodes[0].nodeValue)
+                                                    let phrase = {
+                                                        id: cols.eq(0).html(),
+                                                        authorId: cols.eq(1).text().replace(/\s/g, ''),
+                                                        text: cols.eq(2).text().replace(/\s/g, '')
+                                                    }
+                                                    phrases.push(phrase)
+                                                })
+                                                console.log(phrases)
+                                        })
+                                    </script> -->
                                 </div>
                             </div>
                         </div>

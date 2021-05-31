@@ -99,6 +99,7 @@ router.route('/users/delete/:id/:role')
     .delete(controllerUsers.delete)
 
 
+/* ------------- 404  ------------- */
 router.get('/*', (req, res) => {
     const rawContents = require('./../views/public/contents.json')
     if (req.user) {
