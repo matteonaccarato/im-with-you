@@ -1,20 +1,30 @@
 const postsDB = require('../../db/postsDB')
+const savesDB = require('../../db/savesDB')
+const { internalError } = require('../../db/utilsDB')
 
-exports.get_page = (req, res) => {
-    postsDB.read()
-        .then(result => {
-            res.render('admin/posts/all', {
-                posts: result.rows,
-                user: req.user
-            });
-        })
-        .catch(result => {
-            console.log(result)
-            res.render('errors/error', {
-                code: 500,
-                message: result.error
+exports.get_page = async(req, res) => {
+
+    try {
+        const posts = (await postsDB.read()).rows;
+        const likes = (await savesDB.getLikes(savesDB.SAVES_TBLS.POST)).rows
+
+        posts.map(post => {
+            likes.forEach(like => {
+                if (post.id == like.contentId) {
+                    post.likes = like.likes;
+                    return post
+                }
             })
         })
+
+        res.render('admin/posts/all', {
+            posts: posts,
+            user: req.user
+        });
+
+    } catch (err) {
+        internalError(res, 500, err)
+    }
 }
 
 exports.get_create = (req, res) => {
@@ -27,7 +37,6 @@ exports.get_create = (req, res) => {
 
 exports.create = (req, res) => {
     const date = new Date().toISOString().split('T')[0]
-    console.log(req.body)
     const post = {
         title: req.body.title,
         text: req.body.text,
@@ -37,10 +46,11 @@ exports.create = (req, res) => {
         monthOfPublication: date.split('-')[1],
         dayOfPublication: date.split('-')[2],
     }
-    console.log(post)
 
-    postsDB.create(post)
-    res.status(200).redirect('/admin/posts')
+    postsDB.create(post, () => {
+        req.flash('info', 'Post creato con successo!!')
+        res.status(200).redirect('/admin/posts')
+    })
 }
 
 exports.get_update = (req, res) => {
@@ -73,12 +83,20 @@ exports.update = (req, res) => {
         monthOfPublication: date.split('-')[1],
         dayOfPublication: date.split('-')[2],
     }
-    postsDB.update(post)
-    res.status(200).redirect('/admin/posts')
+    postsDB.update(post, () => {
+        req.flash('info', 'Post aggiornato con successo!!')
+        res.status(200).redirect('/admin/posts')
+    })
 }
 
 exports.delete = (req, res) => {
-    postsDB.delete(req.params.id)
-    console.log('Post successfully deleted!')
-    res.status(200).redirect('/admin/posts')
+
+    savesDB.deleteByField(savesDB.SAVES_TBLS.POST, savesDB.FIELDS.CONTENT_ID, req.params.id, () => {
+        postsDB.delete(req.params.id, () => {
+            console.log('Post successfully deleted!')
+            req.flash('info', 'Post eliminato con successo!!')
+            res.status(200).redirect('/admin/posts')
+        })
+    })
+
 }

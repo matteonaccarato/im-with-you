@@ -19,7 +19,6 @@ const connect = path => {
     return new sqlite3.Database(path, err => {
         if (err)
             return console.error(err.message);
-        /* console.log("I'm with you ♥ | Connected to the sqlite DB!"); */
     });
 }
 
@@ -27,7 +26,13 @@ const close = db => {
     db.close(err => {
         if (err)
             console.error(err.message);
-        /* console.log("I'm with you ♥ | Disconnected from the sqlite DB!") */
+    })
+}
+
+const internalError = (res, code, message) => {
+    res.render('errors/error', {
+        code: code,
+        message: message
     })
 }
 
@@ -35,5 +40,6 @@ module.exports = {
     connect_dev,
     connect_prod,
     close,
-    SALT_ROUNDS
+    SALT_ROUNDS,
+    internalError
 }

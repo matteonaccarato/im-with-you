@@ -1,5 +1,3 @@
-const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
 const app = require('./app');
 
 const PORT = process.env.PORT || 5000;

@@ -4,14 +4,14 @@ const TABLE = "Users"
 
 const FIELDS = {
     'ID': 'id',
-    'EMAIL': 'email'
+    'EMAIL': 'email',
+    'USERNAME': 'username'
 }
 
 
 const readGeneric = (field = '', value = -1) => {
     const db = connect_dev();
     const sql = 'SELECT * FROM Users' + ((field != '') ? ` WHERE ${field} = ${value}` : '') + ';';
-    console.log(sql)
     return new Promise((resolve, reject) => {
         var responseObj;
         db.all(sql, function(err, rows) {
@@ -32,9 +32,9 @@ const readGeneric = (field = '', value = -1) => {
     })
 }
 
-const readByRole = (role, id = -1 /* , callback */ ) => {
+const readByRole = (role, id = -1) => {
     const db = connect_dev();
-    const sql = `SELECT * FROM Users WHERE role = '${role}'` + ((id > -1) ? ` AND Users.id = ${id}` : "") + ";";
+    const sql = `SELECT * FROM Users WHERE role = '${role}'` + ((id > -1) ? ` AND Users.id = ${id}` : "") + " ORDER BY id DESC;";
 
     return new Promise((resolve, reject) => {
         var responseObj;
@@ -56,11 +56,9 @@ const readByRole = (role, id = -1 /* , callback */ ) => {
     })
 }
 
-const create = user => {
+const create = (user, cb) => {
     const db = connect_dev();
     const sql = "INSERT INTO Users VALUES (null, $email, $username, $password, $name, $surname, $yearOfBirth, $monthOfBirth, $dayOfBirth, $img, $countryCode, $yearOfLastSeen, $monthOfLastSeen, $dayOfLastSeen, $role);"
-
-    console.log(user)
 
     db.run(sql, {
         $email: user.email,
@@ -77,16 +75,21 @@ const create = user => {
         $dayOfLastSeen: user.dayOfLastSeen,
         $countryCode: user.countryCode,
         $role: user.role,
+    }, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
     })
 
     close(db);
 }
 
-const update = user => {
+const update = (user, cb) => {
     const db = connect_dev();
-
     const sql = "UPDATE Users SET email = $email," + ((user.password != '') ? ` password = '${user.password}', ` : "") + "username = $username, name = $name, surname = $surname, yearOfBirth = $yearOfBirth, monthOfBirth = $monthOfBirth, dayOfBirth = $dayOfBirth, img = $img, yearOfLastSeen = $yearOfLastSeen, monthOfLastSeen = $monthOfLastSeen, dayOfLastSeen = $dayOfLastSeen, countryCode = $countryCode, role = $role WHERE id = $id;"
-    console.log(sql)
+
     db.run(sql, {
         $email: user.email,
         $username: user.username,
@@ -102,6 +105,12 @@ const update = user => {
         $countryCode: user.countryCode,
         $role: user.role,
         $id: user.id
+    }, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
     })
 
     close(db);
@@ -123,10 +132,16 @@ const updateLastSeen = id => {
     close(db)
 }
 
-const deleteUser = id => {
+const deleteUser = (id, cb) => {
     const db = connect_dev();
     const sql = `DELETE FROM Users WHERE id = ${id};`;
-    db.run(sql);
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
+    });
     close(db)
 }
 
@@ -211,9 +226,43 @@ const getImageUrl = id => {
 }
 
 
+const checkUniquedField = async(field, value) => {
+    const db = connect_dev();
+    const sql = `SELECT COUNT(id) as nUsers FROM Users WHERE ${field} = '${value}';`
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.get(sql, (err, value) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                }
+                reject(responseObj)
+            } else {
+                responseObj = {
+                    statement: this,
+                    isValid: (value.nUsers != 0) ? false : true
+                }
+                resolve(responseObj)
+            }
+            close(db)
+        })
+    })
+}
+
+
+const checkEmailValid = async email => {
+    return (await checkUniquedField(FIELDS.EMAIL, email)).isValid
+}
+
+const checkUsernameValid = async username => {
+    return (await checkUniquedField(FIELDS.USERNAME, username)).isValid
+}
+
+
+
 const checkUniqueFields = async(email, username) => {
     const db = connect_dev();
-    const sql = `SELECT COUNT(id) as nUsers FROM Users WHERE email = '${email}' OR username = '${username}'`
+    const sql = `SELECT COUNT(id) as nUsers FROM Users WHERE email = '${email}' OR username = '${username}';`
     return new Promise((resolve, reject) => {
         var responseObj
         db.get(sql, (err, value) => {
@@ -239,7 +288,7 @@ const checkUniqueFields = async(email, username) => {
 // for passport
 const read = async(field, value, callback) => {
     const db = connect_dev();
-    const sql = `SELECT * FROM Users WHERE ${field} = ${value}`;
+    const sql = `SELECT * FROM Users WHERE ${field} = ${value};`;
     db.get(sql, (err, row) => {
         callback(row)
         close(db)
@@ -257,6 +306,7 @@ const readByEmail = async(email, callback) => [
 
 module.exports = {
     TABLE,
+    FIELDS,
     create,
     readById,
     readByEmail,
@@ -268,5 +318,7 @@ module.exports = {
     update,
     updateLastSeen,
     deleteUser,
-    checkUniqueFields
+    checkUniqueFields,
+    checkEmailValid,
+    checkUsernameValid
 }

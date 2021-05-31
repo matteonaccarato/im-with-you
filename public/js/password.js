@@ -40,10 +40,13 @@ $(() => {
     })
 
 
-    $('#form').on('submit', e => {
-        console.log(lenValid + ' ' + equalsValid)
-        if (!lenValid || !equalsValid) {
-            e.preventDefault();
+    $('#uploadForm').on('submit', e => {
+
+        if (!($('#passwordConfirm').val() == '' && $('#passwordConfirm').val() == 0)) {
+            if ((!lenValid || !equalsValid)) {
+                e.preventDefault();
+            }
         }
+
     })
 })

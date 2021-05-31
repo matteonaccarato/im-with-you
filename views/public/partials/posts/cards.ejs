@@ -1,0 +1,43 @@
+<% posts.forEach(post => { %>
+
+    <div class="col-lg-4 col-md-6 mb-4">
+
+        <div class="card cardHome bg-transparent border-primary">
+            <div class="card-header border-primary">
+                <strong class="text-primary"><%= post.title %></strong>
+
+                <% if (post.liked == true) { %>
+                    <form action="/unsave/post/<%= post.id %>?_method=DELETE" method="POST">
+                        <button type="submit" name="_method" class="btn bg-transparent heartForSaving">
+                            <i class="fas fa-heart text-primary" id="heart"></i>
+                        </button>
+                    </form>
+                    <% } else { %>
+                        <% if (user) { %>
+                            <form action="/save/post/<%= post.id %>" method="POST">
+                                <button type="submit" class="btn bg-transparent heartForSaving">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </form>
+                            <% } %>
+                                <% } %>
+            </div>
+
+            <div class="card-body bg-transparent" style="color: #E0E0E0;">
+                <%= post.text %>
+            </div>
+
+            <div class="card-footer bg-transparent">
+                <hr>
+                <%- language.createdBy %>
+                    <a class="text-info">
+                        <%= post.username %>
+                    </a>,
+                    <%= post.dayOfPublication %>/
+                        <%= post.monthOfPublication %>/
+                            <%= post.yearOfPublication %>
+            </div>
+
+        </div>
+    </div>
+    <% }) %>

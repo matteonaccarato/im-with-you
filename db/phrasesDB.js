@@ -1,15 +1,16 @@
-const sqlite3 = require('sqlite3').verbose(); /* https://github.com/mapbox/node-sqlite3/wiki/API#databaseallsql-param--callback */
+const sqlite3 = require('sqlite3').verbose();
 const { connect_dev, connect_prod, close } = require('./utilsDB')
 
 exports.TABLE = "Phrases"
 
 exports.FIELDS = {
     "ID": "id",
+    "AUTHORID": "authorId",
     "ISFINISHED": "isFinished"
 }
 
 
-exports.create = phrase => {
+exports.create = (phrase, cb) => {
     const db = connect_dev();
 
     const sql = "INSERT INTO Phrases VALUES (null, $text, $img, $quotedById, $authorId, $isFinished, $yearOfPublication, $monthOfPublication, $dayOfPublication);"
@@ -22,6 +23,12 @@ exports.create = phrase => {
         $yearOfPublication: phrase.yearOfPublication,
         $monthOfPublication: phrase.monthOfPublication,
         $dayOfPublication: phrase.dayOfPublication,
+    }, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
     })
 
     close(db);
@@ -29,10 +36,12 @@ exports.create = phrase => {
 
 exports.read = (field = '', value = -1) => {
     const db = connect_dev();
-    const sql = "SELECT Phrases.*, Users.username, People.name as quoterName, People.surname as quoterSurname, People.quotationMarksColor, People.img as quoterImg, Phrases.yearOfPublication, Phrases.monthOfPublication, Phrases.dayOfPublication" +
-        " FROM Phrases LEFT JOIN People ON (Phrases.quotedById = People.id) LEFT JOIN Users ON (Phrases.authorId = Users.id)" + ((field != '' && value > -1) ? ` WHERE Phrases.${field} = ${value}` : "") + ";";
-
-    console.log(sql)
+    const sql = `SELECT Phrases.*, Users.username, People.name as quoterName, People.surname as quoterSurname, People.quotationMarksColor, People.img as quoterImg, Phrases.yearOfPublication, Phrases.monthOfPublication, Phrases.dayOfPublication
+                    FROM Phrases 
+                        LEFT JOIN People ON (Phrases.quotedById = People.id) 
+                        LEFT JOIN Users ON (Phrases.authorId = Users.id)` +
+        ((field != '' && value > -1) ? ` WHERE Phrases.${field} = ${value}` : "") +
+        ` ORDER BY Phrases.yearOfPublication DESC, Phrases.monthOfPublication DESC, Phrases.dayOfPublication DESC, Phrases.id DESC;`;
 
     return new Promise((resolve, reject) => {
         var responseObj;
@@ -47,7 +56,35 @@ exports.read = (field = '', value = -1) => {
                     statement: this,
                     rows: rows
                 };
-                console.log(responseObj)
+                resolve(responseObj);
+            }
+            close(db)
+        })
+    })
+}
+
+exports.readLasts = lastN => {
+    const db = connect_dev()
+    const sql = `SELECT Phrases.*, Users.username, People.name as quoterName, People.surname as quoterSurname, People.quotationMarksColor, People.img as quoterImg, Phrases.yearOfPublication, Phrases.monthOfPublication, Phrases.dayOfPublication
+                    FROM Phrases 
+                        LEFT JOIN People ON (Phrases.quotedById = People.id) 
+                        LEFT JOIN Users ON (Phrases.authorId = Users.id)
+                    WHERE Phrases.isFinished = 1
+                    ORDER BY Phrases.yearOfPublication DESC, Phrases.monthOfPublication DESC, Phrases.dayOfPublication DESC, Phrases.id DESC
+                LIMIT ${lastN};`
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.all(sql, (err, rows) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                };
+                reject(responseObj);
+            } else {
+                responseObj = {
+                    statement: this,
+                    rows: rows
+                };
                 resolve(responseObj);
             }
             close(db)
@@ -56,7 +93,7 @@ exports.read = (field = '', value = -1) => {
 }
 
 
-exports.update = phrase => {
+exports.update = (phrase, cb) => {
     const db = connect_dev();
 
     const sql = "UPDATE Phrases SET text = $text, img = $img, quotedById = $quotedById, authorId = $authorId, isFinished = $isFinished, yearOfPublication = $yearOfPublication, monthOfPublication = $monthOfPublication, dayOfPublication = $dayOfPublication WHERE id = $id;"
@@ -70,16 +107,40 @@ exports.update = phrase => {
         $monthOfPublication: phrase.monthOfPublication,
         $dayOfPublication: phrase.dayOfPublication,
         $id: phrase.id
+    }, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
     })
 
     close(db);
 }
 
-exports.delete = id => {
+exports.delete = (id, cb) => {
     const db = connect_dev();
     const sql = `DELETE FROM Phrases WHERE id = ${id};`;
-    db.run(sql);
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
+    });
     close(db)
+}
+
+exports.deleteByField = (field, value, cb) => {
+    const db = connect_dev();
+    const sql = `DELETE FROM ${this.TABLE} WHERE ${field} = ${value};`
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
+    })
 }
 
 exports.getCount = () => {

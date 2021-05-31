@@ -3,6 +3,13 @@
     <div class="container-fluid">
 
         <div class="row">
+            <div class="col-12 text-center">
+                <%- include('../../partials/flashMessages') %>
+            </div>
+        </div>
+
+
+        <div class="row">
 
 
             <div class="col-12 mb-4">
@@ -12,34 +19,6 @@
 
                         <div class="d-flex align-items-center justify-content-between">
                             <a href="/admin/phrases/create" class="text-info mr-4"><i class="fas fa-plus-square"></i> | Crea nuovo</a>
-                            <div class="dropdown no-arrow">
-                                <!-- IE => Import/Export -->
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownIELink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownIE">
-                                    <!-- IMPORT -->
-                                    <div class="dropdown-header">(icon) Importa</div>
-                                    <div class="no-gutters align-items-center">
-                                        <a class="dropdown-item" href="#">
-                                            <div class="text-s font-weight-bold text-dark d-flex align-items-center">
-                                                <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <!-- EXPORT -->
-                                    <div class="dropdown-header">(icon) Esporta</div>
-                                    <div class="no-gutters align-items-center">
-                                        <a class="dropdown-item" href="#">
-                                            <div class="text-s font-weight-bold text-dark d-flex align-items-center">
-                                                <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
@@ -48,6 +27,7 @@
                             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Autore</th>
                                         <th>Testo</th>
                                         <th>Immagine</th>
@@ -59,11 +39,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- LIMITE MASSIMO DI RIGHE VISUALIZZABILI -->
                                     <% phrases.forEach(phrase => { %>
                                         <tr>
+                                            <td>
+                                                <a href="/admin/phrases/<%= phrase.id %>">
+                                                    <%= phrase.id %>
+                                                </a>
+                                            </td>
                                             <td style="width: 25%;">
-                                                <a class="text-info">
+                                                <a href="/admin/users/<%= phrase.authorId %>" class="text-info">
                                                     <%= phrase.username %>
                                                 </a>
                                             </td>
@@ -102,7 +86,11 @@
                                                                         <% } %>
                                             </td>
                                             <td style="width: 5%;">
-                                                105 V
+                                                <% if (phrase.likes) { %>
+                                                    <%= phrase.likes %> <i class="far fa-heart text-primary"></i>
+                                                        <% } else { %>
+                                                            <%- include('./../partials/table/notAvailable') %>
+                                                                <% } %>
                                             </td>
                                             <td style="width: 3%;">
                                                 <% if (phrase.isFinished == 1) { %>
@@ -138,14 +126,8 @@
     <script>
         let els = document.getElementsByClassName('linkQuoted')
         Array.from(els).forEach(el => {
-            console.log(el.dataset.color)
             el.style.color = el.dataset.color
         })
     </script>
-
-
-
-    <!-- <script src="cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> -->
-    <!-- <script src="/js/admin/tables.js"></script> -->
 
     <%- include('./../partials/footer') %>

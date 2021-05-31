@@ -1,24 +1,6 @@
-/* $(() => {
-    $('#uploadForm').submit(function() {
-        $("#status").empty().text("Carico i file...");
-        $(this).ajaxSubmit({
-            error: function(xhr) {
-                status('Error: ' + xhr.status);
-            },
-            success: function(response) {
-                $("#status").empty().text(response);
-            }
-        });
-        return false;
-    });
-}); */
-// PER UN POSSIBILE CARIMENTO 'STATUS' DELL'IMMAGINE
-
-let statusSwitch = document.getElementById('statusSwitch')
-if (statusSwitch.dataset.status == 1) {
-    const attr = document.createAttribute("checked")
-    statusSwitch.setAttributeNode(attr)
-}
+$('#uploadForm').on('submit', () => {
+    $("#status").empty().text("Loading ...");
+});
 
 const checkFile = fileToLoad => {
     const file = fileToLoad.files[0]
@@ -30,12 +12,13 @@ const checkFile = fileToLoad => {
         valido = false;
     }
 
-    if (file.size > 1024 * 1024 * 5) {
-        alert('Il file non deve superare i 5 MB');
+    if (file.size > 1024 * 1024 * 10) {
+        alert('Il file non deve superare i 10 MB');
         valido = false;
     }
 
     if (valido) {
+        $('#deleteImage').val('1')
         $('#oldImg').attr('hidden', true)
         $('#trashOldImg').attr('hidden', true)
         var reader = new FileReader();
@@ -48,6 +31,14 @@ const checkFile = fileToLoad => {
         $('#imagePreview').removeAttr('hidden')
         $('#btnDeleteImage').removeAttr('hidden')
     }
+}
+
+const deleteSavedImage = (els) => {
+    els.forEach(el => {
+        $(`#${el}`).attr('hidden', true)
+    })
+
+    $('#deleteImage').val('1')
 }
 
 const deleteImage = () => {

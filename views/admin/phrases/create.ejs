@@ -8,12 +8,13 @@
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold">Crea FRASE</h6>
+                    <span id="status"></span>
                 </div>
 
                 <div class="card-body">
-                    <form action="/admin/phrases/create" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/phrases/create" method="POST" enctype="multipart/form-data" id="uploadForm">
                         <div class="form-group">
-                            <label for="text">Frase <span class="text-danger">*</span></label>
+                            <label for="text">Frase <%- include('../partials/form/requiredSymbol') %></label>
                             <textarea class="form-control" id="text" name="text" placeholder="Inserisci qui la frase ..." style="min-height: 60px;" required></textarea>
                         </div>
 
@@ -24,34 +25,12 @@
                             <select class="custom-select" name="quotedById" id="quotedById">
                                 <option value="" selected>Nessuno ...</option>
                                 <% quotedById.forEach(person => { %>
-                                    <!-- aggiungere l'immagine della persona !!-->
-                                    <option value="<%= person.id %>"><%= person.name %> <%= person.surname %> <!-- | <i class="fas fa-info-circle"></i> --></option>
+                                    <option value="<%= person.id %>"><%= person.name %> <%= person.surname %> </option>
                                 <% }); %>
                             </select>
 
                         </div>
 
-
-
-
-
-                        <!-- <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
-                            </div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="image" id="image" onchange="checkFile(this)" aria-describedby="inputFile">
-                                <label class="custom-file-label" for="image">Selezione l'immagine</label>
-                            </div>
-                        </div>
-
-                        <div class="col-12 d-flex justify-content-center align-items-end">
-                            <div class="col-xl-10 col-lg-12 mb-3">
-                                <img id="imagePreview" src="#" style="width: 100%;" hidden>
-                            </div>
-
-                            <i class="fas fa-trash text-primary fa-2x mb-3" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
-                        </div> -->
 
                         <%- include('../partials/form/imageUpload') %>
 
@@ -59,7 +38,7 @@
                             <div class="input-group">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" id="statusSwitch" name="isFinished">
-                                    <label class="custom-control-label" for="statusSwitch">Da pubblicare? </label>
+                                    <label class="custom-control-label" for="statusSwitch">Da pubblicare? <%- include('../partials/form/requiredSymbol') %></label>
                                 </div>
                             </div>
 
@@ -69,7 +48,7 @@
                 </div>
                 <div class="card-footer">
                     <div id="input-group">
-                        <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> | Conferma creazione</button>
+                        <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-check"></i> | Conferma</button>
                         <a href="/admin/phrases">
                             <button type="button" class="btn btn-dark mb-2"><i class="fas fa-history"></i> | Annulla</button>
                         </a>
@@ -81,6 +60,7 @@
 
         </div>
 
-        <script src="/js/admin/crudPhrases.js"></script>
+        <script src="/js/admin/switchPhrasePost.js"></script>
+        <script src="/js/admin/utilsS3.js"></script>
 
         <%- include('./../partials/footer') %>

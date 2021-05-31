@@ -2,7 +2,7 @@ const phrasesDB = require('./phrasesDB')
 const peopleDB = require('./peopleDB')
 const postsDB = require('./postsDB')
 const usersDB = require('./usersDB')
-const { connect_dev, connect_prod, close } = require('./utilsDB')
+const { connect_dev, connect_prod, close, internalError } = require('./utilsDB')
 
 exports.SAVES_TBLS = {
     "PHRASE": "LikesPhrases",
@@ -14,12 +14,17 @@ exports.FIELDS = {
     "USER_ID": "userId"
 }
 
-exports.create = (tbl, entityId, userId) => {
+exports.create = (tbl, entityId, userId, cb) => {
     const db = connect_dev();
 
     const sql = `INSERT INTO ${tbl} VALUES (${entityId * 1}, ${userId * 1});`
-    console.log(sql)
-    db.run(sql)
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
+    })
 
     close(db);
 }
@@ -36,6 +41,8 @@ exports.read = (tbl, userId) => {
         sql = `SELECT ${tbl}.*, ${postsDB.TABLE}.*, ${usersDB.TABLE}.username FROM ${tbl} JOIN ${postsDB.TABLE} ON (${tbl}.contentId = ${postsDB.TABLE}.id) JOIN ${usersDB.TABLE} ON (${tbl}.userId = Users.id) WHERE ${tbl}.userId = ${userId};`;
     }
 
+    /* console.log(sql) */
+
     return new Promise((resolve, reject) => {
         var responseObj;
         db.all(sql, function(err, rows) {
@@ -45,6 +52,7 @@ exports.read = (tbl, userId) => {
                 };
                 reject(responseObj);
             } else {
+                /* console.log(rows) */
                 responseObj = {
                     statement: this,
                     rows: rows
@@ -56,11 +64,34 @@ exports.read = (tbl, userId) => {
     })
 }
 
+exports.getLikes = tbl => {
+    const db = connect_dev()
+    const sql = `SELECT ${tbl}.${this.FIELDS.CONTENT_ID}, COUNT(${this.FIELDS.USER_ID}) AS likes FROM ${tbl}
+                    GROUP BY ${this.FIELDS.CONTENT_ID};`
+    return new Promise((resolve, reject) => {
+        var responseObj;
+        db.all(sql, (err, rows) => {
+            if (err) {
+                responseObj = {
+                    'error': err
+                }
+                reject(responseObj)
+            } else {
+                responseObj = {
+                    statement: this,
+                    rows: rows
+                }
+                resolve(responseObj)
+            }
+            close(db)
+        })
+    })
+}
+
 exports.likedByUser = (tbl, userId) => {
     const db = connect_dev()
     const sql = `SELECT ${this.FIELDS.CONTENT_ID} FROM ${tbl} WHERE ${this.FIELDS.USER_ID} = ${userId};`
 
-    console.log(sql)
     return new Promise((resolve, reject) => {
         var responseObj;
         db.all(sql, function(err, rows) {
@@ -81,9 +112,28 @@ exports.likedByUser = (tbl, userId) => {
     })
 }
 
-exports.delete = (tbl, contentId, userId) => {
+exports.delete = (tbl, contentId, userId, cb) => {
     const db = connect_dev();
     const sql = `DELETE FROM ${tbl} WHERE ${this.FIELDS.CONTENT_ID} = ${contentId} AND ${this.FIELDS.USER_ID} = ${userId};`;
-    db.run(sql);
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
+    });
+    close(db)
+}
+
+exports.deleteByField = (tbl, field, value, cb) => {
+    const db = connect_dev();
+    const sql = `DELETE FROM ${tbl} WHERE ${field} = ${value};`;
+    db.run(sql, err => {
+        if (err) {
+            console.log(err)
+        } else {
+            cb()
+        }
+    });
     close(db)
 }

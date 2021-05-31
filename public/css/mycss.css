@@ -40,19 +40,24 @@ body {
 }
 
 .cardHome>.card-body {
-    /* background-color: #D4D3D3; */
-    background-color: rgba(212, 211, 211, .4);
     text-align: center;
 }
 
 .cardHome>.card-header,
 .cardHome>.card-footer {
-    background-color: rgba(226, 226, 226, .2);
-    /* background-color: rgba(255, 0, 0, .2) */
+    background-color: rgba(224, 224, 224, .1)
 }
 
 .cardHome .card-footer {
     text-align: right;
+    border: none;
+}
+
+.myImg {
+    padding: 15px;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
 }
 
 .myNavItem {
@@ -95,17 +100,3 @@ body {
 .heartForSaving:hover {
     color: #D66060;
 }
-
-
-/* .heartForSavingHover {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    visibility: hidden;
-    color: #D66060;
-} */
-
-
-/* .heartForSavingHover:hover {
-    visibility: visible !important;
-} */
