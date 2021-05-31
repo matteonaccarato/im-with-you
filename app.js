@@ -1,14 +1,13 @@
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config(); // maybe tolgo il dotenv da s3
+    require('dotenv').config();
 }
 
 const express = require('express');
 const morgan = require('morgan');
-/* const bcrypt = require('bcrypt') */
 const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
-const methodOverride = require('method-override'); // https://www.npmjs.com/package/method-override
+const methodOverride = require('method-override');
 
 const app = express();
 
@@ -24,7 +23,6 @@ const { LANGUAGES } = require('./controllers/public/languages/langUtils')
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
-// With express version => 4.16.0 the body-parser middleware was added back under the methods express.urlencoded() and express.json()
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(flash())

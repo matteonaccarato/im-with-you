@@ -10,10 +10,9 @@ function checkRole(role) {
         // check the role
         if (req.user.role !== role) {
             res.status(403).render('errors/error', {
-                    code: 403,
-                    message: 'Forbidden'
-                })
-                /* res.redirect('/login') */
+                code: 403,
+                message: 'Forbidden'
+            })
         }
 
         next()
@@ -27,10 +26,9 @@ function checkAuthenticated(req, res, next) {
 
     // you need to sign in
     res.status(401).render('errors/error', {
-            code: 401,
-            message: 'Unauthorized'
-        })
-        /* res.redirect(403, '/login') */
+        code: 401,
+        message: 'Unauthorized'
+    })
 }
 
 function checkNotAuthenticated(req, res, next) {

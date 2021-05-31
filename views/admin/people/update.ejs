@@ -79,28 +79,7 @@
                         </div>
 
 
-                        <!-- <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
-                            </div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="image" id="image" onchange="checkFile(this)" aria-describedby="inputFile">
-                                <label class="custom-file-label" for="image">Selezionare l'immagine</label>
-                            </div>
-                        </div>
-
-                        <div class="col-12 d-flex justify-content-center align-items-end">
-                            <div class="col-xl-10 col-lg-12 mb-3">
-                                <img id="imagePreview" src="#" style="width: 100%;" hidden>
-                            </div>
-
-                            <i class="fas fa-trash text-primary fa-2x mb-3" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
-                        </div> -->
-
-
                         <%- include('../partials/form/imageUpload') %>
-
-
 
 
 
@@ -115,12 +94,10 @@
                                     <i class="fas fa-trash text-primary fa-2x mb-3 ml-2" id="iconOldImg"></i>
                                 </button>
 
-                                    <!-- <i class="fas fa-trash text-primary fa-2x mb-3 " id="deleteSavedImage " hidden></i> -->
-
                                 </div>
 
-
                                 <% } %>
+
 
                                     <input type="text" name="deleteImage" id="deleteImage" value="0" hidden>
                                     <input type="text" name="oldImgUrl" value="<%= person.img %>" hidden>
@@ -153,7 +130,6 @@
 
     <script src="/js/dateOfBirth.js"></script>
     <script src="/js/admin/utilsS3.js"></script>
-    <!-- <script src="/js/admin/crudPeople.js"></script> -->
 
 
     <%- include('../partials/footer') %>

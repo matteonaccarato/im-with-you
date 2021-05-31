@@ -8,7 +8,7 @@ const controllerBasics = require('../controllers/admin/users/controllerBasics')
 const controllerAdmins = require('../controllers/admin/users/controllerAdmins')
 const controllerUsers = require('../controllers/admin/users/controllerUsers')
 
-const { ROLE, authUser, authRole } = require('../config/adminUtils');
+const { ROLE } = require('../config/adminUtils');
 const { LANGUAGES } = require('../controllers/public/languages/langUtils')
 
 const router = express.Router();
@@ -120,8 +120,6 @@ router.get('/*', (req, res) => {
         language: contents
     })
 })
-
-
 
 
 module.exports = router;

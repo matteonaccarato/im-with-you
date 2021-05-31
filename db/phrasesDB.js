@@ -1,4 +1,4 @@
-const sqlite3 = require('sqlite3').verbose(); /* https://github.com/mapbox/node-sqlite3/wiki/API#databaseallsql-param--callback */
+const sqlite3 = require('sqlite3').verbose();
 const { connect_dev, connect_prod, close } = require('./utilsDB')
 
 exports.TABLE = "Phrases"
@@ -43,8 +43,6 @@ exports.read = (field = '', value = -1) => {
         ((field != '' && value > -1) ? ` WHERE Phrases.${field} = ${value}` : "") +
         ` ORDER BY Phrases.yearOfPublication DESC, Phrases.monthOfPublication DESC, Phrases.dayOfPublication DESC, Phrases.id DESC;`;
 
-    /* console.log(sql) */
-
     return new Promise((resolve, reject) => {
         var responseObj;
         db.all(sql, function(err, rows) {
@@ -58,7 +56,6 @@ exports.read = (field = '', value = -1) => {
                     statement: this,
                     rows: rows
                 };
-                /* console.log(responseObj) */
                 resolve(responseObj);
             }
             close(db)

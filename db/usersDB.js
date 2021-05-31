@@ -33,7 +33,7 @@ const readGeneric = (field = '', value = -1) => {
     })
 }
 
-const readByRole = (role, id = -1 /* , callback */ ) => {
+const readByRole = (role, id = -1) => {
     const db = connect_dev();
     const sql = `SELECT * FROM Users WHERE role = '${role}'` + ((id > -1) ? ` AND Users.id = ${id}` : "") + " ORDER BY id DESC;";
 

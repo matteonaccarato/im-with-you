@@ -1,13 +1,9 @@
 {
     "it": {
-        "flash": {
-
-        },
         "home": {
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
                 "login": "Accedi",
                 "register": "Registrati",
                 "profile": "Profilo",
@@ -43,7 +39,6 @@
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
                 "login": "Accedi",
                 "register": "Registrati",
                 "profile": "Profilo",
@@ -56,7 +51,6 @@
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
                 "login": "Accedi",
                 "register": "Registrati",
                 "profile": "Profilo",
@@ -69,7 +63,6 @@
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
                 "login": "Accedi",
                 "register": "Registrati",
                 "profile": "Profilo",
@@ -86,7 +79,6 @@
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
                 "login": "Accedi",
                 "register": "Registrati",
                 "profile": "Profilo",
@@ -103,7 +95,6 @@
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
                 "login": "Accedi",
                 "register": "Registrati",
                 "profile": "Profilo",
@@ -120,7 +111,6 @@
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
                 "login": "Log In",
                 "register": "Register",
                 "profile": "Profilo",
@@ -152,7 +142,6 @@
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
                 "login": "Accedi",
                 "register": "Registrati",
                 "profile": "Profilo",
@@ -163,14 +152,10 @@
         }
     },
     "en": {
-        "flash": {
-
-        },
         "home": {
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
                 "login": "Log In",
                 "register": "Register",
                 "profile": "Profile",
@@ -206,7 +191,6 @@
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
                 "login": "Log In",
                 "register": "Register",
                 "profile": "Profile",
@@ -219,7 +203,6 @@
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
                 "login": "Log In",
                 "register": "Register",
                 "profile": "Profile",
@@ -232,7 +215,6 @@
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
                 "login": "Log In",
                 "register": "Register",
                 "profile": "Profile",
@@ -249,7 +231,6 @@
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
                 "login": "Log In",
                 "register": "Register",
                 "profile": "Profile",
@@ -266,7 +247,6 @@
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
                 "login": "Log In",
                 "register": "Register",
                 "profile": "Profile",
@@ -283,7 +263,6 @@
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
                 "login": "Log In",
                 "register": "Register",
                 "profile": "Profile",
@@ -314,7 +293,6 @@
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
                 "login": "Log In",
                 "register": "Register",
                 "profile": "Profile",

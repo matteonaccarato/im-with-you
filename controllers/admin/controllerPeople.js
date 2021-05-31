@@ -1,6 +1,3 @@
-/* require('dotenv').config(); */
-/* const sqlite3 = require('sqlite3'); */
-
 const peopleDB = require('../../db/peopleDB')
 const countriesDB = require('../../db/countriesDB')
 

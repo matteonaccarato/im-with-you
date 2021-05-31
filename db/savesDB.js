@@ -75,10 +75,9 @@ exports.getLikes = tbl => {
                 reject(responseObj)
             } else {
                 responseObj = {
-                        statement: this,
-                        rows: rows
-                    }
-                    /* console.log(responseObj) */
+                    statement: this,
+                    rows: rows
+                }
                 resolve(responseObj)
             }
             close(db)

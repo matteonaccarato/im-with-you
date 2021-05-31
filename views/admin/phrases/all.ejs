@@ -39,7 +39,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- LIMITE MASSIMO DI RIGHE VISUALIZZABILI -->
                                     <% phrases.forEach(phrase => { %>
                                         <tr>
                                             <td>
@@ -127,14 +126,8 @@
     <script>
         let els = document.getElementsByClassName('linkQuoted')
         Array.from(els).forEach(el => {
-            console.log(el.dataset.color)
             el.style.color = el.dataset.color
         })
     </script>
-
-
-
-    <!-- <script src="cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> -->
-    <!-- <script src="/js/admin/tables.js"></script> -->
 
     <%- include('./../partials/footer') %>
