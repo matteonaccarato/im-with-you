@@ -23,7 +23,6 @@ exports.get_page = async(req, res) => {
         });
 
     } catch (err) {
-        console.log(err)
         internalError(res, 500, err)
     }
 }

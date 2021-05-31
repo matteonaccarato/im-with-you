@@ -89,7 +89,6 @@ exports.likedByUser = (tbl, userId) => {
     const db = connect_dev()
     const sql = `SELECT ${this.FIELDS.CONTENT_ID} FROM ${tbl} WHERE ${this.FIELDS.USER_ID} = ${userId};`
 
-    console.log(sql)
     return new Promise((resolve, reject) => {
         var responseObj;
         db.all(sql, function(err, rows) {

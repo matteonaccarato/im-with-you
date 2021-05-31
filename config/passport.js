@@ -32,7 +32,7 @@ function initalize(passport, getUserByEmail, getUserById) {
             if (user == undefined) {
                 user = null // invalidate existing login session (user NOT found)
             }
-            console.log(user)
+            /* console.log(user) */
             done(err, user)
         })
     })

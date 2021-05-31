@@ -41,9 +41,12 @@ $(() => {
 
 
     $('#uploadForm').on('submit', e => {
-        console.log(lenValid + ' ' + equalsValid)
-        if (!lenValid || !equalsValid) {
-            e.preventDefault();
+
+        if (!($('#passwordConfirm').val() == '' && $('#passwordConfirm').val() == 0)) {
+            if ((!lenValid || !equalsValid)) {
+                e.preventDefault();
+            }
         }
+
     })
 })

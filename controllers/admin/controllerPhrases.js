@@ -99,8 +99,6 @@ exports.update = (req, res) => {
             return res.end('Error uploading file.')
         } else console.log('Image updated!')
 
-        console.log(req.body.deleteImage)
-
         phrasesDB.getImageUrl(req.params.id)
             .then(obj => {
                 if (obj && obj.url !== '' && req.body.deleteImage == 1) {

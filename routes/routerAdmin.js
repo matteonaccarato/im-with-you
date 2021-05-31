@@ -103,17 +103,14 @@ router.route('/users/delete/:id/:role')
 router.get('/*', (req, res) => {
     const rawContents = require('./../views/public/contents.json')
     if (req.user) {
-        console.log(req.user.countryCode)
         switch (req.user.countryCode) {
             case LANGUAGES.IT:
-                console.log('ciao')
                 contents = rawContents[LANGUAGES.IT]['404']
                 break;
             default:
                 contents = rawContents[LANGUAGES.EN]['404']
         }
     } else contents = rawContents[LANGUAGES.EN]['404']
-    console.log(contents)
     res.status(404).render('errors/404', {
         user: req.user,
         ROLE: ROLE,

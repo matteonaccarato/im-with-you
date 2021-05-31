@@ -200,31 +200,39 @@
 
 
                                 <div class="row">
-                                    <% lastPosts.forEach(post => { %>
-                                        <div class="col-lg-4 col-md-6 mb-4">
 
-                                            <div class="card bg-transparent border-primary">
-                                                <div class="card-header border-primary">
-                                                    <strong><%= post.title %></strong>
+                                    <% if (lastPosts.length) { %>
+                                        <% lastPosts.forEach(post => { %>
+                                            <div class="col-lg-4 col-md-6 mb-4">
+
+                                                <div class="card bg-transparent border-primary">
+                                                    <div class="card-header border-primary">
+                                                        <strong><%= post.title %></strong>
+                                                    </div>
+
+                                                    <div class="card-body">
+                                                        <%= post.text %>
+                                                    </div>
+
+                                                    <div class="card-footer bg-transparent">
+                                                        <hr> Creato da
+                                                        <a class="text-info">
+                                                            <%= post.username %>
+                                                        </a>,
+                                                        <%= post.dayOfPublication %>/
+                                                            <%= post.monthOfPublication %>/
+                                                                <%= post.yearOfPublication %>
+                                                    </div>
+
                                                 </div>
-
-                                                <div class="card-body">
-                                                    <%= post.text %>
-                                                </div>
-
-                                                <div class="card-footer bg-transparent">
-                                                    <hr> Creato da
-                                                    <a class="text-info">
-                                                        <%= post.username %>
-                                                    </a>,
-                                                    <%= post.dayOfPublication %>/
-                                                        <%= post.monthOfPublication %>/
-                                                            <%= post.yearOfPublication %>
-                                                </div>
-
                                             </div>
-                                        </div>
-                                        <% }) %>
+                                            <% }) %>
+                                                <% } else { %>
+                                                    <div class="col-12">
+                                                        <%- include('./partials/table/notAvailable') %>
+                                                    </div>
+                                                    <% } %>
+
                                 </div>
                         </div>
                     </div>

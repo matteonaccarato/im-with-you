@@ -12,7 +12,6 @@ const FIELDS = {
 const readGeneric = (field = '', value = -1) => {
     const db = connect_dev();
     const sql = 'SELECT * FROM Users' + ((field != '') ? ` WHERE ${field} = ${value}` : '') + ';';
-    console.log(sql)
     return new Promise((resolve, reject) => {
         var responseObj;
         db.all(sql, function(err, rows) {
@@ -61,8 +60,6 @@ const create = (user, cb) => {
     const db = connect_dev();
     const sql = "INSERT INTO Users VALUES (null, $email, $username, $password, $name, $surname, $yearOfBirth, $monthOfBirth, $dayOfBirth, $img, $countryCode, $yearOfLastSeen, $monthOfLastSeen, $dayOfLastSeen, $role);"
 
-    console.log(user)
-
     db.run(sql, {
         $email: user.email,
         $username: user.username,
@@ -91,9 +88,8 @@ const create = (user, cb) => {
 
 const update = (user, cb) => {
     const db = connect_dev();
-
     const sql = "UPDATE Users SET email = $email," + ((user.password != '') ? ` password = '${user.password}', ` : "") + "username = $username, name = $name, surname = $surname, yearOfBirth = $yearOfBirth, monthOfBirth = $monthOfBirth, dayOfBirth = $dayOfBirth, img = $img, yearOfLastSeen = $yearOfLastSeen, monthOfLastSeen = $monthOfLastSeen, dayOfLastSeen = $dayOfLastSeen, countryCode = $countryCode, role = $role WHERE id = $id;"
-    console.log(sql)
+
     db.run(sql, {
         $email: user.email,
         $username: user.username,
@@ -276,8 +272,6 @@ const checkUniqueFields = async(email, username) => {
                 }
                 reject(responseObj)
             } else {
-                console.log(sql)
-                console.log(value)
                 responseObj = {
                     statement: this,
                     isValid: (value.nUsers != 0) ? false : true

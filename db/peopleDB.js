@@ -17,7 +17,6 @@ exports.read = (id = -1) => {
                 };
                 reject(responseObj);
             } else {
-                console.log(rows)
                 responseObj = {
                     statement: this,
                     rows: rows

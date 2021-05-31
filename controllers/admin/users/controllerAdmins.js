@@ -5,7 +5,6 @@ exports.get_page = (req, res) => {
 
     usersDB.readByRole(ROLE.ADMIN)
         .then(result => {
-            console.log(result)
             res.render('admin/users/all', {
                 user: req.user,
                 users: result.rows,

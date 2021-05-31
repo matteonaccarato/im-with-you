@@ -33,7 +33,6 @@ const getContents = (user, page) => {
 }
 
 const getSpecificContents = (lang, page) => {
-    console.log(lang + ' ' + page)
     const rawContents = require('../../../views/public/contents.json')
     return rawContents[lang][page]
 }
