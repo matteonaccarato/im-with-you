@@ -182,7 +182,7 @@
                 "intro": "Welcome to <span class='h2 font-weight-bold'>I'm with you!</span><br><span class='font-italic'>Where empathy comes first</span>",
                 "what": {
                     "title": "What is it?",
-                    "text": "A platform aimed at relaxation, motivation and comfort.<br>Everyone can save what they like in the dedicated <a class='font-italic' href='/saved'>favorites</a> collection"
+                    "text": "A platform aimed at relaxation, motivation and comfort.<br>Everyone can save what he / she likes in the dedicated <a class='font-italic' href='/saved'>favorites</a> collection"
                 },
                 "why": {
                     "title": "Why?",
@@ -258,7 +258,7 @@
                 "logout": "Logout"
             },
             "intro": "Here is the section of the <span class='font-weight-bold'>phrases</span>",
-            "desc": "Here you can find a series of motivational and inspirational phrases quoted by people of interest or thought directly by the administrators of the platform",
+            "desc": "Here you can find a series of motivational and inspirational phrases quoted by famous people or thought directly by the platform administrators",
             "noEntities": "No elements present in this section",
             "createdBy": "Created by"
         },
