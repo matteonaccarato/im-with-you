@@ -10,11 +10,8 @@ const router = express.Router();
 router.route('/')
     .get(controllerPublic.get_home);
 
-<<<<<<< HEAD
 router.route('/lang/:lang')
     .get(controllerPublic.get_specific_home)
-=======
->>>>>>> de6095a4e51be9994966304aa92ea8276c9d458a
 
 router.route('/phrases')
     .get(controllerPublic.get_phrases)
