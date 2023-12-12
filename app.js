@@ -36,7 +36,6 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-// override with POST having ?_method=DELETE
 app.use(methodOverride('_method'))
 
 app.use(morgan('dev'));

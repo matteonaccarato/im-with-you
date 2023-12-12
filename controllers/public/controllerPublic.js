@@ -8,7 +8,7 @@ const savesDB = require('../../db/savesDB')
 const { updateLastSeen } = require('../../db/usersDB')
 const { ROLE } = require('../../config/adminUtils')
 const { SALT_ROUNDS, internalError } = require('../../db/utilsDB')
-const { PAGES, LANGUAGES, getContents } = require('./languages/langUtils')
+const { PAGES, LANGUAGES, getContents, getSpecificContents } = require('./languages/langUtils')
 
 const { create, readById, readByEmail, checkUniqueFields } = require('../../db/usersDB')
 initalizePassport(
@@ -17,22 +17,36 @@ initalizePassport(
     readById,
 )
 
-exports.get_home = async(req, res) => {
-    const contents = getContents(req.user, PAGES['/'])
-
+const renderHome = async(req, res, contents) => {
     try {
         const lastPhrase = (await phrasesDB.readLasts(1)).rows[0]
         const lastPost = (await postsDB.readLasts(1)).rows[0]
-            /* console.log(lastPhrase)
-            console.log(lastPost) */
 
         res.render('public/index', {
             user: req.user,
             ROLE: ROLE,
-            language: contents,
+            language: (contents) ? contents : texts,
             lastPhrase: lastPhrase,
             lastPost: lastPost
         });
+    } catch (err) {
+        internalError(res, 500, err)
+    }
+}
+
+exports.get_home = async(req, res) => {
+    const contents = getContents(req.user, PAGES['/'])
+    try {
+        await renderHome(req, res, contents)
+    } catch (err) {
+        internalError(res, 500, err)
+    }
+}
+
+exports.get_specific_home = async(req, res) => {
+    const contents = getSpecificContents(req.params.lang, PAGES['/'])
+    try {
+        await renderHome(req, res, contents)
     } catch (err) {
         internalError(res, 500, err)
     }

@@ -14,7 +14,6 @@ const LANGUAGES = {
     "EN": "en"
 }
 
-
 const getContents = (user, page) => {
     const rawContents = require('../../../views/public/contents.json')
     if (user) {
@@ -30,8 +29,15 @@ const getContents = (user, page) => {
     return contents;
 }
 
+const getSpecificContents = (lang, page) => {
+    console.log(lang + ' ' + page)
+    const rawContents = require('../../../views/public/contents.json')
+    return rawContents[lang][page]
+}
+
 module.exports = {
     PAGES,
     LANGUAGES,
-    getContents
+    getContents,
+    getSpecificContents
 };
