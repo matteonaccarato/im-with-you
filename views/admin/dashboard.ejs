@@ -1,15 +1,10 @@
 <%- include('./partials/header') %>
+
     <!-- Begin page content -->
     <div class="container-fluid">
-        <!-- page heading -->
+
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 mr-4 text-gray-800 ">Dashboard</h1>
-            <a href="" class="d-none d-sm-inline btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-download fa-sm text-white-50"></i> Download all
-            </a>
-            <a href="# " class="d-block d-sm-none btn btn-sm btn-primary shadow-sm" style="display: block; width: 80px;">
-                <i class="fas fa-download fa-sm text-white-50"></i>
-            </a>
         </div>
 
         <div class="row">
@@ -22,10 +17,9 @@
 
 
 
-        <!-- Content row // valutare un FOREACH !! -->
         <div class="row ">
 
-            <!-- Numero frasi (card) -->
+            <!-- Numero frasi -->
             <div class="col-xl-6 col-md-12 mb-4 ">
                 <div class="card border-left-primary shadow h-100 py-2 ">
                     <div class="card-body ">
@@ -81,13 +75,10 @@
 
 
 
-
-
-
         <!-- Content row -->
         <div class="row ">
 
-            <!-- Numero post (card) -->
+            <!-- Numero post -->
             <div class="col-xl-6 col-md-12 mb-4 ">
                 <div class="card border-left-primary shadow h-100 py-2 ">
                     <div class="card-body ">
@@ -190,15 +181,12 @@
                                                                         </div>
                                                                         <div class="card-footer bg-transparent" style="border: none;">
                                                                             <hr> Creato da
-                                                                            <!-- <a href="/users/<%= phrase.authorId %>" class="text-info"> -->
                                                                             <a class="text-info">
                                                                                 <%= phrase.username %>
                                                                             </a>,
                                                                             <%= phrase.dayOfPublication %>/
                                                                                 <%= phrase.monthOfPublication %>/
                                                                                     <%= phrase.yearOfPublication %>
-                                                                                        </small>
-                                                                                        </p>
                                                                         </div>
                                                                 </div>
                                                         </div>
@@ -212,33 +200,39 @@
 
 
                                 <div class="row">
-                                    <% lastPosts.forEach(post => { %>
-                                        <div class="col-lg-4 col-md-6 mb-4">
 
-                                            <div class="card bg-transparent border-primary">
-                                                <div class="card-header border-primary">
-                                                    <strong><%= post.title %></strong>
+                                    <% if (lastPosts.length) { %>
+                                        <% lastPosts.forEach(post => { %>
+                                            <div class="col-lg-4 col-md-6 mb-4">
+
+                                                <div class="card bg-transparent border-primary">
+                                                    <div class="card-header border-primary">
+                                                        <strong><%= post.title %></strong>
+                                                    </div>
+
+                                                    <div class="card-body">
+                                                        <%= post.text %>
+                                                    </div>
+
+                                                    <div class="card-footer bg-transparent">
+                                                        <hr> Creato da
+                                                        <a class="text-info">
+                                                            <%= post.username %>
+                                                        </a>,
+                                                        <%= post.dayOfPublication %>/
+                                                            <%= post.monthOfPublication %>/
+                                                                <%= post.yearOfPublication %>
+                                                    </div>
+
                                                 </div>
-
-                                                <div class="card-body">
-                                                    <%= post.text %>
-                                                </div>
-
-                                                <div class="card-footer bg-transparent">
-                                                    <hr> Creato da
-                                                    <!-- <a href="/users/<%= post.authorId %>" class="text-info"> -->
-                                                    <a class="text-info">
-                                                        <%= post.username %>
-                                                    </a>
-                                                    <!-- </a> -->,
-                                                    <%= post.dayOfPublication %>/
-                                                        <%= post.monthOfPublication %>/
-                                                            <%= post.yearOfPublication %>
-                                                </div>
-
                                             </div>
-                                        </div>
-                                        <% }) %>
+                                            <% }) %>
+                                                <% } else { %>
+                                                    <div class="col-12">
+                                                        <%- include('./partials/table/notAvailable') %>
+                                                    </div>
+                                                    <% } %>
+
                                 </div>
                         </div>
                     </div>
@@ -255,7 +249,7 @@
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                             <h6 class="m-0 font-weight-bold text-info">Utenti attivi nelle ultime 24h</h6>
                                         </div>
-                                        <!-- Card Body -->
+
                                         <div class="card-body">
                                             <div class="chart-pie pt-4 pb-2">
                                                 <canvas id="usersActivePieChart"></canvas>
@@ -275,9 +269,8 @@
             <!-- end of container-fluid -->
         </div>
 
-        <!-- script only for this page -->
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js " integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin=" anonymous "></script>
         <script src="/js/admin/dashboard.js "></script>
-
 
         <%- include('./partials/footer') %>

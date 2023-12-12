@@ -41,6 +41,8 @@ exports.read = (tbl, userId) => {
         sql = `SELECT ${tbl}.*, ${postsDB.TABLE}.*, ${usersDB.TABLE}.username FROM ${tbl} JOIN ${postsDB.TABLE} ON (${tbl}.contentId = ${postsDB.TABLE}.id) JOIN ${usersDB.TABLE} ON (${tbl}.userId = Users.id) WHERE ${tbl}.userId = ${userId};`;
     }
 
+    /* console.log(sql) */
+
     return new Promise((resolve, reject) => {
         var responseObj;
         db.all(sql, function(err, rows) {
@@ -50,6 +52,7 @@ exports.read = (tbl, userId) => {
                 };
                 reject(responseObj);
             } else {
+                /* console.log(rows) */
                 responseObj = {
                     statement: this,
                     rows: rows
@@ -75,10 +78,9 @@ exports.getLikes = tbl => {
                 reject(responseObj)
             } else {
                 responseObj = {
-                        statement: this,
-                        rows: rows
-                    }
-                    /* console.log(responseObj) */
+                    statement: this,
+                    rows: rows
+                }
                 resolve(responseObj)
             }
             close(db)
@@ -90,7 +92,6 @@ exports.likedByUser = (tbl, userId) => {
     const db = connect_dev()
     const sql = `SELECT ${this.FIELDS.CONTENT_ID} FROM ${tbl} WHERE ${this.FIELDS.USER_ID} = ${userId};`
 
-    console.log(sql)
     return new Promise((resolve, reject) => {
         var responseObj;
         db.all(sql, function(err, rows) {

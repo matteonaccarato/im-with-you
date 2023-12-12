@@ -6,9 +6,10 @@
 
             <%- include('./partials/headerEntities') %>
 
-                <p>AGGIUNGERE RICERCA E FILTRO</p>
 
-                <h3>Frasi</h3>
+                <h3>
+                    <%- language.nav.phrases %>
+                </h3>
                 <div class="row">
 
                     <% if (phrases.length) { %>
@@ -23,18 +24,20 @@
 
                 <hr>
 
-                <h3>Post</h3>
+                <h3>
+                    <%- language.nav.posts %>
+                </h3>
                 <div class="row">
 
                     <% if (posts.length) { %>
-                        <% posts.forEach(post => { %>
 
-                            <%- include('./partials/posts/cards') %>
 
-                                <% }) %>
-                                    <% } else { %>
-                                        <%- include('./partials/noEntities') %>
-                                            <% } %>
+                        <%- include('./partials/posts/cards') %>
+
+
+                            <% } else { %>
+                                <%- include('./partials/noEntities') %>
+                                    <% } %>
                 </div>
                 <br>
                 <br>

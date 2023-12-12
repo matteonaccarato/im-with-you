@@ -17,7 +17,6 @@ exports.read = (id = -1) => {
                 };
                 reject(responseObj);
             } else {
-                console.log(rows)
                 responseObj = {
                     statement: this,
                     rows: rows
@@ -96,10 +95,8 @@ exports.delete = (id, cb) => {
 
 exports.getImageUrl = id => {
     const db = connect_dev()
-
     const sql = `SELECT img FROM People WHERE id = ${id};`
 
-    /* console.log(sql) */
     return new Promise((resolve, reject) => {
         var responseObj;
         db.get(sql, (err, value) => {

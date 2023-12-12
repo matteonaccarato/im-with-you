@@ -25,34 +25,12 @@
                             <select class="custom-select" name="quotedById" id="quotedById">
                                 <option value="" selected>Nessuno ...</option>
                                 <% quotedById.forEach(person => { %>
-                                    <!-- aggiungere l'immagine della persona !!-->
-                                    <option value="<%= person.id %>"><%= person.name %> <%= person.surname %> <!-- | <i class="fas fa-info-circle"></i> --></option>
+                                    <option value="<%= person.id %>"><%= person.name %> <%= person.surname %> </option>
                                 <% }); %>
                             </select>
 
                         </div>
 
-
-
-
-
-                        <!-- <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputFile"><i class="fas fa-upload"></i></span>
-                            </div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="image" id="image" onchange="checkFile(this)" aria-describedby="inputFile">
-                                <label class="custom-file-label" for="image">Selezione l'immagine</label>
-                            </div>
-                        </div>
-
-                        <div class="col-12 d-flex justify-content-center align-items-end">
-                            <div class="col-xl-10 col-lg-12 mb-3">
-                                <img id="imagePreview" src="#" style="width: 100%;" hidden>
-                            </div>
-
-                            <i class="fas fa-trash text-primary fa-2x mb-3" id="btnDeleteImage" onclick="deleteImage()" hidden></i>
-                        </div> -->
 
                         <%- include('../partials/form/imageUpload') %>
 
@@ -82,7 +60,6 @@
 
         </div>
 
-        <!-- <script src="/js/admin/crudPhrases.js"></script> -->
         <script src="/js/admin/switchPhrasePost.js"></script>
         <script src="/js/admin/utilsS3.js"></script>
 

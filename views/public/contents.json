@@ -1,199 +1,304 @@
 {
     "it": {
-        "flash": {
-
-        },
         "home": {
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
-                "musics": "Musica",
                 "login": "Accedi",
-                "register": "Registrati"
+                "register": "Registrati",
+                "profile": "Profilo",
+                "saved": "Salvati",
+                "adminView": "Schermata admin",
+                "logout": "Logout"
             },
             "main": {
                 "intro": "Benvenuto in <span class='h2 font-weight-bold'>I'm with you!</span><br><span class='font-italic'>Where empathy comes first</span>",
-                "what": "Cos'è?",
-                "why": "Perché?"
+                "what": {
+                    "title": "Cos'è?",
+                    "text": "Piattaforma finalizzata al relax, alla motivazione e al conforto.<br>Ognuno può salvare quello che gli piace nella raccolta dedicata <a class='font-italic' href='/saved'>preferiti</a>"
+                },
+                "why": {
+                    "title": "Perché?",
+                    "text": "Nata a seguito di un processo di introspezione maturato negli ultimi mesi"
+                },
+                "alreadySignIn": {
+                    "yes": {
+                        "title": "Hai già effettuato l'accesso",
+                        "text": "Buon divertimento! "
+                    },
+                    "no": {
+                        "title": "Inizia da qui",
+                        "text": "Da <a href='/register'>qui</a> puoi procedere creando il tuo personale account"
+                    }
+                },
+                "recentPublications": "Pubblicazioni recenti",
+                "createdBy": "Creato da"
             }
         },
         "register": {
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
-                "musics": "Musica",
                 "login": "Accedi",
-                "register": "Registrati"
+                "register": "Registrati",
+                "profile": "Profilo",
+                "saved": "Salvati",
+                "adminView": "Schermata admin",
+                "logout": "Logout"
             }
         },
         "login": {
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
-                "musics": "Musica",
                 "login": "Accedi",
-                "register": "Registrati"
+                "register": "Registrati",
+                "profile": "Profilo",
+                "saved": "Salvati",
+                "adminView": "Schermata admin",
+                "logout": "Logout"
             }
         },
         "posts": {
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
-                "musics": "Musica",
                 "login": "Accedi",
-                "register": "Registrati"
+                "register": "Registrati",
+                "profile": "Profilo",
+                "saved": "Salvati",
+                "adminView": "Schermata admin",
+                "logout": "Logout"
             },
             "intro": "Ecco a te la sezione dei <span class='font-weight-bold'>post</span>",
             "desc": "Qui puoi trovare degli mini articoli che trattano alcune delle difficoltà sociali più comuni al giorno d'oggi",
-            "noEntities": "<span class='h3 font-weight-bold'>Mi spiace</span>, ma al momento non è presente alcun elemento in questa sezione"
+            "noEntities": "<span class='h3 font-weight-bold'>Mi spiace</span>, ma al momento non è presente alcun elemento in questa sezione",
+            "createdBy": "Creato da"
         },
         "phrases": {
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
-                "musics": "Musica",
                 "login": "Accedi",
-                "register": "Registrati"
+                "register": "Registrati",
+                "profile": "Profilo",
+                "saved": "Salvati",
+                "adminView": "Schermata admin",
+                "logout": "Logout"
             },
             "intro": "Ecco a te la sezione delle <span class='font-weight-bold'>frasi</span>",
             "desc": "Qui puoi trovare una serie di frasi motivazionali e stimolanti citate da personaggi di interesse oppure pensate direttamente dagli amministratori della piattaforma",
-            "noEntities": "Nessun elemento presente in questa sezione"
+            "noEntities": "Nessun elemento presente in questa sezione",
+            "createdBy": "Creato da"
         },
         "saved": {
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
-                "musics": "Musica",
                 "login": "Accedi",
-                "register": "Registrati"
+                "register": "Registrati",
+                "profile": "Profilo",
+                "saved": "Salvati",
+                "adminView": "Schermata admin",
+                "logout": "Logout"
             },
             "intro": "Ecco la tua <span class='font-weight-bold'>raccolta</span>! <i class='far fa-bookmark text-primary'></i>",
-            "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica",
-            "noEntities": "Nessun elemento presente in questa sezione"
+            "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase / post / video",
+            "noEntities": "Nessun elemento presente in questa sezione",
+            "createdBy": "Creato da"
         },
         "profile": {
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
-                "musics": "Musics",
                 "login": "Log In",
-                "register": "Register"
+                "register": "Register",
+                "profile": "Profilo",
+                "saved": "Salvati",
+                "adminView": "Schermata admin",
+                "logout": "Logout"
+            },
+            "form": {
+                "title": "Aggiorna profilo",
+                "email": "Email",
+                "username": "Username",
+                "changePassword": "Vuoi cambiare la <span class='font-italic text-primary'>password</span> ?",
+                "password": "Password",
+                "newPassword": "Inserire la nuova password",
+                "confirmNewPassword": "Confermare la nuova password",
+                "name": "Nome",
+                "surname": "Cognome",
+                "dateOfBirth": "Data di nascita",
+                "nothing": "Nothing ...",
+                "country": "Paese",
+                "chooseImage": "Selezionare l'immagine",
+                "required": "È obbligatorio",
+                "confirm": "Conferma",
+                "cancel": "Annulla",
+                "logout": "Logout"
             }
         },
         "404": {
             "nav": {
                 "phrases": "Frasi",
                 "posts": "Post",
-                "videos": "Video",
-                "musics": "Musica",
                 "login": "Accedi",
-                "register": "Registrati"
+                "register": "Registrati",
+                "profile": "Profilo",
+                "saved": "Salvati",
+                "adminView": "Schermata admin",
+                "logout": "Logout"
             }
         }
     },
     "en": {
-        "flash": {
-
-        },
         "home": {
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
-                "musics": "Musics",
                 "login": "Log In",
-                "register": "Register"
+                "register": "Register",
+                "profile": "Profile",
+                "saved": "Saved",
+                "adminView": "Admin view",
+                "logout": "Logout"
             },
             "main": {
                 "intro": "Welcome to <span class='h2 font-weight-bold'>I'm with you!</span><br><span class='font-italic'>Where empathy comes first</span>",
-                "what": "What is it?",
-                "why": "Why?"
+                "what": {
+                    "title": "What is it?",
+                    "text": "A platform aimed at relaxation, motivation and comfort.<br>Everyone can save what he / she likes in the dedicated <a class='font-italic' href='/saved'>favorites</a> collection"
+                },
+                "why": {
+                    "title": "Why?",
+                    "text": "Born as a result of a process of introspection matured in recent months"
+                },
+                "alreadySignIn": {
+                    "yes": {
+                        "title": "You are already logged in",
+                        "text": "Have fun! "
+                    },
+                    "no": {
+                        "title": "You start here",
+                        "text": "By clicking <a href='/register'>here</a> you can proceed by creating your personal account"
+                    }
+                },
+                "recentPublications": "Recent publications",
+                "createdBy": "Created by"
             }
         },
         "register": {
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
-                "musics": "Musics",
                 "login": "Log In",
-                "register": "Register"
+                "register": "Register",
+                "profile": "Profile",
+                "saved": "Saved",
+                "adminView": "Admin view",
+                "logout": "Logout"
             }
         },
         "login": {
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
-                "musics": "Musics",
                 "login": "Log In",
-                "register": "Register"
+                "register": "Register",
+                "profile": "Profile",
+                "saved": "Saved",
+                "adminView": "Admin view",
+                "logout": "Logout"
             }
         },
         "posts": {
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
-                "musics": "Musics",
                 "login": "Log In",
-                "register": "Register"
+                "register": "Register",
+                "profile": "Profile",
+                "saved": "Saved",
+                "adminView": "Admin view",
+                "logout": "Logout"
             },
             "intro": "Here is the section of the <span class='font-weight-bold'>posts</span>",
             "desc": "Here you can find mini-articles that address some of the most common social difficulties today",
-            "noEntities": "<span class='h3 font-weight-bold'>Sorry</span>, there is currently no item in this section"
+            "noEntities": "<span class='h3 font-weight-bold'>Sorry</span>, there is currently no item in this section",
+            "createdBy": "Created by"
         },
         "phrases": {
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
-                "musics": "Musics",
                 "login": "Log In",
-                "register": "Register"
+                "register": "Register",
+                "profile": "Profile",
+                "saved": "Saved",
+                "adminView": "Admin view",
+                "logout": "Logout"
             },
             "intro": "Here is the section of the <span class='font-weight-bold'>phrases</span>",
-            "desc": "Here you can find a series of motivational and inspirational phrases quoted by people of interest or thought directly by the administrators of the platform",
-            "noEntities": "No elements present in this section"
+            "desc": "Here you can find a series of motivational and inspirational phrases quoted by famous people or thought directly by the platform administrators",
+            "noEntities": "No elements present in this section",
+            "createdBy": "Created by"
         },
         "saved": {
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
-                "musics": "Musics",
                 "login": "Log In",
-                "register": "Register"
+                "register": "Register",
+                "profile": "Profile",
+                "saved": "Saved",
+                "adminView": "Admin view",
+                "logout": "Logout"
             },
-            "intro": "Ecco la tua <span class='font-weight-bold'>raccolta</span>! <i class='far fa-bookmark'></i>",
-            "desc": "Qui trovi tutti i tuoi elementi che hai precedentemente salvato cliccando sul cuore che trovi a fianco di ogni frase/post/video/musica",
-            "noEntities": "No elements present in this section"
+            "intro": "Here is your <span class = 'font-weight-bold'> collection </span>! <i class='far fa-bookmark'></i>",
+            "desc": "Here you will find all your elements that you have previously saved by clicking on the heart that you find next to each phrase / post / video",
+            "noEntities": "No elements present in this section",
+            "createdBy": "Created by"
         },
         "profile": {
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
-                "musics": "Musics",
                 "login": "Log In",
-                "register": "Register"
+                "register": "Register",
+                "profile": "Profile",
+                "saved": "Saved",
+                "adminView": "Admin view",
+                "logout": "Logout"
+            },
+            "form": {
+                "title": "Update profile",
+                "email": "Email",
+                "username": "Username",
+                "changePassword": "Do you want to change your <span class='font-italic text-primary'>password</span> ?",
+                "password": "Password",
+                "newPassword": "Enter the new password",
+                "confirmNewPassword": "Confirm the new password",
+                "name": "Name",
+                "surname": "Surname",
+                "dateOfBirth": "Date of birth",
+                "nothing": "Nothing ...",
+                "country": "Country",
+                "chooseImage": "Select the image",
+                "required": "Required",
+                "confirm": "Confirm",
+                "cancel": "Cancel"
             }
         },
         "404": {
             "nav": {
                 "phrases": "Phrases",
                 "posts": "Posts",
-                "videos": "Videos",
-                "musics": "Musics",
                 "login": "Log In",
-                "register": "Register"
+                "register": "Register",
+                "profile": "Profile",
+                "saved": "Saved",
+                "adminView": "Admin view",
+                "logout": "Logout"
             }
         }
     }

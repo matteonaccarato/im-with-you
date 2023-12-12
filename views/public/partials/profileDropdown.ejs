@@ -1,10 +1,12 @@
 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in " aria-labelledby="userDropdown">
 
     <a class="dropdown-item" href="/profile">
-        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 "></i> Profile
+        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 "></i>
+        <%- language.nav.profile %>
     </a>
     <a class="dropdown-item" href="/saved">
-        <i class="fas fa-bookmark fa-sm fa-fw mr-2 text-gray-400"></i> Salvati
+        <i class="fas fa-bookmark fa-sm fa-fw mr-2 text-gray-400"></i>
+        <%- language.nav.saved %>
     </a>
 
     <% if (user.role === ROLE.ADMIN) { %>
@@ -12,7 +14,7 @@
 
         <a class="dropdown-item" href="/admin/dashboard">
             <button type="button" class="btn btn-light">
-                <i class="far fa-eye"></i> Schermata admin
+                <i class="far fa-eye"></i> <%- language.nav.adminView %>
             </button>
         </a>
         <% } %>
@@ -22,7 +24,7 @@
             <a class="dropdown-item " href="#">
                 <form action="/logout?_method=DELETE" method="POST">
                     <button type="submit" class="btn btn-light">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> <%- language.nav.logout %>
                     </button>
                 </form>
             </a>

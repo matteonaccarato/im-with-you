@@ -1,6 +1,6 @@
 require('dotenv').config()
 const aws = require('aws-sdk');
-const multerS3 = require('multer-s3'); /* https://www.npmjs.com/package/multer-s3 */
+const multerS3 = require('multer-s3');
 const multer = require('multer');
 
 const bucketName = process.env.AWS_BUCKET_NAME

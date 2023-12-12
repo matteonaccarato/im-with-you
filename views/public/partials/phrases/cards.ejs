@@ -57,16 +57,16 @@
                                                 </p>
                                             </div>
                                             <div class="card-footer bg-transparent" style="border: none;">
-                                                <hr> Creato da
-                                                <!-- <a href="/users/<%= phrase.authorId %>" class="text-info"> -->
-                                                <a class="text-info">
-                                                    <%= phrase.username %>
-                                                </a>,
-                                                <%= phrase.dayOfPublication %>/
-                                                    <%= phrase.monthOfPublication %>/
-                                                        <%= phrase.yearOfPublication %>
-                                                            </small>
-                                                            </p>
+                                                <hr>
+                                                <%- language.createdBy %>
+                                                    <a class="text-info">
+                                                        <%= phrase.username %>
+                                                    </a>,
+                                                    <%= phrase.dayOfPublication %>/
+                                                        <%= phrase.monthOfPublication %>/
+                                                            <%= phrase.yearOfPublication %>
+                                                                </small>
+                                                                </p>
                                             </div>
                                     </div>
 

@@ -22,6 +22,20 @@ const renderHome = async(req, res, contents) => {
         const lastPhrase = (await phrasesDB.readLasts(1)).rows[0]
         const lastPost = (await postsDB.readLasts(1)).rows[0]
 
+        let likedByUser
+        if (req.user) {
+            let tmp = (await savesDB.likedByUser(savesDB.SAVES_TBLS.PHRASE, req.user.id)).rows
+            likedByUser = tmp.map(obj => obj.contentId)
+
+            lastPhrase.liked = likedByUser.includes(lastPhrase.id)
+
+
+            tmp = (await savesDB.likedByUser(savesDB.SAVES_TBLS.POST, req.user.id)).rows
+            likedByUser = tmp.map(obj => obj.contentId)
+
+            lastPost.liked = likedByUser.includes(lastPost.id)
+        }
+
         res.render('public/index', {
             user: req.user,
             ROLE: ROLE,
@@ -63,30 +77,11 @@ exports.get_phrases = async(req, res) => {
         if (req.user) {
             const tmp = (await savesDB.likedByUser(savesDB.SAVES_TBLS.PHRASE, req.user.id)).rows
             likedByUser = tmp.map(obj => obj.contentId)
-                /* console.log(likedByUser) */
 
             phrases.map(phrase => {
-
-                /* if (likedByUser.includes(phrase.id)) {
-                    return phrase.liked = true
-                } else return phrase.liked = false */
-
                 return phrase.liked = likedByUser.includes(phrase.id)
-
-                /* likedByUser.forEach(liked => {
-                    if (phrase.id === liked.contentId) {
-                        phrase.liked = phrase.id === liked.contentId;
-                        return phrase
-                    }
-                })
-                return phrase */
             })
         }
-
-        /* console.log(phrases) */
-
-
-
 
         res.render('public/phrases', {
             user: req.user,
@@ -96,11 +91,6 @@ exports.get_phrases = async(req, res) => {
         })
     } catch (err) {
         internalError(res, 500, err)
-            /* res.render('errors/error', {
-                code: 500,
-                message: 'Internal error',
-                user: req.user
-            }) */
     }
 
 }
@@ -115,18 +105,11 @@ exports.get_posts = async(req, res) => {
         if (req.user) {
             const tmp = (await savesDB.likedByUser(savesDB.SAVES_TBLS.POST, req.user.id)).rows
             likedByUser = tmp.map(obj => obj.contentId)
-                /* console.log(likedByUser) */
 
             posts.map(posts => {
-
                 return posts.liked = likedByUser.includes(posts.id)
             })
         }
-
-        /* console.log(posts) */
-
-
-
 
         res.render('public/posts', {
             user: req.user,
@@ -136,11 +119,6 @@ exports.get_posts = async(req, res) => {
         })
     } catch (err) {
         internalError(res, 500, err)
-            /* res.render('errors/error', {
-                code: 500,
-                message: 'Internal error',
-                user: req.user
-            }) */
     }
 }
 
@@ -179,8 +157,7 @@ exports.get_saved = async(req, res) => {
         phrasesSaved.map(phrase => phrase.liked = true)
         postsSaved.map(post => post.liked = true)
 
-        /* console.log(phrasesSaved)
-        console.log(postsSaved) */
+        console.log(postsSaved)
 
         res.render('public/saved', {
             user: req.user,
@@ -191,11 +168,6 @@ exports.get_saved = async(req, res) => {
         })
     } catch (err) {
         internalError(res, 500, err)
-            /* res.render('errors/error', {
-                code: 500,
-                message: 'Internal error',
-                user: req.user
-            }) */
     }
 }
 
@@ -212,7 +184,7 @@ exports.get_register = (req, res) => {
 exports.register = async(req, res) => {
     try {
         const lastSeen = new Date().toISOString().split('T')[0] // 2021-05-26T21:53:36.244Z
-        const hashedPassword = await bcrypt.hash(req.body.password, SALT_ROUNDS) // scrivere cosa è il 10!!?
+        const hashedPassword = await bcrypt.hash(req.body.password, SALT_ROUNDS)
 
         const usernameEmailValid = (await checkUniqueFields(req.body.email, req.body.username)).isValid
         if (usernameEmailValid) {
@@ -229,14 +201,15 @@ exports.register = async(req, res) => {
                 dayOfLastSeen: lastSeen.split('-')[2],
                 countryCode: '',
                 role: ROLE.BASIC
+            }, () => {
+                req.flash('info', 'Registrazione completata con successo!')
+                res.redirect('/login')
             })
-            req.flash('info', 'Registrazione completata con successo!')
-            res.redirect('/login')
         } else {
             req.flash('error', 'Qualcuno ha già utilizzato questa email o questo username')
             res.redirect('/register')
         }
-    } catch { // because is async function
+    } catch {
         res.redirect('/register')
     }
 }

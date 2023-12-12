@@ -1,6 +1,3 @@
-/* require('dotenv').config(); */
-/* const sqlite3 = require('sqlite3'); */
-
 const peopleDB = require('../../db/peopleDB')
 const countriesDB = require('../../db/countriesDB')
 
@@ -61,8 +58,6 @@ exports.create = (req, res) => {
 exports.get_update = (req, res) => {
     peopleDB.read(req.params.id)
         .then(resultPeople => {
-            console.log(resultPeople)
-
             countriesDB.read()
                 .then(resultCountries => {
                     res.render('admin/people/update', {
@@ -83,8 +78,6 @@ exports.update = (req, res) => {
             console.log(err)
             return res.send('Error uploading file')
         } else console.log('Image uploaded')
-
-        console.log(req.body.deleteImage)
 
         peopleDB.getImageUrl(req.params.id)
             .then(obj => {
@@ -107,7 +100,6 @@ exports.update = (req, res) => {
                     job: req.body.job,
                     countryCode: req.body.countryCode
                 }
-                console.log(person)
                 peopleDB.update(person, () => {
                     req.flash('info', 'Persona aggiornata con successo!')
                     res.status(200).redirect('/admin/people')

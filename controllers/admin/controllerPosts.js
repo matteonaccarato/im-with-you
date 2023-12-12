@@ -5,7 +5,6 @@ const { internalError } = require('../../db/utilsDB')
 exports.get_page = async(req, res) => {
 
     try {
-
         const posts = (await postsDB.read()).rows;
         const likes = (await savesDB.getLikes(savesDB.SAVES_TBLS.POST)).rows
 
@@ -18,34 +17,14 @@ exports.get_page = async(req, res) => {
             })
         })
 
-        /* console.log(posts) */
         res.render('admin/posts/all', {
             posts: posts,
             user: req.user
         });
 
     } catch (err) {
-        console.log(err)
         internalError(res, 500, err)
     }
-
-
-
-    /* postsDB.read()
-        .then(result => {
-            res.render('admin/posts/all', {
-                posts: result.rows,
-                user: req.user
-            });
-        })
-        .catch(result => {
-            console.log(result)
-            internalError(res, 500, result.error) */
-    /* res.render('errors/error', {
-        code: 500,
-        message: result.error
-    }) 
-    })*/
 }
 
 exports.get_create = (req, res) => {
@@ -58,17 +37,15 @@ exports.get_create = (req, res) => {
 
 exports.create = (req, res) => {
     const date = new Date().toISOString().split('T')[0]
-        /* console.log(req.body) */
     const post = {
-            title: req.body.title,
-            text: req.body.text,
-            authorId: req.user.id,
-            isFinished: (req.body.isFinished === 'on') ? 1 : 0,
-            yearOfPublication: date.split('-')[0],
-            monthOfPublication: date.split('-')[1],
-            dayOfPublication: date.split('-')[2],
-        }
-        /* console.log(post) */
+        title: req.body.title,
+        text: req.body.text,
+        authorId: req.user.id,
+        isFinished: (req.body.isFinished === 'on') ? 1 : 0,
+        yearOfPublication: date.split('-')[0],
+        monthOfPublication: date.split('-')[1],
+        dayOfPublication: date.split('-')[2],
+    }
 
     postsDB.create(post, () => {
         req.flash('info', 'Post creato con successo!!')

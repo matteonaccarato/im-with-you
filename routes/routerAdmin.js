@@ -8,7 +8,7 @@ const controllerBasics = require('../controllers/admin/users/controllerBasics')
 const controllerAdmins = require('../controllers/admin/users/controllerAdmins')
 const controllerUsers = require('../controllers/admin/users/controllerUsers')
 
-const { ROLE, authUser, authRole } = require('../config/adminUtils');
+const { ROLE } = require('../config/adminUtils');
 const { LANGUAGES } = require('../controllers/public/languages/langUtils')
 
 const router = express.Router();
@@ -103,25 +103,20 @@ router.route('/users/delete/:id/:role')
 router.get('/*', (req, res) => {
     const rawContents = require('./../views/public/contents.json')
     if (req.user) {
-        console.log(req.user.countryCode)
         switch (req.user.countryCode) {
             case LANGUAGES.IT:
-                console.log('ciao')
                 contents = rawContents[LANGUAGES.IT]['404']
                 break;
             default:
                 contents = rawContents[LANGUAGES.EN]['404']
         }
     } else contents = rawContents[LANGUAGES.EN]['404']
-    console.log(contents)
     res.status(404).render('errors/404', {
         user: req.user,
         ROLE: ROLE,
         language: contents
     })
 })
-
-
 
 
 module.exports = router;

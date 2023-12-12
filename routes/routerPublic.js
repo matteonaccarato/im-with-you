@@ -10,8 +10,11 @@ const router = express.Router();
 router.route('/')
     .get(controllerPublic.get_home);
 
+<<<<<<< HEAD
 router.route('/lang/:lang')
     .get(controllerPublic.get_specific_home)
+=======
+>>>>>>> de6095a4e51be9994966304aa92ea8276c9d458a
 
 router.route('/phrases')
     .get(controllerPublic.get_phrases)
@@ -46,7 +49,6 @@ router.route('/saved')
     .get(checkAuthenticated, controllerPublic.get_saved)
 
 
-// maybe li metto in un controller a parte
 router.route('/register')
     .get(checkNotAuthenticated, controllerPublic.get_register)
     .post(checkNotAuthenticated, controllerPublic.register)
@@ -54,7 +56,6 @@ router.route('/register')
 router.route('/login')
     .get(checkNotAuthenticated, controllerPublic.get_login)
     .post(checkNotAuthenticated, passport.authenticate('local', {
-        // successRedirect: '/',
         successRedirect: '/landing',
         failureRedirect: '/login',
         failureFlash: true
@@ -66,7 +67,6 @@ router.route('/logout')
 
 router.route('/landing')
     .get(checkAuthenticated, (req, res) => {
-        /* (req.user.role === ROLE.ADMIN) ? 'admin/landing' : 'public/index' */
         updateLastSeen(req.user.id)
         req.flash('info', 'Login completato con successo')
         if (req.user.role === ROLE.ADMIN) {

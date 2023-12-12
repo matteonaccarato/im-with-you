@@ -19,56 +19,6 @@
 
                         <div class="d-flex align-items-center justify-content-between">
                             <a href="/admin/phrases/create" class="text-info mr-4"><i class="fas fa-plus-square"></i> | Crea nuovo</a>
-                            <div class="dropdown no-arrow">
-                                <!-- IE => Import/Export -->
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownIELink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownIE">
-                                    <!-- IMPORT -->
-                                    <!-- <div class="dropdown-header">(icon) Importa</div>
-                                    <div class="no-gutters align-items-center">
-                                        <a class="dropdown-item" href="#">
-                                            <div class="text-s font-weight-bold text-dark d-flex align-items-center">
-                                                <i class="fas fa-file-csv fa-2x mr-3"></i>CSV
-                                            </div>
-                                        </a>
-                                    </div> -->
-
-                                    <!-- EXPORT -->
-                                    <div class="dropdown-header">(icon) Esporta</div>
-                                    <div class="no-gutters align-items-center">
-                                        <a class="dropdown-item" href="#">
-                                            <div class="text-s font-weight-bold text-dark d-flex align-items-center">
-                                                <button class="btn bg-transparent" id="exportBtn">
-                                                    <i class="fas fa-file-csv fa-2x mr-3"></i>JSON
-                                                </button>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <!-- <script>
-                                        var btn = document.getElementById('exportBtn')
-                                        btn.addEventListener('click', function(e) {
-
-                                            let phrases = [];
-                                            $('#dataTable tbody tr').each(function(index, row) {
-                                                    let cols = $(this).children("th, td")
-
-                                                    console.log(this.childNodes[0].nodeValue)
-                                                    let phrase = {
-                                                        id: cols.eq(0).html(),
-                                                        authorId: cols.eq(1).text().replace(/\s/g, ''),
-                                                        text: cols.eq(2).text().replace(/\s/g, '')
-                                                    }
-                                                    phrases.push(phrase)
-                                                })
-                                                console.log(phrases)
-                                        })
-                                    </script> -->
-                                </div>
-                            </div>
                         </div>
 
                     </div>
@@ -89,7 +39,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- LIMITE MASSIMO DI RIGHE VISUALIZZABILI -->
                                     <% phrases.forEach(phrase => { %>
                                         <tr>
                                             <td>
@@ -177,14 +126,8 @@
     <script>
         let els = document.getElementsByClassName('linkQuoted')
         Array.from(els).forEach(el => {
-            console.log(el.dataset.color)
             el.style.color = el.dataset.color
         })
     </script>
-
-
-
-    <!-- <script src="cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> -->
-    <!-- <script src="/js/admin/tables.js"></script> -->
 
     <%- include('./../partials/footer') %>
