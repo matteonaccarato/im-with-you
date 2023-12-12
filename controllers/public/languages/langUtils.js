@@ -33,6 +33,10 @@ const getContents = (user, page) => {
 }
 
 const getSpecificContents = (lang, page) => {
+<<<<<<< HEAD
+    console.log(lang + ' ' + page)
+=======
+>>>>>>> de6095a4e51be9994966304aa92ea8276c9d458a
     const rawContents = require('../../../views/public/contents.json')
     return rawContents[lang][page]
 }
