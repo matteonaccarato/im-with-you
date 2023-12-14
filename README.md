@@ -5,18 +5,12 @@ Designed to find the right motivation through specific posts and quotes:
 - Admins create content (posts and quotes)
 - Users view and save the content they like
 
-## Installation
-1. Download [Node.js](https://nodejs.org/en/download)
-2. Download [Git](https://git-scm.com/downloads)
-3. ```
-   git clone https://github.com/matteo-naccarato/im-with-you.git
-   ```
-
 ## Usage
-1. ```cd im-with-you```
-1. ```npm i``` to install the required Node packages
-3. ```npm run dev``` to start the environment in dev mode
-4. Connect to http://localhost:5000/
+1. Download [Node.js](https://nodejs.org/en/download)
+2. ```cd im-with-you```
+3. ```npm i``` to install the required Node packages
+4. ```npm run dev``` to start the environment in dev mode
+5. Connect to http://localhost:5000/
 
 **NB**: *.env* file with *SESSION_SECRET*, *AWS_BUCKET_NAME*, *AWS_BUCKET_REGION*, *AWS_ACCESS_KEY*, *AWS_SECRET_KEY* inside is required to work with [AWS-S3](https://aws.amazon.com/it/s3/) storage
 
