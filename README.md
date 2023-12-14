@@ -8,7 +8,9 @@ Designed to find the right motivation through specific posts and quotes:
 ## Installation
 1. Download [Node.js](https://nodejs.org/en/download)
 2. Download [Git](https://git-scm.com/downloads)
-3. ```git clone https://github.com/matteo-naccarato/im-with-you.git```
+3. ```
+   git clone https://github.com/matteo-naccarato/im-with-you.git
+   ```
 
 ## Usage
 1. ```cd im-with-you```
@@ -20,7 +22,7 @@ Designed to find the right motivation through specific posts and quotes:
 
 ## What I learnt
 - Interaction with remote services such as [AWS-S3](https://aws.amazon.com/it/s3/)
-- Deadlines & project management through specific techniques (Burn Down Chart / WBS / Gantt chart / CPM)
+- Management of projects and deadlines through specific techniques (Burn Down Chart / WBS / Gantt chart / CPM)
 - **AGILE** methodology
 
 <hr>
