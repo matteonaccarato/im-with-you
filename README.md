@@ -22,7 +22,7 @@ Designed to find the right motivation through specific posts and quotes:
 <hr>
 
 ### Home
-![Home page](https://drive.google.com/file/d/1PIgC_2tD2cDq-Fg65U9OR-w3cCsqf4id/view?usp=sharing)
+![Home page](./views/preview0.png)
 
 ### Admin dashboard
-![Admin page](https://drive.google.com/file/d/1MmY36S_wvpLSZ7Cp5sfx3w0WkhcNZKwv/view?usp=sharing)
+![Admin page](./views/preview1.png)
